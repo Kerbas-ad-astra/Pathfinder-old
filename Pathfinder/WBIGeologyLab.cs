@@ -33,9 +33,6 @@ namespace WildBlueIndustries
             if (HighLogic.LoadedSceneIsFlight == false)
                 return;
 
-            if (WBIPathfinderScenario.Instance.geoLabToolTipShown)
-                return;
-
             multiConverter = this.part.FindModuleImplementing<WBIMultiConverter>();
             if (multiConverter == null)
                 return;
@@ -48,18 +45,6 @@ namespace WildBlueIndustries
         public override void OnUpdate()
         {
             base.OnUpdate();
-
-            if (anim != null && multiConverter != null)
-            {
-                if (anim.isPlaying == false && multiConverter.isDeployed)
-                {
-                    WBIPathfinderScenario.Instance.geoLabToolTipShown = true;
-                    WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(kToolTipTitle, kGeoLabToolTip);
-                    toolTipWindow.SetVisible(true);
-                    anim = null;
-                    multiConverter = null;
-                }
-            }
         }
     }
 }
