@@ -21,25 +21,9 @@ namespace WildBlueIndustries
 {
     public class WBIGeologyLab : PartModule
     {
-        private const string kGeoLabToolTip = "You might want to staff your Geology Labs with scientists. Just be sure you choose the right scientists for the job...";
-        private const string kToolTipTitle = "Your First Pathfinder Lab!";
-        Animation anim;
-        WBIMultiConverter multiConverter;
-
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
-
-            if (HighLogic.LoadedSceneIsFlight == false)
-                return;
-
-            multiConverter = this.part.FindModuleImplementing<WBIMultiConverter>();
-            if (multiConverter == null)
-                return;
-            if (string.IsNullOrEmpty(multiConverter.animationName))
-                return;
-
-            anim = this.part.FindModelAnimators(multiConverter.animationName)[0];
         }
 
         public override void OnUpdate()
