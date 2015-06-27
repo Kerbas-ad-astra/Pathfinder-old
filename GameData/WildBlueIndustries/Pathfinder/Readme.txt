@@ -8,6 +8,21 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.1.4: Raw Hide
+https://www.youtube.com/watch?v=qCRae5mRoRE
+
+Developer Notes: When I started working on Multipurpose Colony Modules, I always intended to have the player spend resources to reconfigure the module. Its successor, Pathfinder, finally realizes that vision. Similarly, certain templates require a specific skill to reconfigure the module into its new configuration.
+
+The new requirements add a new challenge to the gameplay without overly complicating the system. But as always, it’s your game, your choice, so you can disable these requirements if you prefer not to play with them. Simply press Alt P to bring up the Pathfinder settings window, and uncheck the box next to “requires resources to reconfigure.” If you uncheck the box, the Ponderosa won’t require resources to inflate and outfit the module either. Similarly, you can disable the skill requirement.
+
+IMPORTANT NOTE: The directory structure has changed. Please delete the WildBlueIndustries folder before installing this update.
+NOTE: Please pack up your Ponderosas before applying this patch.
+
+- The Ponderosa now requires RocketParts to inflate the module and to reconfigure it. Be sure to have an ample supply of RocketParts on your vessel. If you prefer to not use this feature, simply press Alt P to bring up the Pathfinder Settings window to disable it.
+- Added the Conestoga Multipurpose Logistics Module (MLM). The Conestoga holds a lot more stuff than the Buckboard, but it’s not very hand-portable.
+- Added the Mineshaft Portable Crew Tube (PCT). Mount one on each Ponderosa that you want to connect to, and then link them together, just like the KAS pipe.
+- Added the Ponderosa Habitat template to the Ponderosa. It will be helpful in the future, but right now it's decorative.
+
 0.1.3: Dead Or Alive
 https://www.youtube.com/watch?v=SRvCvsRp5ho
 
