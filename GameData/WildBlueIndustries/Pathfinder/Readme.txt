@@ -22,7 +22,6 @@ NOTE: Please pack up your Ponderosas before applying this patch.
 - Added the Conestoga Multipurpose Logistics Module (MLM). The Conestoga holds a lot more stuff than the Buckboard, but it’s not very hand-portable.
 - Added the Mineshaft Portable Crew Tube (PCT). Mount one on each Ponderosa that you want to connect to, and then link them together, just like the KAS pipe.
 - Added the Ponderosa Habitat template to the Ponderosa. It will be helpful in the future, but right now it's decorative.
-- Added mounting points to the Chuckwagon.
 
 0.1.3: Dead Or Alive
 https://www.youtube.com/watch?v=SRvCvsRp5ho
