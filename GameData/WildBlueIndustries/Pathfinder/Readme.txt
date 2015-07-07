@@ -8,6 +8,11 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.1.5
+- Added a tooltip to remind players that the requirement to pay for redecorating/inflating the Ponderosa can be turned off.
+- The Settings window can now be displayed using the modifier key (Alt on Windows) plus P instead of being hard coded to the Alt key.
+- Added the Prime Flux Battery template to the Chuckwagon, named after Prime Flux, who suggested the idea. Thanks Prime Flux! :)
+
 0.1.4: Raw Hide
 https://www.youtube.com/watch?v=qCRae5mRoRE
 
