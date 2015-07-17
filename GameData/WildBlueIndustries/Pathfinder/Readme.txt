@@ -8,10 +8,42 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
-0.1.5
+0.1.5: Bonanza
+https://www.youtube.com/watch?v=mjdRgBAY278
+
+Orbiting satellites are great for detecting resources from space, but advanced sensors take a long time to research. With this update, Pathfinder introduces resource scanning tech earlier in the game- assuming it works. Additionally, the Geology Lab can do things that the stock surface scanner can- and more if you staff it right. Finally, the new Outback gives you a handy way to haul small amounts of resources around without lugging the Buckboard.
+
+New Parts
+- Added the T.E.R.R.A.I.N. Geo Scanner. If it breaks down, you'll have to repair it. Don't want it to break? You can change it in the settings menu.
+- Added the Outback Extravehicular Support Pack (ESP). It's great for hauling a small amount of resources around, and it's EVA friendly.
+- Added the Outback Rack. Attach the Outback to the rack, and you can reconfigure it, transfer resources, and refuel its EVA propellant, all while on EVA.
+
+Ponderosa
+- Cleaned up the Ponderosa right-click menu and moved a lot of functionality to the Ponderosa Operations window. Access it via the Manage Operations button in the right-click menu.
+
+Pathfinder Geology Lab
+- The Geology Lab is now controlled through the Operations window. Simply right-click on the Ponderosa, press the Manage Operations button, and press the Show button to manage the Geology Lab.
+- The Geology Lab can now perform a surface analysis of the biome if properly staffed.
+- If you have the Impact mod, the Geology Lab can lend its seismometer to the cause if properly staffed.
+
+Templates
+- Added the Prime Flux Battery template to the Buckboard and Outback, named after Prime Flux, who suggested the idea. Thanks Prime Flux! :)
+
+ToolTips & Settings
 - Added a tooltip to remind players that the requirement to pay for redecorating/inflating the Ponderosa can be turned off.
-- The Settings window can now be displayed using the modifier key (Alt on Windows) plus P instead of being hard coded to the Alt key.
-- Added the Prime Flux Battery template to the Chuckwagon, named after Prime Flux, who suggested the idea. Thanks Prime Flux! :)
+- The Settings window can now be toggled using the modifier key (which defaults to the Alt key on Windows) plus P instead of being hard coded to the Alt key.
+
+Resources & Storage
+- Added the PhotoMaterials resource for taking pictures.
+- Adjusted the Buckboard's storage capacity when not being used to store KIS items.
+- You can now access the Chuckwagon's inventory from inside the module.
+
+KIS/KAS
+- Updated the saddle to account for the latest changes in KIS.
+
+
+Recommended Mod
+Impact: http://forum.kerbalspaceprogram.com/threads/114087-1-0-Impact!-impact-science-and-contracts-v1-1-0-With-Asteroids-30-6-15
 
 0.1.4: Raw Hide
 https://www.youtube.com/watch?v=qCRae5mRoRE
