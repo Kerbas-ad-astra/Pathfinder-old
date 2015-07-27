@@ -20,18 +20,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 namespace WildBlueIndustries
 {
     [KSPScenario(ScenarioCreationOptions.AddToAllGames, GameScenes.SPACECENTER, GameScenes.EDITOR, GameScenes.FLIGHT, GameScenes.TRACKSTATION)]
-    public class WBIPathfinderScenario : ScenarioModule
+    public class PathfinderScenario : ScenarioModule
     {
         private const int kMaxCoreSamples = 8;
         private const string kEfficiencyData = "EfficiencyData";
-        private const string kToolTip = "ToolTip";
 
-        public static WBIPathfinderScenario Instance;
+        public static PathfinderScenario Instance;
 
         public int reputationIndex;
+        public bool drillToolTipShown;
 
         private Dictionary<string, EfficiencyData> efficiencyDataMap = new Dictionary<string, EfficiencyData>();
-        private List<ConfigNode> toolTipsList = new List<ConfigNode>();
 
         public override void OnAwake()
         {
@@ -43,17 +42,14 @@ namespace WildBlueIndustries
         {
             base.OnLoad(node);
             ConfigNode[] efficiencyNodes = node.GetNodes(kEfficiencyData);
-            ConfigNode[] toolTipsShown = node.GetNodes(kToolTip);
             string value = node.GetValue("reputationIndex");
 
             if (string.IsNullOrEmpty(value) == false)
                 reputationIndex = int.Parse(value);
 
-            /*
             value = node.GetValue("drillToolTipShown");
             if (string.IsNullOrEmpty(value) == false)
                 drillToolTipShown = bool.Parse(value);
-             */
 
             foreach (ConfigNode efficiencyNode in efficiencyNodes)
             {
@@ -61,9 +57,6 @@ namespace WildBlueIndustries
                 efficiencyData.Load(efficiencyNode);
                 efficiencyDataMap.Add(efficiencyData.Key, efficiencyData);
             }
-
-            foreach (ConfigNode toolTipNode in toolTipsShown)
-                toolTipsList.Add(toolTipNode);
         }
 
         public override void OnSave(ConfigNode node)
@@ -76,42 +69,17 @@ namespace WildBlueIndustries
             else
                 node.AddValue("reputationIndex", reputationIndex.ToString());
 
+            if (node.HasValue("drillToolTipShown"))
+                node.SetValue("drillToolTipShown", drillToolTipShown.ToString());
+            else
+                node.AddValue("drillToolTipShown", drillToolTipShown.ToString());
+
             foreach (EfficiencyData data in efficiencyDataMap.Values)
             {
                 efficiencyNode = new ConfigNode(kEfficiencyData);
                 data.Save(efficiencyNode);
                 node.AddNode(efficiencyNode);
             }
-
-            node.RemoveNodes(kToolTip);
-            foreach (ConfigNode toolTipNode in toolTipsList)
-                node.AddNode(toolTipNode);
-        }
-
-        public void SetToolTipShown(string toolTipName)
-        {
-            //If we've already set the tool tip then we're done.
-            foreach (ConfigNode node in toolTipsList)
-            {
-                if (node.GetValue("name") == toolTipName)
-                    return;
-            }
-
-            //Node does not exist, then add it.
-            ConfigNode nodeTip = new ConfigNode(kToolTip);
-            nodeTip.AddValue("name", toolTipName);
-            toolTipsList.Add(nodeTip);
-        }
-
-        public bool HasShownToolTip(string toolTipName)
-        {
-            foreach (ConfigNode node in toolTipsList)
-            {
-                if (node.GetValue("name") == toolTipName)
-                    return true;
-            }
-
-            return false;
         }
 
         public void ResetEfficiencyData(int planetID, string biomeName, HarvestTypes harvestType)
@@ -122,19 +90,25 @@ namespace WildBlueIndustries
             if (efficiencyDataMap.ContainsKey(key))
             {
                 efficiencyData = efficiencyDataMap[key];
-                foreach (string modifierKey in efficiencyData.modifiers.Keys)
-                    efficiencyData.modifiers[modifierKey] = 1.0f;
+                efficiencyData.efficiencyModifier = 1.0f;
                 efficiencyData.attemptsRemaining = kMaxCoreSamples;
             }
 
             else
             {
                 //Create a new entry.
-                createNewEfficencyEntry(planetID, biomeName, harvestType);
+                efficiencyData = new EfficiencyData();
+                efficiencyData.planetID = planetID;
+                efficiencyData.biomeName = biomeName;
+                efficiencyData.harvestType = harvestType;
+                efficiencyData.efficiencyModifier = 1.0f;
+                efficiencyData.attemptsRemaining = kMaxCoreSamples;
+
+                efficiencyDataMap.Add(efficiencyData.Key, efficiencyData);
             }
         }
 
-        public void SetEfficiencyData(int planetID, string biomeName, HarvestTypes harvestType, string modifierName, float modifierValue)
+        public void SetEfficiencyData(int planetID, string biomeName, HarvestTypes harvestType, float efficiencyModifier)
         {
             string key = planetID.ToString() + biomeName + harvestType.ToString();
             EfficiencyData efficiencyData = null;
@@ -143,18 +117,22 @@ namespace WildBlueIndustries
             if (efficiencyDataMap.ContainsKey(key))
             {
                 efficiencyData = efficiencyDataMap[key];
-                if (efficiencyData.modifiers.ContainsKey(modifierName))
-                    efficiencyData.modifiers[modifierName] = modifierValue;
-                else
-                    efficiencyData.modifiers.Add(modifierName, modifierValue);
+                efficiencyData.efficiencyModifier = efficiencyModifier;
                 return;
             }
 
             //Create a new entry.
-            createNewEfficencyEntry(planetID, biomeName, harvestType);
+            efficiencyData = new EfficiencyData();
+            efficiencyData.planetID = planetID;
+            efficiencyData.biomeName = biomeName;
+            efficiencyData.harvestType = harvestType;
+            efficiencyData.efficiencyModifier = efficiencyModifier;
+            efficiencyData.attemptsRemaining = kMaxCoreSamples;
+
+            efficiencyDataMap.Add(efficiencyData.Key, efficiencyData);
         }
 
-        public float GetEfficiencyModifier(int planetID, string biomeName, HarvestTypes harvestType, string modifierName)
+        public float GetEfficiencyModifier(int planetID, string biomeName, HarvestTypes harvestType)
         {
             string key = planetID.ToString() + biomeName + harvestType.ToString();
             EfficiencyData efficiencyData = null;
@@ -162,16 +140,20 @@ namespace WildBlueIndustries
             if (efficiencyDataMap.ContainsKey(key))
             {
                 efficiencyData = efficiencyDataMap[key];
-                if (efficiencyData.modifiers.ContainsKey(modifierName))
-                    return efficiencyData.modifiers[modifierName];
-                else
-                    return 1.0f;
+                return efficiencyData.efficiencyModifier;
             }
 
             else
             {
                 //Create a new entry.
-                createNewEfficencyEntry(planetID, biomeName, harvestType);
+                efficiencyData = new EfficiencyData();
+                efficiencyData.planetID = planetID;
+                efficiencyData.biomeName = biomeName;
+                efficiencyData.harvestType = harvestType;
+                efficiencyData.efficiencyModifier = 1.0f;
+                efficiencyData.attemptsRemaining = kMaxCoreSamples;
+
+                efficiencyDataMap.Add(efficiencyData.Key, efficiencyData);
             }
 
             return 1.0f;
@@ -203,7 +185,14 @@ namespace WildBlueIndustries
             else
             {
                 //Create a new entry.
-                createNewEfficencyEntry(planetID, biomeName, harvestType);
+                efficiencyData = new EfficiencyData();
+                efficiencyData.planetID = planetID;
+                efficiencyData.biomeName = biomeName;
+                efficiencyData.harvestType = harvestType;
+                efficiencyData.efficiencyModifier = 1.0f;
+                efficiencyData.attemptsRemaining = kMaxCoreSamples;
+
+                efficiencyDataMap.Add(efficiencyData.Key, efficiencyData);
             }
 
             return kMaxCoreSamples;
@@ -229,20 +218,5 @@ namespace WildBlueIndustries
             return efficiencyMap;
         }
 
-        protected void createNewEfficencyEntry(int planetID, string biomeName, HarvestTypes harvestType)
-        {
-            EfficiencyData efficiencyData = new EfficiencyData();
-            efficiencyData.planetID = planetID;
-            efficiencyData.biomeName = biomeName;
-            efficiencyData.harvestType = harvestType;
-            efficiencyData.attemptsRemaining = kMaxCoreSamples;
-
-            //Standard modifiers
-            efficiencyData.modifiers.Add(EfficiencyData.kExtractionMod, 1.0f);
-            efficiencyData.modifiers.Add(EfficiencyData.kMetallurgyMod, 1.0f);
-            efficiencyData.modifiers.Add(EfficiencyData.kOrganicsMod, 1.0f);
-
-            efficiencyDataMap.Add(efficiencyData.Key, efficiencyData);
-        }
     }
 }

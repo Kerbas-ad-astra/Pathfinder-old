@@ -29,9 +29,11 @@ namespace WildBlueIndustries
 
     public class WBIModuleCoreSample : ModuleScienceExperiment
     {
-        private const float kBaseEfficiencyModifier = 0.1f;
+        private const float kLabBonusModifier = 0.6f;
+        private const float kBaseReputationLoss = 10f;
         private const float maxWorsenRoll = 40f;
         private const float minImprovementRoll = 60f;
+        private const float kBaseEfficiencyModifier = 0.1f;
         private const float kExperiencePercentModifier = 3.0f;
         private const float kMessageDuration = 5.0f;
         private const float kWarningMsgDuration = 10.0f;
@@ -45,6 +47,7 @@ namespace WildBlueIndustries
         private const string kNoMoreAttempts = "Analysis cycle completed. Either move to a new biome or declare your results invalid.";
         private const string kUnknown = "Unknown";
         private const string kConfirmInvalidate = "Declaring core sample results invalid will adversely affect your reputation. Click again to confirm.";
+        private const string kToolTip = "DrillToolTip";
         private const string kFirstCoreSampleTitle = "Your First Core Sample!";
         private const string kFirstCoreSampleMsg = "Congratulations, you've taken your very first core sample! Core samples provide a detailed look at the biome's resources and their results will affect the efficiency of your drills. A good core sample result will improve the extraction efficiency of your drill; the converse is also true. You'll only get a few attempts to run the core samples...watch your drill extraction rates and should you decide to invalidate your test results in order to gain more core sample attempts, choose wisely...";
 
@@ -56,9 +59,6 @@ namespace WildBlueIndustries
 
         [KSPField]
         public string analysisActionName;
-
-        [KSPField]
-        public string drillTechNode;
 
         [KSPField]
         public string analysisSkill;
@@ -79,7 +79,6 @@ namespace WildBlueIndustries
         private float analysisTimeRemaining;
         private ScreenMessage analysisStatusMsg;
         private bool invalidateConfirm;
-        int coreSamplesRemaining = 8;
 
         public override void OnStart(StartState state)
         {
@@ -168,6 +167,59 @@ namespace WildBlueIndustries
             }
         }
 
+        [KSPEvent(guiActive = true, guiActiveEditor = false, guiName = "Invalidate Results", active = true, externalToEVAOnly = false, unfocusedRange = 3.0f, guiActiveUnfocused = true)]
+        public void InvalidateResults()
+        {
+            CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
+
+            if (HighLogic.CurrentGame.Mode == Game.Modes.CAREER | HighLogic.CurrentGame.Mode == Game.Modes.SCIENCE_SANDBOX)
+            {
+                if (invalidateConfirm == false)
+                {
+                    ScreenMessages.PostScreenMessage(kConfirmInvalidate, kWarningMsgDuration, ScreenMessageStyle.UPPER_CENTER);
+                    invalidateConfirm = true;
+                    return;
+                }
+
+                if (Reputation.CurrentRep > 0)
+                {
+                    float fibbo1 = WBIPathfinderScenario.Instance.reputationIndex - 1.0f;
+                    float fibbo2 = WBIPathfinderScenario.Instance.reputationIndex - 2.0f;
+
+                    if (fibbo2 < 0.001f)
+                        fibbo2 = 0.0f;
+
+                    float reputationHit = kBaseReputationLoss + (fibbo1 + fibbo2);
+
+                    //Take the reputation hit
+                    Reputation.Instance.AddReputation(-reputationHit, TransactionReasons.Any);
+
+                    //Increase the reputation hit by increasing the index.
+                    WBIPathfinderScenario.Instance.reputationIndex += 1;
+
+                    //Reset efficiency data for the biome
+                    WBIPathfinderScenario.Instance.ResetEfficiencyData(this.part.vessel.mainBody.flightGlobalsIndex, biome.name, (HarvestTypes)resourceType);
+                    coreSampleStatus = getSamplesLeft().ToString();
+
+                    //Hide the button
+                    Events["InvalidateResults"].guiActive = false;
+                    Events["InvalidateResults"].guiActiveUnfocused = false;
+                }
+            }
+            
+            //Just rest the efficiency data.
+            else
+            {
+                //Reset efficiency data for the biome
+                WBIPathfinderScenario.Instance.ResetEfficiencyData(this.part.vessel.mainBody.flightGlobalsIndex, biome.name, (HarvestTypes)resourceType);
+                coreSampleStatus = getSamplesLeft().ToString();
+
+                //Hide the button
+                Events["InvalidateResults"].guiActive = false;
+                Events["InvalidateResults"].guiActiveUnfocused = false;
+            }
+        }
+
         public override void OnUpdate()
         {
             base.OnUpdate();
@@ -188,7 +240,11 @@ namespace WildBlueIndustries
         #region Helpers
         protected int getSamplesLeft()
         {
-             return coreSamplesRemaining;
+            CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
+            HarvestTypes harvestType = (HarvestTypes)resourceType;
+            int samplesLeft = WBIPathfinderScenario.Instance.GetCoreSamplesRemaining(this.part.vessel.mainBody.flightGlobalsIndex, biome.name, harvestType);
+
+            return samplesLeft;
         }
 
         protected void updateCoreSampleState()
@@ -263,6 +319,46 @@ namespace WildBlueIndustries
             }
         }
 
+        protected virtual float getGeologyLabBonus()
+        {
+            float labBonus = 0f;
+            int researcherCount = 1;
+
+            foreach (Vessel vessel in FlightGlobals.Vessels)
+            {
+                if (vessel.mainBody != this.part.vessel.mainBody)
+                    continue;
+                if (vessel.situation != Vessel.Situations.LANDED && vessel.situation != Vessel.Situations.SPLASHED && vessel.situation != Vessel.Situations.PRELAUNCH)
+                    continue;
+
+                ProtoVessel protoVessel = vessel.protoVessel;
+                foreach (ProtoPartSnapshot partSnapshot in protoVessel.protoPartSnapshots)
+                {
+                    foreach (ProtoPartModuleSnapshot moduleSnapshot in partSnapshot.modules)
+                    {
+                        if (moduleSnapshot.moduleName == "WBIGeologyLab")
+                        {
+                            //Now go through the crew list for the part and find scientists.
+                            foreach (ProtoCrewMember crewSnapshot in partSnapshot.protoModuleCrew)
+                            {
+                                if (crewSnapshot.experienceTrait.TypeName == analysisSkill)
+                                {
+                                    //experience bonus giving is based upon diminishing returns.
+                                    labBonus += crewSnapshot.experienceLevel / researcherCount;
+
+                                    //Keep track of the number of researchers we've checked.
+                                    researcherCount += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            labBonus *= kLabBonusModifier;
+            return labBonus;
+        }
+
         protected virtual void performAnalysis()
         {
             CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
@@ -270,12 +366,14 @@ namespace WildBlueIndustries
             float analysisRoll = 0f;
             string analysisResultMessage;
             float efficiencyModifier = 0f;
+            float currentModifier = 0f;
 
             //Decrement the attempts remaining count
-            coreSamplesRemaining = coreSamplesRemaining - 1;
-            if (coreSamplesRemaining <= 0)
-                coreSamplesRemaining = 0;
-            coreSampleStatus = coreSamplesRemaining.ToString();
+            int samplesLeft = getSamplesLeft() - 1;
+            if (samplesLeft <= 0)
+                samplesLeft = 0;
+            WBIPathfinderScenario.Instance.SetCoreSamplesRemaining(this.part.vessel.mainBody.flightGlobalsIndex, biome.name, (HarvestTypes)resourceType, samplesLeft);
+            coreSampleStatus = samplesLeft.ToString();
 
             UIPartActionWindow tweakableUI = Utils.FindActionWindow(this.part);
             if (tweakableUI != null)
@@ -292,6 +390,9 @@ namespace WildBlueIndustries
                     experienceLevel = experience.CrewMemberExperienceLevel();
             }
 
+            //Add in the science lab bonus
+            experienceLevel += getGeologyLabBonus();
+
             //Seed the random number generator
             UnityEngine.Random.seed = System.Environment.TickCount;
 
@@ -304,6 +405,8 @@ namespace WildBlueIndustries
             //Now add the experience modifier
             analysisRoll += experienceLevel * kExperiencePercentModifier;
 
+            //TODO: Did we strike gold?
+
             //Since we're using a bell curve, anything below maxWorsenRoll worsens the biome's extraction rates.
             //Anything above minImprovementRoll improves the biome's extraction rates.
             //A skilled scientist can affect the modifier by as much as 5%.
@@ -314,6 +417,15 @@ namespace WildBlueIndustries
 
                 //Format the result message
                 analysisResultMessage = string.Format(kResourceExtractionWorsened, Math.Abs((efficiencyModifier * 100.0f))) + biome.name;
+
+                //Save the modifier
+                currentModifier = WBIPathfinderScenario.Instance.GetEfficiencyModifier(this.part.vessel.mainBody.flightGlobalsIndex, 
+                    biome.name, (HarvestTypes)resourceType, EfficiencyData.kExtractionMod);
+                WBIPathfinderScenario.Instance.SetEfficiencyData(this.part.vessel.mainBody.flightGlobalsIndex,
+                    biome.name, (HarvestTypes)resourceType, EfficiencyData.kExtractionMod, currentModifier + efficiencyModifier);
+
+                //Modify harvesters on the active vessel
+                WBIDrillManager.Instance.UpdateHarvesterEfficiencies(this.part.vessel);
             }
 
             //Good result!
@@ -324,6 +436,15 @@ namespace WildBlueIndustries
 
                 //Format the result message
                 analysisResultMessage = string.Format(kResourceExtractionImproved, Math.Abs((efficiencyModifier * 100.0f))) + biome.name;
+
+                //Save the modifier
+                currentModifier = WBIPathfinderScenario.Instance.GetEfficiencyModifier(this.part.vessel.mainBody.flightGlobalsIndex, 
+                    biome.name, (HarvestTypes)resourceType, EfficiencyData.kExtractionMod);
+                WBIPathfinderScenario.Instance.SetEfficiencyData(this.part.vessel.mainBody.flightGlobalsIndex,
+                    biome.name, (HarvestTypes)resourceType, EfficiencyData.kExtractionMod, currentModifier + efficiencyModifier);
+
+                //Modify harvisters on the active vessel
+                WBIDrillManager.Instance.UpdateHarvesterEfficiencies(this.part.vessel);
             }
 
             else
@@ -331,14 +452,125 @@ namespace WildBlueIndustries
                 analysisResultMessage = kResourceExtractionUnchanged + biome.name;
             }
 
-            //Modify harvester
-            harvester.Efficiency *= efficiencyModifier;
-            WBIExtractionMonitor monitor = this.part.FindModuleImplementing<WBIExtractionMonitor>();
-            monitor.efficiencyModifier = efficiencyModifier;
-
             //Inform the player of the result.
             ScreenMessages.PostScreenMessage(analysisResultMessage, 5.0f, ScreenMessageStyle.UPPER_CENTER);
             DeployExperiment();
+
+
+            //First timers: show the tooltip.
+            if (WBIPathfinderScenario.Instance.HasShownToolTip(kToolTip) == false)
+            {
+                WBIPathfinderScenario.Instance.SetToolTipShown(kToolTip);
+
+                WBIToolTipWindow introWindow = new WBIToolTipWindow(kFirstCoreSampleTitle, kFirstCoreSampleMsg);
+                introWindow.SetVisible(true);
+            }
+        }
+
+        protected virtual ResourceData getBiomeData(string bodyName, string biomeName, string resourceName, int resourceType)
+        {
+            ResourceData data, mapData;
+            string resourceTypeStr = resourceType.ToString();
+            string key;
+
+            //If the data exists in our biome map, then retrieve it.
+            key = bodyName + biomeName + resourceName + resourceTypeStr;
+            if (resourceDataMap.ContainsKey(key))
+            {
+                data = resourceDataMap[key];
+                return data;
+            }
+
+            //No biome data. Look in the planetary map.
+            key = bodyName + resourceName + resourceTypeStr;
+            if (resourceDataMap.ContainsKey(key))
+            {
+                mapData = resourceDataMap[key];
+
+                data = new ResourceData();
+                data.BiomeName = biomeName;
+                data.PlanetName = mapData.PlanetName;
+                data.ResourceName = mapData.ResourceName;
+                data.ResourceType = mapData.ResourceType;
+                data.Distribution = new DistributionData();
+                data.Distribution.Dispersal = mapData.Distribution.Dispersal;
+                data.Distribution.MaxAbundance = mapData.Distribution.MaxAbundance;
+                data.Distribution.MaxAbundance = mapData.Distribution.MaxAltitude;
+                data.Distribution.MaxRange = mapData.Distribution.MaxRange;
+                data.Distribution.MinAbundance = mapData.Distribution.MinAbundance;
+                data.Distribution.MinAltitude = mapData.Distribution.MinAltitude;
+                data.Distribution.MinRange = mapData.Distribution.MinRange;
+                data.Distribution.PresenceChance = mapData.Distribution.PresenceChance;
+                data.Distribution.Variance = mapData.Distribution.Variance;
+
+                ResourceCache.Instance.BiomeResources.Add(data);
+                resourceDataMap.Add(bodyName + biomeName + resourceName + resourceTypeStr, data);
+                return data;
+            }
+
+            //No planetary data. Look in the global map.
+            key = resourceName + resourceTypeStr;
+            if (resourceDataMap.ContainsKey(key))
+            {
+                mapData = resourceDataMap[key];
+
+                data = new ResourceData();
+                data.BiomeName = biomeName;
+                data.PlanetName = bodyName;
+                data.ResourceName = mapData.ResourceName;
+                data.ResourceType = mapData.ResourceType;
+                data.Distribution = new DistributionData();
+                data.Distribution.Dispersal = mapData.Distribution.Dispersal;
+                data.Distribution.MaxAbundance = mapData.Distribution.MaxAbundance;
+                data.Distribution.MaxAbundance = mapData.Distribution.MaxAltitude;
+                data.Distribution.MaxRange = mapData.Distribution.MaxRange;
+                data.Distribution.MinAbundance = mapData.Distribution.MinAbundance;
+                data.Distribution.MinAltitude = mapData.Distribution.MinAltitude;
+                data.Distribution.MinRange = mapData.Distribution.MinRange;
+                data.Distribution.PresenceChance = mapData.Distribution.PresenceChance;
+                data.Distribution.Variance = mapData.Distribution.Variance;
+
+                ResourceCache.Instance.BiomeResources.Add(data);
+                resourceDataMap.Add(bodyName + biomeName + resourceName + resourceTypeStr, data);
+                return data;
+            }
+
+            //Uh oh...
+            return null;
+        }
+
+        protected virtual void generateMaps()
+        {
+            //We do this once so that we don't have to keep looking through the lists of resource data each time we 
+            //alter a different resource.
+            string key;
+
+            //Generate biome map.
+            resourceDataMap.Clear();
+            foreach (ResourceData biomeData in ResourceCache.Instance.BiomeResources)
+            {
+                key = biomeData.PlanetName + biomeData.BiomeName + biomeData.ResourceName + biomeData.ResourceType.ToString();
+                if (resourceDataMap.ContainsKey(key) == false)
+                    resourceDataMap.Add(key, biomeData);
+            }
+
+            //Planetary map. We use this if there is no biome data
+            resourceDataMap.Clear();
+            foreach (ResourceData planetData in ResourceCache.Instance.PlanetaryResources)
+            {
+                key = planetData.PlanetName + planetData.ResourceName + planetData.ResourceType.ToString();
+                if (resourceDataMap.ContainsKey(key) == false)
+                    resourceDataMap.Add(key, planetData);
+            }
+
+            //Global map. We use this if there is no biome or planet data.
+            resourceDataMap.Clear();
+            foreach (ResourceData globalData in ResourceCache.Instance.GlobalResources)
+            {
+                key = globalData.ResourceName + globalData.ResourceType.ToString();
+                if (resourceDataMap.ContainsKey(key) == false)
+                    resourceDataMap.Add(key, globalData);
+            }
         }
 
         protected virtual void setupGUI()
@@ -390,7 +622,7 @@ namespace WildBlueIndustries
 
         protected void setupDrillGUI()
         {
-            if (Utils.HasResearchedNode(drillTechNode) == false)
+            if (Utils.HasResearchedNode(PathfinderSettings.drillTechNode) == false)
             {
                 ModuleResourceHarvester harvester = this.part.FindModuleImplementing<ModuleResourceHarvester>();
                 foreach (BaseEvent baseEvent in harvester.Events)

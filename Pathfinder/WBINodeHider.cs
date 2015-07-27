@@ -19,25 +19,35 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    [KSPAddon(KSPAddon.Startup.Flight, false)]
-    class PathfinderKeyMonitor : MonoBehaviour
+    public class WBINodeHider : PartModule
     {
-        public PathfinderKeyMonitor Instance;
+        [KSPField]
+        public string hideNodes;
 
-        protected PathfinderSettings settingsWindow;
-
-        public void Start()
+        public override void OnStart(StartState state)
         {
-            Instance = this;
-            settingsWindow = new PathfinderSettings();
-        }
+            base.OnStart(state);
 
-        public void Update()
-        {
-            if (GameSettings.MODIFIER_KEY.GetKey() && Input.GetKeyDown(KeyCode.P))
-             {
-                settingsWindow.SetVisible(!settingsWindow.IsVisible());
+            if (HighLogic.LoadedSceneIsEditor)
+            {
+                this.part.OnEditorAttach += EditorAttach;
             }
         }
+
+        public void EditorAttach()
+        {
+            List<AttachNode> doomed = new List<AttachNode>();
+
+            //Hide the side nodes
+            foreach (AttachNode node in this.part.attachNodes)
+            {
+                if (hideNodes.Contains(node.id))
+                    doomed.Add(node);
+            }
+
+            foreach (AttachNode doomedNode in doomed)
+                this.part.attachNodes.Remove(doomedNode);
+        }
+
     }
 }

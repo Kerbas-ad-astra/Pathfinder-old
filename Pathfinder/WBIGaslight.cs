@@ -6,10 +6,9 @@ using UnityEngine;
 using KSP.IO;
 
 /*
-Source code copyrighgt 2015, by Michael Billard (Angel-125)
+Source code copyright 2015, by Michael Billard (Angel-125)
 License: CC BY-NC-SA 4.0
 License URL: https://creativecommons.org/licenses/by-nc-sa/4.0/
-If you want to use this code, give me a shout on the KSP forums! :)
 Wild Blue Industries is trademarked by Michael Billard and may be used for non-commercial purposes. All other rights reserved.
 Note that Wild Blue Industries is a ficticious entity 
 created for entertainment purposes. It is in no way meant to represent a real entity.
@@ -19,25 +18,25 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    [KSPAddon(KSPAddon.Startup.Flight, false)]
-    class PathfinderKeyMonitor : MonoBehaviour
+    class WBIGaslight : WBILight
     {
-        public PathfinderKeyMonitor Instance;
+        WBIAnimation anim;
 
-        protected PathfinderSettings settingsWindow;
-
-        public void Start()
+        public override void OnStart(StartState state)
         {
-            Instance = this;
-            settingsWindow = new PathfinderSettings();
+            base.OnStart(state);
+            
+            //Get the telescopic animation
+            anim = this.part.FindModuleImplementing<WBIAnimation>();
         }
 
-        public void Update()
+        public override void ToggleAnimation()
         {
-            if (GameSettings.MODIFIER_KEY.GetKey() && Input.GetKeyDown(KeyCode.P))
-             {
-                settingsWindow.SetVisible(!settingsWindow.IsVisible());
-            }
+            base.ToggleAnimation();
+
+            //Make sure the lamppost has been deployed.
+            if (anim.isDeployed == false)
+                anim.ToggleAnimation();
         }
     }
 }

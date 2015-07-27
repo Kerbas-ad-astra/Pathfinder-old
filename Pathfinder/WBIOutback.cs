@@ -19,25 +19,37 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    [KSPAddon(KSPAddon.Startup.Flight, false)]
-    class PathfinderKeyMonitor : MonoBehaviour
+    public class WBIOutback : WBIResourceSwitcher
     {
-        public PathfinderKeyMonitor Instance;
+        Part parentPart;
 
-        protected PathfinderSettings settingsWindow;
-
-        public void Start()
+        [KSPEvent(guiActive = true, guiActiveUnfocused = true, unfocusedRange = 3.0f, guiName = "Refuel EVA Propellant", guiActiveEditor = false)]
+        public void RefuelEVA()
         {
-            Instance = this;
-            settingsWindow = new PathfinderSettings();
+            PartResource evaProp = this.part.Resources["EVA Propellant"];
+
+            if (evaProp != null)
+                evaProp.amount = evaProp.maxAmount;
         }
 
-        public void Update()
+        public override void OnFixedUpdate()
         {
-            if (GameSettings.MODIFIER_KEY.GetKey() && Input.GetKeyDown(KeyCode.P))
-             {
-                settingsWindow.SetVisible(!settingsWindow.IsVisible());
-            }
+            base.OnFixedUpdate();
+
+            if (this.part.parent == parentPart)
+                return;
+            if (HighLogic.LoadedSceneIsFlight == false)
+                return;
+            if (this.part.parent == null)
+                return;
+
+            ModuleCommand cmd = this.part.parent.FindModuleImplementing<ModuleCommand>();
+            bool attachedToRechargePart = this.part.parent.CrewCapacity > 0 && cmd != null;
+
+            Events["RefuelEVA"].guiActive = attachedToRechargePart;
+            Events["RefuelEVA"].guiActiveUnfocused = attachedToRechargePart;
+
+            parentPart = this.part.parent;
         }
     }
 }

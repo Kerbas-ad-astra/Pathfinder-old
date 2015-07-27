@@ -8,6 +8,9 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.1.7: The Magnificent Seven
+https://www.youtube.com/watch?v=8XDB7GMnbUQ
+
 0.1.6: Neon Light
 https://www.youtube.com/watch?v=AXXszJUmmik
 
@@ -36,6 +39,9 @@ Templates
 - Renamed PhotoSupplies to ResearchKits, and changed the icon.
 - Changed the icon for the Ponderosa Habitat.
 - The Battery template's EC levels have been nerfed; The Outback holds 154EC, while the Buckboard holds 611EC (comparable to a stack of three Z-200 batteries). Additionally, you'll need RocketParts and an Engineer to convert the Outback/Buckboard into batteries (which of course can be turned off using the Settings window). To convert the Buckboard/Outback into a battery, right-click the part to open the action menu, and press the "Convert to battery" button. You can convert the Buckboard/Outback back into a storage container as well.
+
+Other
+- Created a wiki page describing how to add a template to the Ponderosa: https://github.com/Angel-125/Pathfinder/wiki/Anatomy-Of-A-Template
 
 Bug Fixes
 - Fixed an issue where the Buckboard would incorrectly show a ToggleAnimation button during EVA.

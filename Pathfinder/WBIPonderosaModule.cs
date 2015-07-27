@@ -23,6 +23,10 @@ namespace WildBlueIndustries
     {
         private const string kPonderosaModule = "PonderosaModule";
         private const string kToolTip = "Want to use the Ponderosa for more than one purpose? With a feat of engineering, you can change it in the field. For a price...\r\n\r\n";
+        private const string kSettingsWindow = "Settings Window";
+        private const string kPartsTip = "Don't want to pay to redecorate? No problem. Just press Mod P (the modifier key defaults to the Alt key on Windows) to open the Settings window and uncheck the option.\r\n\r\n";
+        private const string kPonderosaOpsView = "Ponderosa Operations";
+
         Animation anim;
 
         public override void OnStart(StartState state)
@@ -31,16 +35,16 @@ namespace WildBlueIndustries
 
             if (string.IsNullOrEmpty(animationName))
                 return;
-
             anim = this.part.FindModelAnimators(animationName)[0];
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
+
             if (anim == null)
                 return;
-            
+
             //We're only interested in the act of inflating the module.
             if (isDeployed == false)
             {
@@ -77,6 +81,39 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
+        protected override void notEnoughParts()
+        {
+            base.notEnoughParts();
+
+            WBIPathfinderScenario scenario = WBIPathfinderScenario.Instance;
+
+            //Add first time for redecoration
+            if (scenario.HasShownToolTip(kSettingsWindow) == false)
+            {
+                scenario.SetToolTipShown(kSettingsWindow);
+
+                WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(kSettingsWindow, kPartsTip);
+                toolTipWindow.SetVisible(true);
+            }
+        }
+
+        protected override bool canAffordReconfigure(string templateName)
+        {
+            WBIPathfinderScenario scenario = WBIPathfinderScenario.Instance;
+            bool canAfford = base.canAffordReconfigure(templateName);
+
+            //Add first time for redecoration
+            if (!canAfford && scenario.HasShownToolTip(kSettingsWindow) == false)
+            {
+                scenario.SetToolTipShown(kSettingsWindow);
+
+                WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(kSettingsWindow, kPartsTip);
+                toolTipWindow.SetVisible(true);
+            }
+
+            return canAfford;
+        }
+
         protected void checkAndShowToolTip()
         {
             //Now we can check to see if the tooltip for the current template has been shown.
@@ -103,5 +140,10 @@ namespace WildBlueIndustries
             scenario.SetToolTipShown(CurrentTemplateName);
         }
 
+        protected override void createModuleOpsView()
+        {
+            base.createModuleOpsView();
+            moduleOpsView.WindowTitle = kPonderosaOpsView;
+        }
     }
 }
