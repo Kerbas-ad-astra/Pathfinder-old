@@ -21,9 +21,14 @@ namespace WildBlueIndustries
 {
     public class PathfinderSettings : Window<PathfinderSettings>
     {
+        public const string kDefaultDrillTechNode = "specializedConstruction";
+        public static string drillTechNode;
+
         string settingsPath;
-        public bool payToRemodel;
-        public bool requireSkillCheck;
+        public static bool payToRemodel;
+        public static bool requireSkillCheck;
+        public static bool repairsRequireResources;
+        public static bool terrainCanBreak;
 
         public PathfinderSettings() :
         base("Pathfinder Settings", 320, 100)
@@ -38,10 +43,16 @@ namespace WildBlueIndustries
             GUILayout.BeginVertical();
             payToRemodel = GUILayout.Toggle(payToRemodel, "Require resources to reconfigure modules.");
             requireSkillCheck = GUILayout.Toggle(requireSkillCheck, "Require skill check to reconfigure modules.");
+            repairsRequireResources = GUILayout.Toggle(repairsRequireResources, "T.E.R.R.A.I.N. requires resources to repair.");
+            terrainCanBreak = GUILayout.Toggle(terrainCanBreak, "T.E.R.R.A.I.N. can break.");
             GUILayout.EndVertical();
 
-            WBIMultiConverter.payForReconfigure = payToRemodel;
-            WBIMultiConverter.checkForSkill = requireSkillCheck;
+            WBIAffordableSwitcher.payForReconfigure = payToRemodel;
+            WBIAffordableSwitcher.checkForSkill = requireSkillCheck;
+            WBITemplateConverter.payForReconfigure = payToRemodel;
+            WBITemplateConverter.checkForSkill = requireSkillCheck;
+            GeoSurveyCamera.repairsRequireResources = repairsRequireResources;
+            terrainCanBreak = GeoSurveyCamera.terrainCanBreak;
         }
 
         public override void SetVisible(bool newValue)
@@ -59,6 +70,8 @@ namespace WildBlueIndustries
                 nodeSettings.name = "SETTINGS";
                 nodeSettings.AddValue("payToRemodel", payToRemodel.ToString());
                 nodeSettings.AddValue("requireSkillCheck", requireSkillCheck.ToString());
+                nodeSettings.AddValue("repairsRequireResources", repairsRequireResources.ToString());
+                nodeSettings.AddValue("terrainCanBreak", terrainCanBreak.ToString());
                 nodeSettings.Save(settingsPath);
             }
         }
@@ -76,22 +89,43 @@ namespace WildBlueIndustries
                 if (string.IsNullOrEmpty(value) == false)
                     payToRemodel = bool.Parse(value);
                 else
-                    payToRemodel = WBIMultiConverter.payForReconfigure;
+                    payToRemodel = WBIAffordableSwitcher.payForReconfigure;
 
                 value = nodeSettings.GetValue("requireSkillCheck");
                 if (string.IsNullOrEmpty(value) == false)
                     requireSkillCheck = bool.Parse(value);
                 else
-                    requireSkillCheck = WBIMultiConverter.checkForSkill;
+                    requireSkillCheck = WBIAffordableSwitcher.checkForSkill;
+
+                value = nodeSettings.GetValue("repairsRequireResources");
+                if (string.IsNullOrEmpty(value) == false)
+                    repairsRequireResources = bool.Parse(value);
+                else
+                    repairsRequireResources = GeoSurveyCamera.repairsRequireResources;
+
+                value = nodeSettings.GetValue("terrainCanBreak");
+                if (string.IsNullOrEmpty(value) == false)
+                    terrainCanBreak = bool.Parse(value);
+                else
+                    terrainCanBreak = GeoSurveyCamera.terrainCanBreak;
+
+                drillTechNode = nodeSettings.GetValue("drillTechNode");
             }
             else
             {
-                payToRemodel = WBIMultiConverter.payForReconfigure;
-                requireSkillCheck = WBIMultiConverter.checkForSkill;
+                payToRemodel = WBIAffordableSwitcher.payForReconfigure;
+                requireSkillCheck = WBIAffordableSwitcher.checkForSkill;
+                repairsRequireResources = GeoSurveyCamera.repairsRequireResources;
+                terrainCanBreak = GeoSurveyCamera.terrainCanBreak;
+                drillTechNode = kDefaultDrillTechNode;
             }
 
-            WBIMultiConverter.payForReconfigure = payToRemodel;
-            WBIMultiConverter.checkForSkill = requireSkillCheck;
+            WBIAffordableSwitcher.payForReconfigure = payToRemodel;
+            WBIAffordableSwitcher.checkForSkill = requireSkillCheck;
+            WBITemplateConverter.payForReconfigure = payToRemodel;
+            WBITemplateConverter.checkForSkill = requireSkillCheck;
+            GeoSurveyCamera.repairsRequireResources = repairsRequireResources;
+            GeoSurveyCamera.terrainCanBreak = terrainCanBreak;
         }
 
     }

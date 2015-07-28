@@ -28,8 +28,6 @@ namespace WildBlueIndustries
         [KSPField(guiActive = true, guiName = "Extraction Rate At")]
         public string extractionRateChange;
 
-        public float efficiencyModifier;
-
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
@@ -55,6 +53,8 @@ namespace WildBlueIndustries
             if (planetID == -1)
                 return;
             
+            float efficiencyModifier = WBIPathfinderScenario.Instance.GetEfficiencyModifier(planetID, biomeName, harvestType, EfficiencyData.kExtractionMod);
+
             extractionRateChange = string.Format("{0:f2}%", efficiencyModifier * 100f);
         }
     }

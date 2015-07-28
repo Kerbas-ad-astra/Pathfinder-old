@@ -34,9 +34,9 @@ namespace WildBlueIndustries
 
         public void Update()
         {
-            if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKeyDown(KeyCode.P))
-            {
-                settingsWindow.SetVisible(true);
+            if (GameSettings.MODIFIER_KEY.GetKey() && Input.GetKeyDown(KeyCode.P))
+             {
+                settingsWindow.SetVisible(!settingsWindow.IsVisible());
             }
         }
     }
