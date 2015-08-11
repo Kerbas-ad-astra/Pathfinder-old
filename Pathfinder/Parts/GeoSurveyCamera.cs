@@ -27,6 +27,9 @@ namespace WildBlueIndustries
         private const string kNotEnoughResourcesToRepair = "Unable to repair the T.E.R.R.A.I.N. due to insufficient resources. You need {0:f1} ";
         private const string kInfoRepairSkill = "Best skill for repairs: ";
         private const string kInfoRepairAmount = "Requires {0:f1} {1} to repair";
+        private const string kExperimentTitle = "Dirt Watch Report orbiting ";
+        private const string kNoScience = "No research data accumulated, check back later.";
+        private const string kGenericDirtWatchResults = "Continuous monitoring of the resources has yielded some interesting results that have advanced knowledge about this celestial body.";
 
         [KSPField(isPersistant = true)]
         public bool isBroken;
@@ -40,11 +43,16 @@ namespace WildBlueIndustries
         [KSPField]
         public string repairSkill;
 
+        [KSPField(guiActive = true, guiName = "Science Collected")]
+        public string scienceCollected;
+
         public static bool repairsRequireResources = true;
         public static bool terrainCanBreak = true;
 
         ModuleOrbitalSurveyor orbitalSurveyer;
         ModuleOrbitalScanner orbitalScanner;
+        ModuleScienceContainer scienceContainer;
+        WBIResultsDialogSwizzler swizzler;
         bool monitorSurvey;
 
         [KSPEvent(guiActiveUnfocused = true, externalToEVAOnly = true, unfocusedRange = 3f, guiName = "Perform orbital survey", guiActiveEditor = false, guiActive = true)]
@@ -98,9 +106,21 @@ namespace WildBlueIndustries
             verifyPlanetUnlock();
 
             //Hide stock survey GUI
-            orbitalSurveyer.Events["PerformSurvey"].guiActive = false;
-            orbitalSurveyer.Events["PerformSurvey"].guiActiveUnfocused = false;
-            orbitalSurveyer.Events["PerformSurvey"].guiActiveEditor = false;
+            if (orbitalSurveyer != null)
+            {
+                orbitalSurveyer.Events["PerformSurvey"].guiActive = false;
+                orbitalSurveyer.Events["PerformSurvey"].guiActiveUnfocused = false;
+                orbitalSurveyer.Events["PerformSurvey"].guiActiveEditor = false;
+            }
+
+            //Create swizzler
+            swizzler = new WBIResultsDialogSwizzler();
+            swizzler.onTransmit = transmitData;
+
+            //Setup the science container
+            scienceContainer = this.part.FindModuleImplementing<ModuleScienceContainer>();
+            scienceContainer.Events["ReviewDataEvent"].guiActiveUnfocused = false;
+            scienceContainer.Events["ReviewDataEvent"].guiActive = false;
 
             //Now setup our own GUI
             kBotchedResults = kSafeMode;
@@ -129,6 +149,16 @@ namespace WildBlueIndustries
                     SetupGUI();
                 }
             }
+
+            if (isResearching)
+            {
+                Fields["scienceCollected"].guiActive = true;
+                scienceCollected = string.Format("{0:f2}", scienceAdded);
+            }
+            else
+            {
+                Fields["scienceCollected"].guiActive = false;
+            }
         }
 
         public override string GetInfo()
@@ -140,6 +170,62 @@ namespace WildBlueIndustries
             info += string.Format(kInfoRepairAmount, repairAmount, repairResource);
 
             return info;
+        }
+
+        public override void ReviewData()
+        {
+            float scienceCap = WBIBiomeAnalysis.GetScienceCap(this.part);
+            float totalScience = scienceAdded;
+
+            while (totalScience > 0.001f)
+            {
+                //Set the experiment title
+                if (totalScience < scienceCap)
+                    dataAmount = totalScience;
+                else
+                    dataAmount = scienceCap;
+
+                //Generate lab data
+                ScienceData data = WBIBiomeAnalysis.CreateData(this.part, dataAmount);
+                scienceContainer.AddData(data);
+
+                //Deduct from the total
+                totalScience -= dataAmount;
+                if (totalScience <= 0.001f)
+                    scienceAdded = 0f;
+            }
+
+            //Make sure we have some science to transmit.
+            if (scienceContainer.GetScienceCount() == 0)
+            {
+                ScreenMessages.PostScreenMessage(kNoScience, 5.0f, ScreenMessageStyle.UPPER_CENTER);
+                return;
+            }
+
+            //Review the data
+            scienceContainer.ReviewData();
+            swizzler.SwizzleResultsDialog();
+        }
+
+        protected bool transmitData(ScienceData data)
+        {
+            if (data.subjectID.Contains(WBIBiomeAnalysis.kBiomeAnalysisID))
+                WBIBiomeAnalysis.ResetScienceGains(this.part);
+
+            return true;
+        }
+
+        protected override void transmitResults(ScienceData data)
+        {
+            if (transmitHelper.TransmitToKSC(dataAmount, 0, 0))
+            {
+                scienceAdded -= dataAmount;
+                if (scienceAdded <= 0.001)
+                    scienceAdded = 0f;
+
+                if (scienceAdded > 0.001)
+                    ReviewData();
+            }
         }
 
         protected float calculateRepairCost()
@@ -173,6 +259,25 @@ namespace WildBlueIndustries
             return repairUnits;
         }
 
+        protected override void onFailure()
+        {
+            base.onFailure();
+            status = "Inconclusive";
+        }
+
+        protected override void onSuccess()
+        {
+            base.onSuccess();
+            status = "Good results";
+        }
+
+
+        protected override void onCriticalSuccess()
+        {
+            base.onCriticalSuccess();
+            status = "Great results";
+        }
+
         protected override void onCriticalFailure()
         {
             if (terrainCanBreak)
@@ -184,6 +289,8 @@ namespace WildBlueIndustries
             if (isResearching)
                 ToggleResearch();
             SetupGUI();
+
+            status = "Needs repairs";
         }
 
         public void SetupGUI()
@@ -202,7 +309,8 @@ namespace WildBlueIndustries
                 Events["PerformOrbitalSurvey"].guiActiveUnfocused = false;
 
                 //Hide survey scanner GUI
-                orbitalScanner.DisableModule();
+                if (orbitalScanner != null)
+                    orbitalScanner.DisableModule();
 
                 //No research can be performed.
                 SetGuiVisible(false);
@@ -210,7 +318,7 @@ namespace WildBlueIndustries
             }
 
             //Show scanner GUI?
-            if (planetUnlocked)
+            if (planetUnlocked && orbitalScanner != null)
                 orbitalScanner.EnableModule();
 
             //Hide repair button
@@ -227,6 +335,9 @@ namespace WildBlueIndustries
 
         protected void verifyPlanetUnlock()
         {
+            if (orbitalSurveyer == null)
+                return;
+
             bool planetUnlocked = ResourceMap.Instance.IsPlanetScanned(FlightGlobals.currentMainBody.flightGlobalsIndex);
 
             //Weird edge case where the user hit F9 to reload, planet claims it is unlocked (was unlocked before F9)

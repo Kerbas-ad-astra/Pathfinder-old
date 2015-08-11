@@ -19,18 +19,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIPonderosaModule : WBIMultiConverter
+    public class WBIMultipurposeLab : WBIMultiConverter
     {
-        private const string kPonderosaModule = "PonderosaModule";
-        private const string kToolTip = "Want to use the Ponderosa for more than one purpose? With a feat of engineering, you can change it in the field. For a price...\r\n\r\n";
-        private const string kSettingsWindow = "Settings Window";
-        private const string kPartsTip = "Don't want to pay to redecorate? No problem. Just press Mod P (the modifier key defaults to the Alt key on Windows) to open the Settings window and uncheck the option.\r\n\r\n";
-        private const string kPonderosaOpsView = "Ponderosa Operations";
+        private const string kToolTip = "Just like a multipurpose habitat, this general-purpose science lab can be reconfigured for several different science roles with a feat of engineering- if you have the right resources and talent.\r\n\r\n";
+        private const string kDocOpsView = "Doc Operations";
 
         Animation anim;
+        WBIScienceConverter scienceConverter;
 
         public override void OnStart(StartState state)
         {
+            scienceConverter = this.part.FindModuleImplementing<WBIScienceConverter>();
+            scienceConverter.SetGuiVisible(false);
             base.OnStart(state);
 
             if (string.IsNullOrEmpty(animationName))
@@ -72,46 +72,12 @@ namespace WildBlueIndustries
             base.UpdateContentsAndGui(templateName);
 
             //Check to see if we've displayed the tooltip for the template.
-
             //First, we're only interested in deployed modules.
             if (isDeployed == false)
                 return;
 
             //Now check
             checkAndShowToolTip();
-        }
-
-        protected override void notEnoughParts()
-        {
-            base.notEnoughParts();
-
-            WBIPathfinderScenario scenario = WBIPathfinderScenario.Instance;
-
-            //Add first time for redecoration
-            if (scenario.HasShownToolTip(kSettingsWindow) == false)
-            {
-                scenario.SetToolTipShown(kSettingsWindow);
-
-                WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(kSettingsWindow, kPartsTip);
-                toolTipWindow.SetVisible(true);
-            }
-        }
-
-        protected override bool canAffordReconfigure(string templateName)
-        {
-            WBIPathfinderScenario scenario = WBIPathfinderScenario.Instance;
-            bool canAfford = base.canAffordReconfigure(templateName);
-
-            //Add first time for redecoration
-            if (!canAfford && scenario.HasShownToolTip(kSettingsWindow) == false)
-            {
-                scenario.SetToolTipShown(kSettingsWindow);
-
-                WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(kSettingsWindow, kPartsTip);
-                toolTipWindow.SetVisible(true);
-            }
-
-            return canAfford;
         }
 
         protected void checkAndShowToolTip()
@@ -126,11 +92,11 @@ namespace WildBlueIndustries
             string toolTip = CurrentTemplate.GetValue("toolTip");
 
             //Add the very first ponderosa module tool tip.
-            if (scenario.HasShownToolTip(kPonderosaModule) == false)
+            if (scenario.HasShownToolTip(this.ClassName) == false)
             {
                 toolTip = kToolTip + toolTip;
 
-                scenario.SetToolTipShown(kPonderosaModule);
+                scenario.SetToolTipShown(this.ClassName);
             }
 
             WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(toolTipTitle, toolTip);
@@ -143,7 +109,7 @@ namespace WildBlueIndustries
         protected override void createModuleOpsView()
         {
             base.createModuleOpsView();
-            moduleOpsView.WindowTitle = kPonderosaOpsView;
+            moduleOpsView.WindowTitle = kDocOpsView;
         }
     }
 }

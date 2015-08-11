@@ -22,7 +22,7 @@ namespace WildBlueIndustries
     [KSPScenario(ScenarioCreationOptions.AddToAllGames, GameScenes.SPACECENTER, GameScenes.EDITOR, GameScenes.FLIGHT, GameScenes.TRACKSTATION)]
     public class WBIPathfinderScenario : ScenarioModule
     {
-        private const int kMaxCoreSamples = 8;
+        public const int kMaxCoreSamples = 8;
         private const string kEfficiencyData = "EfficiencyData";
         private const string kToolTip = "ToolTip";
 
@@ -48,12 +48,6 @@ namespace WildBlueIndustries
 
             if (string.IsNullOrEmpty(value) == false)
                 reputationIndex = int.Parse(value);
-
-            /*
-            value = node.GetValue("drillToolTipShown");
-            if (string.IsNullOrEmpty(value) == false)
-                drillToolTipShown = bool.Parse(value);
-             */
 
             foreach (ConfigNode efficiencyNode in efficiencyNodes)
             {
@@ -241,6 +235,7 @@ namespace WildBlueIndustries
             efficiencyData.modifiers.Add(EfficiencyData.kExtractionMod, 1.0f);
             efficiencyData.modifiers.Add(EfficiencyData.kMetallurgyMod, 1.0f);
             efficiencyData.modifiers.Add(EfficiencyData.kOrganicsMod, 1.0f);
+            efficiencyData.modifiers.Add(EfficiencyData.kChemMod, 1.0f);
 
             efficiencyDataMap.Add(efficiencyData.Key, efficiencyData);
         }

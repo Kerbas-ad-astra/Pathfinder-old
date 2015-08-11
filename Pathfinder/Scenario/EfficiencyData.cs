@@ -24,6 +24,7 @@ namespace WildBlueIndustries
         static public string kExtractionMod = "extractionModifier";
         static public string kMetallurgyMod = "metallurgyModifier";
         static public string kOrganicsMod = "organicsModifier";
+        static public string kChemMod = "chemistryModifier";
 
         public int planetID;
         public string biomeName;

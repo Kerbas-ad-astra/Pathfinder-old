@@ -44,9 +44,12 @@ namespace WildBlueIndustries
         protected string kGoodResults = "Good results!";
         protected string kNoSuccess = "Analysis inconclusive";
         protected string kInsufficientResources = "Research halted. Not enough resources to perform the analysis.";
-        protected string kScienceAdded = "Science added: {0:f2}";
-        protected string kReputationAdded = "Reputation added: {0:f2}";
-        protected string kFundsAdded = "Funds added: {0:f2}";
+        protected string kScienceAdded = "<color=lightblue>Science added: {0:f2}</b></color>";
+        protected string kReputationAdded = "<color=yellow>Reputation added: {0:f2}</b></color>";
+        protected string kFundsAdded = "<color=lime>Funds added: {0:f2}</b></color>";
+        protected string kNoResearchData = "No data to transmit yet, check back later.";
+        protected string kResearching = "Researching";
+        protected string kReady = "Ready";
 
         [KSPField]
         public string startResearchGUIName;
@@ -87,25 +90,60 @@ namespace WildBlueIndustries
         [KSPField(isPersistant = true)]
         public double researchStartTime;
 
-        [KSPField(guiActive = true, guiName = "Progress")]
+        [KSPField(guiActive = true, guiName = "Progress", isPersistant = true)]
         public string researchProgress;
+
+        [KSPField(guiActive = true, guiName = "Status", isPersistant = true)]
+        public string status;
+
+        [KSPField(isPersistant = true)]
+        public float scienceAdded;
+
+        [KSPField(isPersistant = true)]
+        public float reputationAdded;
+
+        [KSPField(isPersistant = true)]
+        public float fundsAdded;
+
+        [KSPField(isPersistant = true)]
+        public bool showGUI = true;
 
         public double elapsedTime;
         public List<ResearchResource> inputResources = new List<ResearchResource>();
 
-        protected float averageCrewSkill = -1.0f;
+        protected float totalCrewSkill = -1.0f;
         protected double secondsPerCycle = 0f;
         protected bool failedLastAttempt;
         protected float successBonus;
-        protected float scienceAdded;
-        protected float reputationAdded;
-        protected float fundsAdded;
+        protected bool isCatchingUp;
+        protected string experimentID;
+        protected float dataAmount;
+        protected FakeExperimentResults fakeExperiment;
+        protected TransmitHelper transmitHelper = new TransmitHelper();
 
         #region Actions And Events
         [KSPAction("Toggle Research")]
         public virtual void ToggleResearchAction(KSPActionParam param)
         {
             ToggleResearch();
+        }
+
+        [KSPEvent(guiActive = true, guiActiveUnfocused = true, unfocusedRange = 3.0f, guiName = "Review Data")]
+        public virtual void ReviewData()
+        {
+            if (scienceAdded == 0 && reputationAdded == 0 && fundsAdded == 0)
+            {
+                ScreenMessages.PostScreenMessage(kNoResearchData, 5.0f, ScreenMessageStyle.UPPER_CENTER);
+                return;
+            }
+
+            ModuleScienceLab lab = null;
+            List<ModuleScienceLab> labs = this.part.vessel.FindPartModulesImplementing<ModuleScienceLab>();
+            if (labs != null)
+                if (labs.Count > 0)
+                    lab = labs.First<ModuleScienceLab>();
+
+            fakeExperiment.ShowResults(experimentID, dataAmount, lab);
         }
 
         [KSPEvent(guiActive = true)]
@@ -119,12 +157,14 @@ namespace WildBlueIndustries
                 researchStartTime = Planetarium.GetUniversalTime();
                 lastUpdated = researchStartTime;
                 elapsedTime = 0.0f;
+                status = kResearching;
             }
 
             else
             {
                 Events["ToggleResearch"].guiName = startResearchGUIName;
                 researchProgress = "None";
+                status = kReady;
             }
         }
 
@@ -158,7 +198,7 @@ namespace WildBlueIndustries
 
             //Calculate the average crew skill and seconds of research per cycle.
             //Thes values can change if the player swaps out crew.
-            averageCrewSkill = GetAverageSkill();
+            totalCrewSkill = GetTotalCrewSkill();
             secondsPerCycle = GetSecondsPerCycle();
 
             //If research is in progress and it's been awhile since the last update
@@ -166,12 +206,6 @@ namespace WildBlueIndustries
             if (lastUpdated == 0.0f)
             {
                 lastUpdated = Planetarium.GetUniversalTime();
-                return;
-            }
-
-            else if (Planetarium.GetUniversalTime() - lastUpdated > 1.0f)
-            {
-                CatchUpOnResearch();
                 return;
             }
 
@@ -219,6 +253,20 @@ namespace WildBlueIndustries
                 criticalSuccess = kCriticalSuccess;
             if (criticalFail == 0)
                 criticalFail = kCriticalFailure;
+
+            fakeExperiment = new FakeExperimentResults();
+            fakeExperiment.part = this.part;
+            fakeExperiment.transmitDelegate = transmitResults;
+            transmitHelper.part = this.part;
+
+            //catch up on research
+            if (Planetarium.GetUniversalTime() - lastUpdated > 1.0f)
+            {
+                totalCrewSkill = GetTotalCrewSkill();
+                secondsPerCycle = GetSecondsPerCycle();
+                CatchUpOnResearch();
+                return;
+            }
         }
 
         #endregion
@@ -235,6 +283,7 @@ namespace WildBlueIndustries
             bool currentShowResults = showResults;
 
             showResults = false;
+            isCatchingUp = true;
             for (currentCycle = 0; currentCycle < cyclesSinceLastUpdate; currentCycle++)
             {
                 ConsumeResources((float)secondsPerCycle);
@@ -247,25 +296,6 @@ namespace WildBlueIndustries
                 }
 
                 PerformAnalysis();
-                totalScienceAdded += scienceAdded;
-                totalReputationAdded += reputationAdded;
-                totalFundsAdded += fundsAdded;
-                scienceAdded = 0.0f;
-                reputationAdded = 0.0f;
-                fundsAdded = 0.0f;
-                if (isResearching == false)
-                {
-                    lastUpdated = Planetarium.GetUniversalTime();
-                    researchStartTime = Planetarium.GetUniversalTime();
-                    showResults = currentShowResults;
-                    if (totalScienceAdded > 0.0f && showResults)
-                        ScreenMessages.PostScreenMessage(string.Format(kScienceAdded, totalScienceAdded), kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
-                    if (totalReputationAdded > 0.0f && showResults)
-                        ScreenMessages.PostScreenMessage(string.Format(kReputationAdded, totalReputationAdded), kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
-                    if (totalFundsAdded > 0.0f && showResults)
-                        ScreenMessages.PostScreenMessage(string.Format(kFundsAdded, totalFundsAdded), kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
-                    return;
-                }
             }
 
             //Cleanup
@@ -275,17 +305,19 @@ namespace WildBlueIndustries
 
             //If we generated science, then report the results
             if (totalScienceAdded > 0.0f && showResults)
-                ScreenMessages.PostScreenMessage(string.Format(kScienceAdded, totalScienceAdded), kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
+                ScreenMessages.PostScreenMessage(string.Format(kScienceAdded, totalScienceAdded), kMessageDuration, ScreenMessageStyle.UPPER_LEFT);
             if (totalReputationAdded > 0.0f && showResults)
-                ScreenMessages.PostScreenMessage(string.Format(kReputationAdded, totalReputationAdded), kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
+                ScreenMessages.PostScreenMessage(string.Format(kReputationAdded, totalReputationAdded), kMessageDuration, ScreenMessageStyle.UPPER_LEFT);
             if (totalFundsAdded > 0.0f && showResults)
-                ScreenMessages.PostScreenMessage(string.Format(kFundsAdded, totalFundsAdded), kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
+                ScreenMessages.PostScreenMessage(string.Format(kFundsAdded, totalFundsAdded), kMessageDuration, ScreenMessageStyle.UPPER_LEFT);
+            isCatchingUp = false;
         }
 
         public virtual void SetGuiVisible(bool isVisible)
         {
             Fields["researchProgress"].guiActive = isVisible;
             Fields["researchProgress"].guiActiveEditor = isVisible;
+            Fields["status"].guiActive = isVisible;
             Events["ToggleResearch"].guiActive = isVisible;
             Events["ToggleResearch"].guiActiveUnfocused = isVisible;
             Events["ToggleResearch"].guiActiveEditor = isVisible;
@@ -325,12 +357,13 @@ namespace WildBlueIndustries
                 if ((amountObtained / resourcePerTimeTick) < 0.999f)
                 {
                     isResearching = false;
+                    researchProgress = "None";
+                    status = "Not enough resources";
                     Events["ToggleResearch"].guiName = startResearchGUIName;
                     if (showResults)
                         ScreenMessages.PostScreenMessage(kInsufficientResources, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
 
                     this.part.RequestResource(definition.id, -amountObtained, input.flowMode);
-
                     return;
                 }
             }
@@ -362,11 +395,21 @@ namespace WildBlueIndustries
 
         public double GetSecondsPerCycle()
         {
-            if (averageCrewSkill == 0)
-                averageCrewSkill = GetAverageSkill();
-            double hoursPerCycle = Math.Pow((researchTime / (kBaseResearchDivisor + (averageCrewSkill / 10.0f))), 3.0f);
+            if (totalCrewSkill == 0)
+                totalCrewSkill = GetTotalCrewSkill();
+            double hoursPerCycle = Math.Pow((researchTime / (kBaseResearchDivisor + (totalCrewSkill / 10.0f))), 3.0f);
 
             return hoursPerCycle * 3600;
+        }
+
+        protected virtual void transmitResults(ScienceData data)
+        {
+            if (transmitHelper.TransmitToKSC(scienceAdded, reputationAdded, fundsAdded))
+            {
+                scienceAdded = 0f;
+                reputationAdded = 0f;
+                fundsAdded = 0f;
+            }
         }
 
         protected virtual float performAnalysisRoll()
@@ -380,7 +423,7 @@ namespace WildBlueIndustries
             roll *= 5.5556f;
 
             //Factor in crew
-            roll += (averageCrewSkill * 10);
+            roll += totalCrewSkill;
 
             //Done
             return roll;
@@ -388,78 +431,55 @@ namespace WildBlueIndustries
 
         protected virtual void onCriticalFailure()
         {
-            if (showResults)
-                ScreenMessages.PostScreenMessage(kBotchedResults, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
         }
 
         protected virtual void onCriticalSuccess()
         {
             successBonus = kCriticalSuccessBonus;
             addCurrency();
-
-            if (showResults)
-                ScreenMessages.PostScreenMessage(kGreatResults, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
         }
 
         protected virtual void onFailure()
         {
-            if (showResults)
-                ScreenMessages.PostScreenMessage(kNoSuccess, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
         }
 
         protected virtual void onSuccess()
         {
             successBonus = 1.0f;
             addCurrency();
-
-            if (showResults)
-                ScreenMessages.PostScreenMessage(kGoodResults, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
         }
 
         protected virtual void addCurrency()
         {
-            float successFactor = successBonus * (1.0f + (averageCrewSkill / 10.0f));
+            float successFactor = successBonus * (1.0f + (totalCrewSkill / 10.0f));
 
             //Add science to the resource pool
             if (sciencePerCycle > 0.0f)
-            {
-                scienceAdded = sciencePerCycle * successFactor;
-                ResearchAndDevelopment.Instance.AddScience(scienceAdded, TransactionReasons.Any);
-            }
+                scienceAdded += sciencePerCycle * successFactor;
 
             //Reputation
             if (reputationPerCycle > 0.0f)
-            {
-                reputationAdded = reputationPerCycle * successFactor;
-                Reputation.Instance.AddReputation(reputationAdded, TransactionReasons.Any);
-            }
+                reputationAdded += reputationPerCycle * successFactor;
 
             //Funds
             if (fundsPerCycle > 0.0f)
-            {
-                fundsAdded = fundsPerCycle * successFactor;
-                Funding.Instance.AddFunds(fundsAdded, TransactionReasons.Any);
-            }
+                fundsAdded += fundsPerCycle * successFactor;
         }
 
-        public virtual float GetAverageSkill()
+        public virtual float GetTotalCrewSkill()
         {
             float totalSkillPoints = 0f;
-            int totalScientists = 0;
-
+ 
             if (this.part.CrewCapacity == 0)
                 return 0f;
 
             foreach (ProtoCrewMember crewMember in this.part.protoModuleCrew)
             {
                 if (crewMember.experienceTrait.TypeName == "Scientist")
-                {
                     totalSkillPoints += crewMember.experienceTrait.CrewMemberExperienceLevel();
-                    totalScientists += 1;
-                }
             }
 
-            return totalSkillPoints / totalScientists;
+            return totalSkillPoints;
         }
 
         public virtual void LoadValuesFromNode(ConfigNode node)

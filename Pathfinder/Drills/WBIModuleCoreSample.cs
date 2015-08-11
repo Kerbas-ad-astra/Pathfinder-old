@@ -115,7 +115,7 @@ namespace WildBlueIndustries
             TakeSample();
         }
 
-        [KSPEvent(guiActive = true, guiActiveEditor = false, guiName = "Run Analysis", active = true, externalToEVAOnly = false, unfocusedRange = 3.0f, guiActiveUnfocused = true)]
+        [KSPEvent(guiActive = true, guiName = "Run Analysis", active = true, externalToEVAOnly = false, unfocusedRange = 3.0f, guiActiveUnfocused = true)]
         public void TakeSample()
         {
             //If we aren't in the right situation for the resource type then we're done.
@@ -146,6 +146,7 @@ namespace WildBlueIndustries
                     drillAnimation.DeployModule();
                     coreSampleState = CoreSampleStates.Deploying;
                     Events["TakeSample"].guiActive = false;
+                    Events["TakeSample"].guiActiveUnfocused = false;
                     return;
                 }
             }
@@ -160,6 +161,7 @@ namespace WildBlueIndustries
                 else
                 {
                     Events["TakeSample"].guiActive = false;
+                    Events["TakeSample"].guiActiveUnfocused = false;
                     coreSampleState = CoreSampleStates.TakingSample;
                     harvester.StartResourceConverter();
                     analysisTimeRemaining = analysisTime;
@@ -301,7 +303,7 @@ namespace WildBlueIndustries
                         message = kAnalysisStatus;
 
                         if (analysisStatusMsg == null)
-                            analysisStatusMsg = ScreenMessages.PostScreenMessage(message, analysisTime, ScreenMessageStyle.UPPER_RIGHT);
+                            analysisStatusMsg = ScreenMessages.PostScreenMessage(message, analysisTime, ScreenMessageStyle.UPPER_LEFT);
                     }
                     break;
 
@@ -313,6 +315,7 @@ namespace WildBlueIndustries
                             //Reset GUI
                             coreSampleState = CoreSampleStates.Ready;
                             Events["TakeSample"].guiActive = true;
+                            Events["TakeSample"].guiActiveUnfocused = true;
                         }
                     }
                     break;
@@ -616,7 +619,6 @@ namespace WildBlueIndustries
 
                 action.actionGroup = KSPActionGroup.None;
                 action.defaultActionGroup = KSPActionGroup.None;
-                action.active = false;
             }
         }
 

@@ -72,6 +72,7 @@ namespace WildBlueIndustries
                 nodeSettings.AddValue("requireSkillCheck", requireSkillCheck.ToString());
                 nodeSettings.AddValue("repairsRequireResources", repairsRequireResources.ToString());
                 nodeSettings.AddValue("terrainCanBreak", terrainCanBreak.ToString());
+                nodeSettings.AddValue("drillTechNode", drillTechNode.ToString());
                 nodeSettings.Save(settingsPath);
             }
         }
@@ -126,6 +127,9 @@ namespace WildBlueIndustries
             WBITemplateConverter.checkForSkill = requireSkillCheck;
             GeoSurveyCamera.repairsRequireResources = repairsRequireResources;
             GeoSurveyCamera.terrainCanBreak = terrainCanBreak;
+
+            if (string.IsNullOrEmpty(drillTechNode))
+                drillTechNode = kDefaultDrillTechNode;
         }
 
     }

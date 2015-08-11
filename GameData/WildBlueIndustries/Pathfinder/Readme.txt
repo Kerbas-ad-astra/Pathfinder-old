@@ -8,11 +8,52 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
-0.1.7: The Magnificent Seven
-https://www.youtube.com/watch?v=8XDB7GMnbUQ
+0.1.7: The Magificent Seven
+youtube: Magnificent Seven Theme
+
+For science! The Gold Digger generates experiment results while taking core samples. Those results are now worth more than just their Science value; you can use them to improve the efficiency of your life support, chemical, and metallurgical processors. In other words, creating RocketParts, MaterialKits, ResearchKits, Water, and others will be improved if you have good results when performing your soil analysis, metallurgic analysis, or chemical analysis in the Geology Lab. And with the Geology Lab’s new Biome Analysis, you can either use the research to improve your production abilities within the biome, or transfer the data to the new Doc Commercial Science Lab. It will cost you Science to perform a Biome Analysis, but you stand to gain much more.
+
+NOTE: Please pack up your base before applying this update, there were a lot of changes under the hood.
+NOTE: Please be sure to update your OSEWorkshop to the very latest version.
+
+New Part
+- Added the Doc Science Lab. It comes with four templates: the Doc Science lab (thanks rasta013 for the science lab config nodes!), the Watney Chemistry Lab, the Sunburn Lab, and the Clockworks 3D Print Shop (if you have OSE Workshop installed).
+Doc Science Lab: Functionally it is equivalent to the stock Mobile Processing Lab, but you can do more than just Transmit Research for Science. Be sure to carefully read the tooltip.
+Watney Chemistry Lab: Named after a fictional character who likes to blow up habitats. Use chemistry to create water, liquid hydrogen/oxygen, and others.
+Sunburn Lab: Create FusionPellets and Coolant, just in case you need FusionPellets and Coolant for some sort of fusion reactor...
+Clockworks 3D Print Shop: Print parts just like the Blacksmith, except with five times the volume and with the ability to switch between MaterialKits and RocketParts.
+
+Saddle
+- Updated config file to reflect the latest KIS.
+
+Storage Templates
+- Added templates for Metal and MetallicOre.
+
+Ponderosa Templates
+
+- Added the HotMetal fabrication lab. You can build MaterialKits and RocketParts from this lab, and convert between the two resources.
+- Added the FireWorks Extraplanetary Launchpads template. It will be available if you have Extraplanetary Launchpads installed.
+- Geology Lab: Added the ability to generate a Biome Analysis. Be sure to carefully read the tooltip.
+- The Geology Lab can use core samples to perform a soil analysis, metallurgic analysis, or chemical analysis. A Soil analysis improves production efficiency for life support (coming soon!), a metallurgic analysis improves fabrication processors (HotMetal), and a chemical analysis improves chemical processors (Watney lab, Sunburn lab).
+- When unlocking a biome for the first time and generating Science in the process, the Geology Lab will use the stock experiment results dialog to display the fruits of your labor.
+- The Geology Lab can uplink to an orbiting T.E.R.R.A.I.N. equipped satellite/station to check on its status and switch to the vessel as desired.
+
+TERRAIN
+- Added a "Review Data" button to review the Science collected by the TERRAIN. It will display the stock experiment results dialog.
+- Added some feedback fields to the right-click menu.
+
+Gaslight, Ponderosa, Chuckwagon
+- Added ability to toggle the lights via Lights action group.
+
+Recommended Mods
+Extraplanetary Launchpads: http://forum.kerbalspaceprogram.com/threads/59545-1-0-4-Extraplanetary-Launchpads-v5-2-1
+
+Bug Fixes
+- Fixed an issue where you'd see "No need to reconfigure to the same module type" when switching templates.
+- Fixed an issue with the Gold Digger's ability to know which tech node activates its ability to drill for resources.
+- Fixed an issue preventing the Blacksmith from printing parts. (NOTE: You'll need the latest version of OSEWorkshop as well)
 
 0.1.6: Neon Light
-https://www.youtube.com/watch?v=AXXszJUmmik
 
 Need a light? The Gaslight Telescopic Lamppost has you covered. Plant it in the ground (if you can run into it and move it, it’s not planted properly), extend the pole, and turn on the lights. It has a small battery built in, but for continual use, be sure to plug it into your base using its built-in KAS ports. It even serves as a short-range omnidirectional antenna- thanks for the suggestion, MeCripp, hope you like the MC-16 communications link. :) Don’t like the color? Are the lights too bright? You can change them in the field through the light’s right-click menu. 
 
@@ -50,7 +91,6 @@ Recommended Mods
 OSE Workshop: http://forum.kerbalspaceprogram.com/threads/108234-1-0-2-OSE-Workshop-MKS-KIS-Addon-%28v0-7-3-2015-06-01%29
 
 0.1.5: Bonanza
-https://www.youtube.com/watch?v=mjdRgBAY278
 
 Orbiting satellites are great for detecting resources from space, but advanced sensors take a long time to research. With this update, Pathfinder introduces resource scanning tech earlier in the game- assuming it works. Additionally, the Geology Lab can do things that the stock surface scanner can- and more if you staff it right. Finally, the new Outback gives you a handy way to haul small amounts of resources around without lugging the Buckboard.
 
@@ -86,7 +126,6 @@ Recommended Mod
 Impact: http://forum.kerbalspaceprogram.com/threads/114087-1-0-Impact!-impact-science-and-contracts-v1-1-0-With-Asteroids-30-6-15
 
 0.1.4: Raw Hide
-https://www.youtube.com/watch?v=qCRae5mRoRE
 
 Developer Notes: When I started working on Multipurpose Colony Modules, I always intended to have the player spend resources to reconfigure the module. Its successor, Pathfinder, finally realizes that vision. Similarly, certain templates require a specific skill to reconfigure the module into its new configuration.
 
@@ -101,7 +140,6 @@ NOTE: Please pack up your Ponderosas before applying this patch.
 - Added the Ponderosa Habitat template to the Ponderosa. It will be helpful in the future, but right now it's decorative.
 
 0.1.3: Dead Or Alive
-https://www.youtube.com/watch?v=SRvCvsRp5ho
 
 NOTE: Please pack up your base before applying this patch.
 - Adjusted the Buckboard storage capacity to something more reasonable and carryable.
@@ -117,9 +155,6 @@ Want to camp out? Then take along the Ponderosa Inflatable Crew Module (ICM)! Fi
 - Added the MC-1000 Buckboard, a container able to hold a variety of different resources.
 
 0.1.0: Save My Soul
-https://www.youtube.com/watch?v=sqd4VXZmxqw
-Uprising 
-https://www.youtube.com/watch?v=w8KQmps-Sog
 
 NOTE: This is a technology demo As such, parts and functionality are subject to change.
 
