@@ -233,9 +233,9 @@ namespace WildBlueIndustries
 
             //Standard modifiers
             efficiencyData.modifiers.Add(EfficiencyData.kExtractionMod, 1.0f);
-            efficiencyData.modifiers.Add(EfficiencyData.kMetallurgyMod, 1.0f);
-            efficiencyData.modifiers.Add(EfficiencyData.kOrganicsMod, 1.0f);
-            efficiencyData.modifiers.Add(EfficiencyData.kChemMod, 1.0f);
+            efficiencyData.modifiers.Add(EfficiencyData.kIndustryMod, 1.0f);
+            efficiencyData.modifiers.Add(EfficiencyData.kHabitationMod, 1.0f);
+            efficiencyData.modifiers.Add(EfficiencyData.kScienceMod, 1.0f);
 
             efficiencyDataMap.Add(efficiencyData.Key, efficiencyData);
         }

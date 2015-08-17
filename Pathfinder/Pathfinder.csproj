@@ -56,7 +56,6 @@
     <Compile Include="Science\WBIBasicScienceLab.cs" />
     <Compile Include="Science\WBIBiomeAnalysis.cs" />
     <Compile Include="GUI\TerainUplinkView.cs" />
-    <Compile Include="WBIConvertibleSciLab.cs" />
     <Compile Include="Drills\WBIDrillSwitcher.cs" />
     <Compile Include="Parts\WBIGaslight.cs" />
     <Compile Include="Habitat\WBIGeologyLab.cs" />

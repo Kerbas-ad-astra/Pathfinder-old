@@ -8,33 +8,32 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
-0.1.7: The Magificent Seven
+0.7.0: The Magificent Seven
 youtube: Magnificent Seven Theme
-
-For science! The Gold Digger generates experiment results while taking core samples. Those results are now worth more than just their Science value; you can use them to improve the efficiency of your life support, chemical, and metallurgical processors. In other words, creating RocketParts, MaterialKits, ResearchKits, Water, and others will be improved if you have good results when performing your soil analysis, metallurgic analysis, or chemical analysis in the Geology Lab. And with the Geology Lab’s new Biome Analysis, you can either use the research to improve your production abilities within the biome, or transfer the data to the new Doc Commercial Science Lab. It will cost you Science to perform a Biome Analysis, but you stand to gain much more.
 
 NOTE: Please pack up your base before applying this update, there were a lot of changes under the hood.
 NOTE: Please be sure to update your OSEWorkshop to the very latest version.
 
-New Part
-- Added the Doc Science Lab. It comes with four templates: the Doc Science lab (thanks rasta013 for the science lab config nodes!), the Watney Chemistry Lab, the Sunburn Lab, and the Clockworks 3D Print Shop (if you have OSE Workshop installed).
-Doc Science Lab: Functionally it is equivalent to the stock Mobile Processing Lab, but you can do more than just Transmit Research for Science. Be sure to carefully read the tooltip.
-Watney Chemistry Lab: Named after a fictional character who likes to blow up habitats. Use chemistry to create water, liquid hydrogen/oxygen, and others.
-Sunburn Lab: Create FusionPellets and Coolant, just in case you need FusionPellets and Coolant for some sort of fusion reactor...
-Clockworks 3D Print Shop: Print parts just like the Blacksmith, except with five times the volume and with the ability to switch between MaterialKits and RocketParts.
+For science! The Gold Digger generates experiment results while taking core samples. Those results are now worth more than just their Science value; you can use them to improve the efficiency of your habitation, science, and industry processors. In other words, creating RocketParts, MaterialKits, ResearchKits, Water, and others will be improved if you have good results when performing your soil analysis, metallurgic analysis, or chemical analysis in the Geology Lab. And with the Geology Lab’s new Biome Analysis, you can either use the research to improve your production abilities within the biome, or transfer the data to the new Doc Commercial Science Lab. It will cost you Science to perform a Biome Analysis, but you stand to gain much more.
+
+New Parts
+- Added the Doc Commercial Science Lab. This is a new multipurpose laboratory. With the Doc Commercial Science Lab, developed in partnership with the Rasta Engineering Group (thanks rasta013 for the lab configs!), you get a Mobile Processing Lab equivalent that can do more than just process experiments for Science over time; you can publish the research for Reputation, or sell the research for Funds. You can also reconfigure the lab into the Sunburn pellet lab, and produce FusionPellets and Coolant for your fusion needs. And finally, you can retool it into the Watney Chemistry Lab, named after a fictional character that finds creative survival solutions through chemistry.
+
+- Added the Hacienda Inflatable Multipurpose Factory. The Hacienda meets your industrial needs by providing the Ironworks, where you can smelt Metals from MetallicOre and create RocketParts from Metals. If you have Extraplanetary Launchpads installed, then you'll also get the Fireworks Survey Station, where you can build vessels. Also you smelt Metal from MetalOre, and fabricate RocketParts from Metal instead of using MetallicOre and Metals. Be sure to bring some survey stakes and a mallet. And if you have OSE Workshop installed, then you'll get the Clockworks, which lets you 3D print parts in larger volumes than the Blacksmith, and you can retool the printers to use RocketParts instead of MaterialKits (or vice versa). Additionally, with OSE Workshop installed, the Ironworks lets you produce MaterialKits, and convert between MaterialKits and RocketParts.
 
 Saddle
 - Updated config file to reflect the latest KIS.
 
 Storage Templates
-- Added templates for Metal and MetallicOre.
+- Added templates for Metals and MetallicOre. These will turn into Metal and MetalOre with Extraplanetary Launchpads installed.
+
+Ponderosa & Buckboard
+- Now you can stack the Ponderosa and Buckboard on top of each other via convienient stacking nodes.
 
 Ponderosa Templates
 
-- Added the HotMetal fabrication lab. You can build MaterialKits and RocketParts from this lab, and convert between the two resources.
-- Added the FireWorks Extraplanetary Launchpads template. It will be available if you have Extraplanetary Launchpads installed.
 - Geology Lab: Added the ability to generate a Biome Analysis. Be sure to carefully read the tooltip.
-- The Geology Lab can use core samples to perform a soil analysis, metallurgic analysis, or chemical analysis. A Soil analysis improves production efficiency for life support (coming soon!), a metallurgic analysis improves fabrication processors (HotMetal), and a chemical analysis improves chemical processors (Watney lab, Sunburn lab).
+- The Geology Lab can use core samples to perform a soil analysis, metallurgic analysis, or chemical analysis. A Soil analysis improves production efficiency for life support (coming soon!), a metallurgic analysis improves fabrication processors (Ironworks), and a chemical analysis improves chemical processors (Watney lab, Sunburn lab).
 - When unlocking a biome for the first time and generating Science in the process, the Geology Lab will use the stock experiment results dialog to display the fruits of your labor.
 - The Geology Lab can uplink to an orbiting T.E.R.R.A.I.N. equipped satellite/station to check on its status and switch to the vessel as desired.
 
@@ -45,13 +44,13 @@ TERRAIN
 Gaslight, Ponderosa, Chuckwagon
 - Added ability to toggle the lights via Lights action group.
 
-Recommended Mods
-Extraplanetary Launchpads: http://forum.kerbalspaceprogram.com/threads/59545-1-0-4-Extraplanetary-Launchpads-v5-2-1
-
 Bug Fixes
 - Fixed an issue where you'd see "No need to reconfigure to the same module type" when switching templates.
 - Fixed an issue with the Gold Digger's ability to know which tech node activates its ability to drill for resources.
 - Fixed an issue preventing the Blacksmith from printing parts. (NOTE: You'll need the latest version of OSEWorkshop as well)
+
+Recommended Mods
+Extraplanetary Launchpads: http://forum.kerbalspaceprogram.com/threads/59545-1-0-4-Extraplanetary-Launchpads-v5-2-1
 
 0.1.6: Neon Light
 

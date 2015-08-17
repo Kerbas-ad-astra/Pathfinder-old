@@ -681,18 +681,18 @@ namespace WildBlueIndustries
             switch (currentExperiment)
             {
                 case GeologyLabExperiments.SoilAnalysis:
-                    modifierName = EfficiencyData.kOrganicsMod;
+                    modifierName = EfficiencyData.kHabitationMod;
                     processChanged = kLifeSupport;
                     break;
 
                 case GeologyLabExperiments.MetallurgyAnalysis:
-                    modifierName = EfficiencyData.kMetallurgyMod;
+                    modifierName = EfficiencyData.kIndustryMod;
                     processChanged = kManufacturing;
                     break;
 
                 default:
                 case GeologyLabExperiments.ChemicalAnalysis:
-                    modifierName = EfficiencyData.kChemMod;
+                    modifierName = EfficiencyData.kScienceMod;
                     processChanged = kChemicalProducts;
                     break;
             }

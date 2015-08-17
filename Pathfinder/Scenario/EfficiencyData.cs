@@ -22,9 +22,9 @@ namespace WildBlueIndustries
     public class EfficiencyData
     {
         static public string kExtractionMod = "extractionModifier";
-        static public string kMetallurgyMod = "metallurgyModifier";
-        static public string kOrganicsMod = "organicsModifier";
-        static public string kChemMod = "chemistryModifier";
+        static public string kIndustryMod = "industry";
+        static public string kHabitationMod = "habitation";
+        static public string kScienceMod = "science";
 
         public int planetID;
         public string biomeName;

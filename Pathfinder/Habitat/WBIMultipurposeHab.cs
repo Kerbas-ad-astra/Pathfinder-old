@@ -100,13 +100,17 @@ namespace WildBlueIndustries
         public override void UpdateContentsAndGui(string templateName)
         {
             ModuleScienceContainer scienceContainer = this.part.FindModuleImplementing<ModuleScienceContainer>();
-            ScienceData[] dataQueue = scienceContainer.GetData();
-            if (dataQueue != null)
+
+            if (scienceContainer != null)
             {
-                if (dataQueue.Length > 0)
+                ScienceData[] dataQueue = scienceContainer.GetData();
+                if (dataQueue != null)
                 {
-                    scienceContainer.Events["ReviewDataEvent"].guiActiveUnfocused = true;
-                    scienceContainer.Events["ReviewDataEvent"].guiActive = true;
+                    if (dataQueue.Length > 0)
+                    {
+                        scienceContainer.Events["ReviewDataEvent"].guiActiveUnfocused = true;
+                        scienceContainer.Events["ReviewDataEvent"].guiActive = true;
+                    }
                 }
             }
 

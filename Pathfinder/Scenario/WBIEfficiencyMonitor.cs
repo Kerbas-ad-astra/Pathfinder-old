@@ -54,7 +54,16 @@ namespace WildBlueIndustries
             base.OnUpdate();
 
             if (converters == null)
+                converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
+
+            if (converters == null)
                 return;
+
+            if (converters.Count == 0)
+            {
+                converters = null;
+                return;
+            }
 
             if (HighLogic.LoadedSceneIsFlight == false)
                 return;
