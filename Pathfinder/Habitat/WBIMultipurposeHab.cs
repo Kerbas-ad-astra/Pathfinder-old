@@ -21,14 +21,29 @@ namespace WildBlueIndustries
 {
     public class WBIMultipurposeHab : WBIMultiConverter
     {
-        private const string kPonderosaModule = "PonderosaModule";
-        private const string kToolTip = "Want to use the Ponderosa for more than one purpose? With a feat of engineering, you can change it in the field. For a price...\r\n\r\n";
         private const string kSettingsWindow = "Settings Window";
         private const string kPartsTip = "Don't want to pay to redecorate? No problem. Just press Mod P (the modifier key defaults to the Alt key on Windows) to open the Settings window and uncheck the option.\r\n\r\n";
         private const string kPonderosaOpsView = "Ponderosa Operations";
 
+        [KSPField]
+        public string partToolTip;
+
+        [KSPField]
+        public string partToolTipTitle;
+
         Animation anim;
         PartModule impactSeismometer;
+
+        public void AddConverter(ModuleResourceConverter converter)
+        {
+            if (_multiConverter.converters.Contains(converter) == false)
+            {
+                _multiConverter.converters.Add(converter);
+
+                if (addedPartModules.Contains(converter))
+                    addedPartModules.Remove(converter);
+            }
+        }
 
         public override void OnStart(StartState state)
         {
@@ -163,26 +178,32 @@ namespace WildBlueIndustries
         {
             //Now we can check to see if the tooltip for the current template has been shown.
             WBIPathfinderScenario scenario = WBIPathfinderScenario.Instance;
-            if (scenario.HasShownToolTip(CurrentTemplateName))
+            if (scenario.HasShownToolTip(CurrentTemplateName) && scenario.HasShownToolTip(getMyPartName()))
                 return;
 
             //Tooltip for the current template has never been shown. Show it now.
             string toolTipTitle = CurrentTemplate.GetValue("toolTipTitle");
             string toolTip = CurrentTemplate.GetValue("toolTip");
 
-            //Add the very first ponderosa module tool tip.
-            if (scenario.HasShownToolTip(kPonderosaModule) == false)
-            {
-                toolTip = kToolTip + toolTip;
+            if (string.IsNullOrEmpty(toolTipTitle))
+                toolTipTitle = partToolTipTitle;
 
-                scenario.SetToolTipShown(kPonderosaModule);
+            //Add the very first part's tool tip.
+            if (scenario.HasShownToolTip(getMyPartName()) == false)
+            {
+                toolTip = partToolTip + "\r\n\r\n" + toolTip;
+
+                scenario.SetToolTipShown(getMyPartName());
             }
 
-            WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(toolTipTitle, toolTip);
-            toolTipWindow.SetVisible(true);
+            if (string.IsNullOrEmpty(toolTip) == false)
+            {
+                WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(toolTipTitle, toolTip);
+                toolTipWindow.SetVisible(true);
 
-            //Cleanup
-            scenario.SetToolTipShown(CurrentTemplateName);
+                //Cleanup
+                scenario.SetToolTipShown(CurrentTemplateName);
+            }
         }
 
         protected override void createModuleOpsView()

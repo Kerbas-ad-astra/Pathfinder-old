@@ -49,6 +49,9 @@ namespace WildBlueIndustries
         const string kChemicalProducts = "chemical processeors.";
         const string kNotEnoughScience = "Not enough Science in the budget to continue research. Efforts wasted!";
 
+        [KSPField]
+        public int harvestID;
+
         ModuleBiomeScanner biomeScanner;
         ModuleGPS gps;
         PartModule impactSeismometer;
@@ -61,6 +64,9 @@ namespace WildBlueIndustries
         WBIResultsDialogSwizzler swizzler;
         GeologyLabExperiments currentExperiment;
         TerainUplinkView terrainUplinkView = new TerainUplinkView();
+        private string biomeName;
+        private int planetID = -1;
+        HarvestTypes harvestType;
 
         #region Overrides
         public override void OnLoad(ConfigNode node)
@@ -136,14 +142,23 @@ namespace WildBlueIndustries
             terrainUplinkView.scienceContainer = scienceContainer;
 
             //Elapsed time for current experiment
-            if (isResearching)
+            if (ModuleIsActive())
             {
                 //Get the new elapsed time.
                 int elapsedTimeIndex = (int)currentExperiment;
                 elapsedTime = elapsedTimes[elapsedTimeIndex];
 
                 //Reset the research start time.
-                researchStartTime = Planetarium.GetUniversalTime() - elapsedTime;
+                cycleStartTime = Planetarium.GetUniversalTime() - elapsedTime;
+            }
+
+            CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
+            biomeName = biome.name;
+
+            if (this.part.vessel.situation == Vessel.Situations.LANDED || this.part.vessel.situation == Vessel.Situations.SPLASHED || this.part.vessel.situation == Vessel.Situations.PRELAUNCH)
+            {
+                planetID = this.part.vessel.mainBody.flightGlobalsIndex;
+                harvestType = (HarvestTypes)harvestID;
             }
         }
 
@@ -311,7 +326,7 @@ namespace WildBlueIndustries
             GUILayout.EndHorizontal();
 
             //Update elapsed time
-            if (isResearching && currentExperiment != GeologyLabExperiments.None)
+            if (ModuleIsActive() && currentExperiment != GeologyLabExperiments.None)
             {
                 int elapsedTimeIndex = (int)currentExperiment;
                 elapsedTimes[elapsedTimeIndex] = elapsedTime;
@@ -320,11 +335,22 @@ namespace WildBlueIndustries
 
         protected void drawAbundanceGUI()
         {
+            float habitationEfficiency = WBIPathfinderScenario.Instance.GetEfficiencyModifier(planetID, biomeName, harvestType, EfficiencyData.kHabitationMod);
+            float scienceEfficiency = WBIPathfinderScenario.Instance.GetEfficiencyModifier(planetID, biomeName, harvestType, EfficiencyData.kScienceMod);
+            float industryEfficiency = WBIPathfinderScenario.Instance.GetEfficiencyModifier(planetID, biomeName, harvestType, EfficiencyData.kIndustryMod);
+
             GUILayout.BeginVertical();
 
-            GUILayout.BeginScrollView(new Vector2(0, 0), new GUIStyle(GUI.skin.textArea));
+            GUILayout.BeginScrollView(new Vector2(0, 0), new GUIStyle(GUI.skin.textArea), GUILayout.Height(100));
             GUILayout.Label("<color=white><b>Location:</b> " + gps.body + " " + gps.bioName + "</color>");
-            GUILayout.Label("<color=white><b>Lon:</b> " + gps.lon + " <b>Lat:</b> " + gps.lat + "</color>");
+            GUILayout.Label("<color=white><b>Lon:</b> " + gps.lon + "</color>");
+            GUILayout.Label("<color=white><b>Lat:</b> " + gps.lat + "</color>");
+            GUILayout.EndScrollView();
+
+            GUILayout.BeginScrollView(new Vector2(0, 0), new GUIStyle(GUI.skin.textArea), GUILayout.Height(100));
+            GUILayout.Label("<color=white><b>Habitation Efficiency:</b> " + string.Format("{0:f1}%", habitationEfficiency * 100f) + "</color>");
+            GUILayout.Label("<color=white><b>Science Efficiency:</b> " + string.Format("{0:f1}%", scienceEfficiency * 100f) + "</color>");
+            GUILayout.Label("<color=white><b>Industry Efficiency:</b> " + string.Format("{0:f1}%", industryEfficiency * 100f) + "</color>");
             GUILayout.EndScrollView();
 
             scrollPosResources = GUILayout.BeginScrollView(scrollPosResources, new GUIStyle(GUI.skin.textArea));
@@ -366,10 +392,10 @@ namespace WildBlueIndustries
             if (biomeUnlocked)
             {
                 GUILayout.Label("<color=white>Core samples available: " + coreSampleCount + "</color>");
-                if (isResearching)
+                if (ModuleIsActive())
                 {
                     GUILayout.Label("<color=white>Current research: " + getExperimentName(currentExperiment) + "</color>");
-                    GUILayout.Label("<color=white>Progress: " + researchProgress + "</color>");
+                    GUILayout.Label("<color=white>Progress: " + progress + "</color>");
                     researchButtonTitle = "Stop Research";
                 }
                 else
@@ -394,15 +420,15 @@ namespace WildBlueIndustries
         {
             if (GUILayout.Button(researchButtonTitle))
             {
-                isResearching = !isResearching;
+                IsActivated = !IsActivated;
 
-                if (isResearching)
+                if (ModuleIsActive())
                 {
                     //Make sure we have enough scientists
                     if (getBiomeAnalysisBonus() == 0f)
                     {
                         ScreenMessages.PostScreenMessage(kNoScientists, kMessageDuration * 1.5f, ScreenMessageStyle.UPPER_CENTER);
-                        isResearching = false;
+                        StopConverter();
                         return;
                     }
 
@@ -410,7 +436,7 @@ namespace WildBlueIndustries
                     if (coreSampleCount == 0 && currentExperiment != GeologyLabExperiments.BiomeAnalysis)
                     {
                         ScreenMessages.PostScreenMessage(kOutOfSamples, 6.0f, ScreenMessageStyle.UPPER_CENTER);
-                        isResearching = false;
+                        StopConverter();
                         return;
                     }
 
@@ -419,16 +445,20 @@ namespace WildBlueIndustries
                     elapsedTime = elapsedTimes[elapsedTimeIndex];
 
                     //Reset the research start time.
-                    researchStartTime = Planetarium.GetUniversalTime() - elapsedTime;
+                    cycleStartTime = Planetarium.GetUniversalTime() - elapsedTime;
 
                     //Show tooltip
                     checkAndShowToolTip();
+
+                    StartConverter();
                 }
 
                 else
                 {
                     int elapsedTimeIndex = (int)currentExperiment;
                     elapsedTimes[elapsedTimeIndex] = elapsedTime;
+
+                    StopConverter();
                 }
             }
         }
@@ -437,7 +467,7 @@ namespace WildBlueIndustries
         {
             //If user has switched the experiment to research, then we must record the elapsed time for that experiment.
             GeologyLabExperiments experiment = (GeologyLabExperiments)GUILayout.SelectionGrid((int)currentExperiment, experimentTypes, 2);
-            if (experiment != currentExperiment && isResearching)
+            if (experiment != currentExperiment && ModuleIsActive())
             {
                 int elapsedTimeIndex;
 
@@ -453,7 +483,7 @@ namespace WildBlueIndustries
                 elapsedTime = elapsedTimes[elapsedTimeIndex];
 
                 //Reset the research start time.
-                researchStartTime = Planetarium.GetUniversalTime() - elapsedTime;
+                cycleStartTime = Planetarium.GetUniversalTime() - elapsedTime;
 
                 //Show tooltip
                 checkAndShowToolTip();
@@ -568,7 +598,7 @@ namespace WildBlueIndustries
                 else
                 {
                     ScreenMessages.PostScreenMessage(kNotEnoughScience, 5.0f, ScreenMessageStyle.UPPER_CENTER);
-                    ToggleResearch();
+                    StopConverter();
                     return;
                 }
 
@@ -614,7 +644,7 @@ namespace WildBlueIndustries
                 else
                 {
                     ScreenMessages.PostScreenMessage(kNotEnoughScience, 5.0f, ScreenMessageStyle.UPPER_CENTER);
-                    ToggleResearch();
+                    StopConverter();
                     return;
                 }
 

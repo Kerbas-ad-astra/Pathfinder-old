@@ -49,10 +49,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUI\CommercialResultsDialog.cs" />
     <Compile Include="GUI\DrillSwitchWindow.cs" />
     <Compile Include="GUI\PathfinderKeyMonitor.cs" />
-    <Compile Include="Scenario\PathfinderSettings.cs" />
+    <Compile Include="Habitat\WBIGreenhouse.cs" />
+    <Compile Include="GUI\PathfinderSettings.cs" />
     <Compile Include="Science\WBIBasicScienceLab.cs" />
     <Compile Include="Science\WBIBiomeAnalysis.cs" />
     <Compile Include="GUI\TerainUplinkView.cs" />
@@ -60,7 +60,6 @@
     <Compile Include="Parts\WBIGaslight.cs" />
     <Compile Include="Habitat\WBIGeologyLab.cs" />
     <Compile Include="Parts\GeoSurveyCamera.cs" />
-    <Compile Include="Science\WBILabUpgrade.cs" />
     <Compile Include="Parts\WBIMultiKASPipe.cs" />
     <Compile Include="Science\WBIMultipurposeLab.cs" />
     <Compile Include="Habitat\WBIOSEWorkshop.cs" />
@@ -75,9 +74,12 @@
     <Compile Include="Drills\WBIExtractionMonitor.cs" />
     <Compile Include="Drills\WBIModuleCoreSample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Science\WBIUpgradableLab.cs" />
     <Compile Include="Scenario\WBIEfficiencyMonitor.cs" />
     <Compile Include="Habitat\WBISurveyStation.cs" />
+    <Compile Include="Utility\WBIMultipurposeStorage.cs" />
+    <Compile Include="Habitat\WBIHabitat.cs" />
+    <Compile Include="Industry\WBIBreakableResourceConverter.cs" />
+    <Compile Include="WBIGeoThermalPlant.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">
@@ -85,6 +87,7 @@
       <Name>WildBlueTools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

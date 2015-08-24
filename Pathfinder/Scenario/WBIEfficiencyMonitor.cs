@@ -80,7 +80,7 @@ namespace WildBlueIndustries
                     converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
                 foreach (ModuleResourceConverter converter in converters)
                 {
-                    converter.Efficiency = efficiency;
+                    converter.EfficiencyBonus = efficiency;
                 }
             }
         }

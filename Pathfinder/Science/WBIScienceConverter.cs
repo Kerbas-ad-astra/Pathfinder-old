@@ -59,7 +59,6 @@ namespace WildBlueIndustries
 
         public override void OnStart(StartState state)
         {
-
             base.OnStart(state);
 
             //Get the science lab and hide its transmit button. We'll use our own buttons.

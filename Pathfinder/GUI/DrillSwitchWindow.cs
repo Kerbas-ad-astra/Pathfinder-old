@@ -21,7 +21,7 @@ namespace WildBlueIndustries
 {
     public class DrillSwitchWindow : Window<DrillSwitchWindow>
     {
-        private const string kInsufficientResources = "Unable to reconfigure the drill. You need {0:f2} {1:s} to reconfigure it.";
+        private const string insufficientResourcesMsg = "Unable to reconfigure the drill. You need {0:f2} {1:s} to reconfigure it.";
         private const string kInsufficientSkill = "Unable to reconfigure the drill. You need a skilled {0:s}. to reconfigure it.";
         private const string kDrillReconfigured = "Drill reconfigured";
         private const int kWindowWidth = 300;
@@ -118,7 +118,7 @@ namespace WildBlueIndustries
                 //Could we afford it?
                 if (Math.Abs(partsPaid) / Math.Abs(reconfigureCost) < 0.999f)
                 {
-                    ScreenMessages.PostScreenMessage(string.Format(kInsufficientResources, reconfigureCost, requiredResource), 6.0f, ScreenMessageStyle.UPPER_CENTER);
+                    ScreenMessages.PostScreenMessage(string.Format(insufficientResourcesMsg, reconfigureCost, requiredResource), 6.0f, ScreenMessageStyle.UPPER_CENTER);
 
                     //Put back what we took
                     this.part.RequestResource(definition.id, -partsPaid, ResourceFlowMode.ALL_VESSEL);
@@ -132,7 +132,7 @@ namespace WildBlueIndustries
             for (int drillIndex = 0; drillIndex < groundDrills.Count; drillIndex++)
             {
                 drill = groundDrills[drillIndex];
-                res = resourceList[drillIndex];
+                res = resourceList[groundDrillResourceIndexes[drillIndex]];
                 setupDrillGUI(drill, res);
             }
             ScreenMessages.PostScreenMessage(kDrillReconfigured, 5.0f, ScreenMessageStyle.UPPER_CENTER);
@@ -156,9 +156,6 @@ namespace WildBlueIndustries
 
                     if (groundDrillResourceIndexes[index] < 0)
                         groundDrillResourceIndexes[index] = resourceList.Count - 1;
-
-//                    res = resourceList[groundDrillResourceIndexes[index]];
-//                    setupDrillGUI(drill, res);
                 }
 
                 //Drill labeling
@@ -182,6 +179,7 @@ namespace WildBlueIndustries
             drill.ResourceName = res.resourceName;
             drill.StartActionName = "Start " + res.resourceName + " drill";
             drill.StopActionName = "Stop " + res.resourceName + " drill";
+            drill.Fields["ResourceStatus"].guiName = res.resourceName + " rate";
         }
     }
 }

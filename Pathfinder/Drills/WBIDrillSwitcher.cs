@@ -75,6 +75,7 @@ namespace WildBlueIndustries
                     harvester.ResourceName = drillResources[index];
                     harvester.StartActionName = "Start " + drillResources[index] + " Drill";
                     harvester.StopActionName = "Stop " + drillResources[index] + " Drill";
+                    harvester.Fields["ResourceStatus"].guiName = drillResources[index] + " rate";
                 }
             }
 

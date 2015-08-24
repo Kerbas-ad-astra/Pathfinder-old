@@ -123,7 +123,7 @@ namespace WildBlueIndustries
             scienceContainer.Events["ReviewDataEvent"].guiActive = false;
 
             //Now setup our own GUI
-            kBotchedResults = kSafeMode;
+            botchedResultsMsg = kSafeMode;
             SetupGUI();
         }
 
@@ -150,7 +150,7 @@ namespace WildBlueIndustries
                 }
             }
 
-            if (isResearching)
+            if (ModuleIsActive())
             {
                 Fields["scienceCollected"].guiActive = true;
                 scienceCollected = string.Format("{0:f2}", scienceAdded);
@@ -280,14 +280,13 @@ namespace WildBlueIndustries
 
         protected override void onCriticalFailure()
         {
-            if (terrainCanBreak)
+            if (!terrainCanBreak)
                 return;
 
             base.onCriticalFailure();
 
             isBroken = true;
-            if (isResearching)
-                ToggleResearch();
+            StopConverter();
             SetupGUI();
 
             status = "Needs repairs";

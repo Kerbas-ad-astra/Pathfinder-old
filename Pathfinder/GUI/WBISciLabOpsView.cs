@@ -18,11 +18,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
+    class SciLabOpsWindow : Window<SciLabOpsWindow>
+    {
+        public ITemplateOps templateOps;
+
+        public SciLabOpsWindow(string title) :
+        base(title, 600, 330)
+        {
+            Resizable = false;
+        }
+
+        protected override void DrawWindowContents(int windowId)
+        {
+            templateOps.DrawOpsWindow();
+        }
+    }
+
     public class WBISciLabOpsView : ExtendedPartModule, ITemplateOps
     {
         const string kTransmitResearch = "<color=lightBlue>Transmit research (Science)</color>";
         const string kPublishResearch = "<color=yellow>Publish research (Reputation)</color>";
         const string kSellResearch = "Sell research (Funds)";
+
+        [KSPField]
+        public bool showOpsView;
 
         bool scienceHighlighted = false;
         bool publishHighlighted = false;
@@ -39,6 +58,29 @@ namespace WildBlueIndustries
         WBIScienceConverter converter = null;
         protected ModuleScienceLab sciLab = null;
         ModuleScienceContainer scienceContainer = null;
+        SciLabOpsWindow opsWindow = null;
+
+        [KSPEvent(guiName = "Show Lab GUI", active = true, guiActive = false)]
+        public void ShowOpsView()
+        {
+            if (opsWindow == null)
+            {
+                WBISciLabOpsView opsView = this.part.FindModuleImplementing<WBISciLabOpsView>();
+
+                if (opsView == null)
+                {
+                    ScreenMessages.PostScreenMessage("WBISciLabOpsView required in config file to show the window.", 5.0f, ScreenMessageStyle.UPPER_CENTER);
+                    converter.SetGuiVisible(true);
+                    Events["ShowOpsView"].guiActive = false;
+                    return;
+                }
+
+                opsWindow = new SciLabOpsWindow(this.part.partInfo.title);
+                opsWindow.templateOps = this;
+            }
+
+            opsWindow.SetVisible(true);
+        }
 
         public override void OnStart(StartState state)
         {
@@ -58,6 +100,20 @@ namespace WildBlueIndustries
             publishIcon = publishIconBlack;
             sellIcon = sellIconBlack;
             scienceIcon = scienceIconBlack;
+
+            //If we want to show the ops view dialog instead of the context buttons,
+            //then hide the context buttons.
+            if (showOpsView)
+            {
+                Events["ShowOpsView"].guiActive = true;
+
+                converter.Events["TransmitResearch"].guiActive = false;
+                converter.Events["PublishResearch"].guiActive = false;
+                converter.Events["SellResearch"].guiActive = false;
+                converter.Events["StartResourceConverter"].guiActive = false;
+                converter.Events["StopResourceConverter"].guiActive = false;
+
+            }
         }
 
         #region ITemplateOps

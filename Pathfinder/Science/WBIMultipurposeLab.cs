@@ -21,8 +21,13 @@ namespace WildBlueIndustries
 {
     public class WBIMultipurposeLab : WBIMultiConverter
     {
-        private const string kToolTip = "Just like a multipurpose habitat, this general-purpose science lab can be reconfigured for several different science roles with a feat of engineering- if you have the right resources and talent.\r\n\r\n";
         private const string kDocOpsView = "Doc Operations";
+
+        [KSPField]
+        public string partToolTip;
+
+        [KSPField]
+        public string partToolTipTitle;
 
         Animation anim;
         WBIScienceConverter scienceConverter;
@@ -84,26 +89,32 @@ namespace WildBlueIndustries
         {
             //Now we can check to see if the tooltip for the current template has been shown.
             WBIPathfinderScenario scenario = WBIPathfinderScenario.Instance;
-            if (scenario.HasShownToolTip(CurrentTemplateName))
+            if (scenario.HasShownToolTip(CurrentTemplateName) && scenario.HasShownToolTip(getMyPartName()))
                 return;
 
             //Tooltip for the current template has never been shown. Show it now.
             string toolTipTitle = CurrentTemplate.GetValue("toolTipTitle");
             string toolTip = CurrentTemplate.GetValue("toolTip");
 
-            //Add the very first ponderosa module tool tip.
-            if (scenario.HasShownToolTip(this.ClassName) == false)
-            {
-                toolTip = kToolTip + toolTip;
+            if (string.IsNullOrEmpty(toolTipTitle))
+                toolTipTitle = partToolTipTitle;
 
-                scenario.SetToolTipShown(this.ClassName);
+            //Add the very first part's tool tip.
+            if (scenario.HasShownToolTip(getMyPartName()) == false)
+            {
+                toolTip = partToolTip + "\r\n\r\n" + toolTip;
+
+                scenario.SetToolTipShown(getMyPartName());
             }
 
-            WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(toolTipTitle, toolTip);
-            toolTipWindow.SetVisible(true);
+            if (string.IsNullOrEmpty(toolTip) == false)
+            {
+                WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(toolTipTitle, toolTip);
+                toolTipWindow.SetVisible(true);
 
-            //Cleanup
-            scenario.SetToolTipShown(CurrentTemplateName);
+                //Cleanup
+                scenario.SetToolTipShown(CurrentTemplateName);
+            }
         }
 
         protected override void createModuleOpsView()
