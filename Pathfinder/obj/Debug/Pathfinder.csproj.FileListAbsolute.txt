@@ -12,3 +12,5 @@ C:\Projects\KSP\WildBlueIndustries\Pathfinder\Pathfinder\bin\Debug\WildBlueTools
 C:\Projects\KSP\WildBlueIndustries\Pathfinder\Pathfinder\obj\Debug\Pathfinder.csprojResolveAssemblyReference.cache
 C:\Projects\KSP\WildBlueIndustries\Pathfinder\Pathfinder\obj\Debug\Pathfinder.dll
 C:\Projects\KSP\WildBlueIndustries\Pathfinder\Pathfinder\obj\Debug\Pathfinder.pdb
+C:\Projects\KSP\WildBlueIndustries\Pathfinder\Pathfinder\bin\Debug\KSPAPIExtensions.dll
+C:\Projects\KSP\WildBlueIndustries\Pathfinder\Pathfinder\bin\Debug\Launchpad.dll

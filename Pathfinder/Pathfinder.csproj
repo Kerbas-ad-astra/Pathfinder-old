@@ -34,6 +34,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Kerbal Space Program\KSP_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Launchpad">
+      <HintPath>..\..\..\..\..\KSPDev\GameData\ExtraplanetaryLaunchpads\Plugins\Launchpad.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,35 +49,45 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrillSwitchWindow.cs" />
-    <Compile Include="PathfinderKeyMonitor.cs" />
-    <Compile Include="PathfinderSettings.cs" />
-    <Compile Include="WBIBasicScienceLab.cs" />
-    <Compile Include="WBIDrillSwitcher.cs" />
-    <Compile Include="WBIGaslight.cs" />
-    <Compile Include="WBIGeologyLab.cs" />
-    <Compile Include="GeoSurveyCamera.cs" />
-    <Compile Include="WBILabUpgrade.cs" />
-    <Compile Include="WBIMultiKASPipe.cs" />
-    <Compile Include="WBINodeHider.cs" />
-    <Compile Include="WBIOSEWorkshop.cs" />
-    <Compile Include="WBIOutback.cs" />
-    <Compile Include="WBIPonderosaModule.cs" />
-    <Compile Include="WBIToolTipWindow.cs" />
-    <Compile Include="EfficiencyData.cs" />
-    <Compile Include="WBIPathfinderScenario.cs" />
-    <Compile Include="WBIDrillManager.cs" />
-    <Compile Include="WBIExtractionMonitor.cs" />
-    <Compile Include="WBIModuleCoreSample.cs" />
+    <Compile Include="GUI\DrillSwitchWindow.cs" />
+    <Compile Include="GUI\PathfinderKeyMonitor.cs" />
+    <Compile Include="Habitat\WBIGreenhouse.cs" />
+    <Compile Include="GUI\PathfinderSettings.cs" />
+    <Compile Include="Science\WBIBasicScienceLab.cs" />
+    <Compile Include="Science\WBIBiomeAnalysis.cs" />
+    <Compile Include="GUI\TerainUplinkView.cs" />
+    <Compile Include="Drills\WBIDrillSwitcher.cs" />
+    <Compile Include="Parts\WBIGaslight.cs" />
+    <Compile Include="Habitat\WBIGeologyLab.cs" />
+    <Compile Include="Parts\GeoSurveyCamera.cs" />
+    <Compile Include="Parts\WBIMultiKASPipe.cs" />
+    <Compile Include="Science\WBIMultipurposeLab.cs" />
+    <Compile Include="Habitat\WBIOSEWorkshop.cs" />
+    <Compile Include="OutbackSystem\WBIOutback.cs" />
+    <Compile Include="Habitat\WBIMultipurposeHab.cs" />
+    <Compile Include="Science\WBIScienceConverter.cs" />
+    <Compile Include="GUI\WBISciLabOpsView.cs" />
+    <Compile Include="GUI\WBIToolTipWindow.cs" />
+    <Compile Include="Scenario\EfficiencyData.cs" />
+    <Compile Include="Scenario\WBIPathfinderScenario.cs" />
+    <Compile Include="Drills\WBIDrillManager.cs" />
+    <Compile Include="Drills\WBIExtractionMonitor.cs" />
+    <Compile Include="Drills\WBIModuleCoreSample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WBIUpgradableLab.cs" />
+    <Compile Include="Scenario\WBIEfficiencyMonitor.cs" />
+    <Compile Include="Habitat\WBISurveyStation.cs" />
+    <Compile Include="Utility\WBIMultipurposeStorage.cs" />
+    <Compile Include="Habitat\WBIHabitat.cs" />
+    <Compile Include="Industry\WBIBreakableResourceConverter.cs" />
+    <Compile Include="WBIGeoThermalPlant.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\WildBlueTools\WildBlueTools.csproj">
+    <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">
       <Project>{CC0BDF1A-9641-4628-9F0F-3500DDC99534}</Project>
       <Name>WildBlueTools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
