@@ -55,14 +55,12 @@ namespace WildBlueIndustries
 
         protected void loadValuesFromConfig()
         {
-            Debug.Log("FRED loadValuesFromConfig called.");
             string value;
             WBIModuleSwitcher switcher = this.part.FindModuleImplementing<WBIModuleSwitcher>();
 
             ConfigNode[] moduleNodes = switcher.CurrentTemplate.GetNodes("MODULE");
             foreach (ConfigNode moduleNode in moduleNodes)
             {
-                Debug.Log("FRED moduleNode" + moduleNode);
                 value = moduleNode.GetValue("name");
                 if (value.Contains(this.ClassName))
                 {

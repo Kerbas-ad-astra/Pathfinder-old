@@ -38,6 +38,7 @@ namespace WildBlueIndustries
 
         private Vector2 scrollPos;
         private List<int> groundDrillResourceIndexes = new List<int>();
+        private bool biomIsUnlocked;
 
         public DrillSwitchWindow(string title = "Drill Modifications") :
             base(title, kWindowWidth, kWindowHeight)
@@ -54,6 +55,9 @@ namespace WildBlueIndustries
 
             if (newValue)
             {
+                //See if the biome is unlocked.
+                biomIsUnlocked = Utils.IsBiomeUnlocked(this.part.vessel);
+
                 //Get the list of resources for the biome
                 resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
 
@@ -77,14 +81,23 @@ namespace WildBlueIndustries
         {
 
             GUILayout.BeginVertical();
-            scrollPos = GUILayout.BeginScrollView(scrollPos, new GUIStyle(GUI.skin.textArea));
 
-            drawGroundDrills();
+            if (biomIsUnlocked)
+            {
+                scrollPos = GUILayout.BeginScrollView(scrollPos, new GUIStyle(GUI.skin.textArea));
 
-            if (GUILayout.Button("Reconfigure Drill"))
-                reconfigureDrill();
+                drawGroundDrills();
 
-            GUILayout.EndScrollView();
+                if (GUILayout.Button("Reconfigure Drill"))
+                    reconfigureDrill();
+
+                GUILayout.EndScrollView();
+            }
+
+            else
+            {
+                GUILayout.Label("You need to perform some geology research before you can switch what the drill mines.");
+            }
             GUILayout.EndVertical();
         }
 
