@@ -8,6 +8,22 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.7.6: The Last of the Mohicans - Elk Hunt
+
+This release brings with it some bug fixes (thanks ozraven!) as well as a new part: the Poncho! Think of buying 10 OX-STAT panels and gluing them together, except that they fold out and cost as much as 15 OX-STAT panels. It won't track the sun, but the Poncho will provide a lot of power for your fledgling base. The Sombrero circular solar array is still planned...
+
+New Part
+- Added the Poncho, a large folding solar array that cannot track the sun. But hey, you can mount it on the Buckboard, Ponderosa, Saddle, and SM-62.
+
+Bug Fixes
+- Fixed an issue where the drill switcher would show an empty window if the biome hasn't been unlocked yet.
+
+Special thanks to ozraven:
+- Fixes for reconfigure affordability check.
+- Deflating discards resources that cannot be stored.
+- Entire vessel's crew now searched for skill modifier calculation.
+- Updated inflate/deflate logic to account for deflate confirmation.
+
 0.7.5 The Last of the Mohicans
 
 This update brings the last of Pathfinder's core base modules. Specifically, it updates the Chuckwagon and it adds optional life support templates that will appear if you have a life support mod installed. Pathfinder supports TAC Life Support (the gold standard of life support), and Snacks out of the box. Other life support options are possible; just read up on how to edit a template file on the wiki. You may also want to check out the MM_TACLS.cfg and MM_Snacks.cfg files for examples. Additionally, you can now generate power using the Hot Springs Geothermal Plant. Keep in mind that it's maintennance intensive, a bit finicky, and not 100% efficient on all worlds. You also have the Solar Flare Experimental Fusion Plant and it's also a bit ornery. Together the Hot Springs and Solar Flare represent the upper end of Pathfinder's power options- lower-tier options are in the works. Finaly, the Ponderosa Habitat is now more than just a placeholder... if you have kOS installed.
