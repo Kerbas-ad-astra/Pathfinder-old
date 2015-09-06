@@ -8,6 +8,16 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.7.7: The Last of the Mohicans - Top of The World
+Another bug fix, this release fixes a couple of issues with lights and mesh switching and animation that occurred when you reverted back to launch. It also fixes an issue where you'd lose your Snacks when switching templates- if you have the Snacks mod installed. It also adds a new template to the Hacienda.
+
+Templates
+- Added the Brew Works ISRU Refinery to the Hacienda. Like the stock ISRU part, the Brew Works converts Ore into LFO, LiquidFuel, Oxidizer, and MonoPropellant. It also can refine Xenon.
+
+Bug Fixes
+- Fixed an issue in WBIAnimation and WBILight that would lose their settings when you reverted to launch.
+- Fixed an issue where, if you have Snacks! installed and you reconfigure your modules, the modules would lose their Snacks. Kerbals should be happier now.
+
 0.7.6: The Last of the Mohicans - Elk Hunt
 
 This release brings with it some bug fixes (thanks ozraven!) as well as a new part: the Poncho! Think of buying 10 OX-STAT panels and gluing them together, except that they fold out and cost as much as 15 OX-STAT panels. It won't track the sun, but the Poncho will provide a lot of power for your fledgling base. The Sombrero circular solar array is still planned...
