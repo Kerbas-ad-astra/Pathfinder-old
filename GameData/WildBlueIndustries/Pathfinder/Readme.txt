@@ -7,6 +7,15 @@ A KSP mod that blazes the trail for more permanent installations. Geoscience for
 Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
+0.7.8: The Last of the Mohicans - 
+
+Templates
+- Added LqdHydrogen/Oxidizer converter to the Watney.
+- Added support for Connected Living Spaces.
+
+Bug Fixes
+- Fixed an issue where adding the commercial science lab could cause an issue if the part did not have a science lab. Thanks kerbas_ad_astra!
+- Fixed an issue where the agency flag wasn't showing up.
 
 0.7.7: The Last of the Mohicans - Top of The World
 Another bug fix, this release fixes a couple of issues with lights and mesh switching and animation that occurred when you reverted back to launch. It also fixes an issue where you'd lose your Snacks when switching templates- if you have the Snacks mod installed. It also adds a new template to the Hacienda.
