@@ -7,7 +7,36 @@ A KSP mod that blazes the trail for more permanent installations. Geoscience for
 Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
-0.7.8: The Last of the Mohicans - 
+
+0.8.0: Pathfinder Beta: Where The Buffalo Roam
+
+NOTE: This is a beta release, there are bound to be bugs.
+
+This release Introduces the Buffalo Modular Space Exploration Vehicle (MSEV). It is based upon NASA's real-world Multi-mission Modular Space Exploration vehicle (MMSEV). Just like the NASA vehicle, the Buffalo can be configured as a rover, but it doesn't stop there. (Coming Soon!) The Buffalo can become an asteroid exploration craft, a munar lander, a cargo hauler, and more. This initial offering provides the components needed to build the "space truck" version of the Buffalo; future versions will offer in-space functionality. The best thing is that the Buffalo can be assembled by an engineer via KIS, and the vehicle is sized to fit into a standard 3.75m cargo bay!
+
+The Buffalo components include:
+
+Buffalo Command Cab: A command pod that seats two kerbals, with Stock IVA and ASET Props/Avionics-based IVA (highly recommended). It also has integrated ladders.
+Buffalo Crew Cab: A crew cabin that seats two kerbals, also with IVA. It also has a rooftop solar panel.
+Buffalo Wagon: A.K.A. the Wagon, this Buffalo Storage Container holds lots of resources when deployed. It is a semi-rigid container that is shaped like the Crew Cab, and it too has solar panels on its roof.
+Chassis (1u): The chassis serves as the foundation for the Buffalo. It is sized to the same length and width of a KIS standard SM-62 storage container/Buckboard/Ponderosa. While it is initialy configured as a battery, the Chassis can store a variety of different resources once converted to storage.
+Chassis (2u): Same as above, but it's twice as long.
+Standard Flatbed (1u): Sized to be as wide as the Buffalo cabin, the flatbed is sized to hold 2 SM-62 containers/Buckboards/Ponderosas. While it takes an engineer to mount the flatbed onto a chassis, anybody can put cargo on the flatbed.
+Standard Flatbed (2u): Same as above, but twice as long.
+Wide Flatbed (1u): A wider version than the standard flatbed, the wide flatbed can hold 3 SM-62 containers/Buckboards/Ponderosas. It is sized to fit in a standard 3.75m cargo bay.
+Wide Flatbed (2u): Same as above, but twice as long.
+Trailer Hitch: This specialized "docking port" is used to connect trucks and trailers together. It also has an integrated ladder.
+Chassis Decoupler: For those times when you need to mount a Buffalo to a rocket, the chassis decoupler fits the bill.
+Interim Wheel: Based on the RoveMate M1, the Interim Wheel provides ground transportation while we wait for KSP 1.1 and its better wheel system.
+
+Bug Fixes
+- Fixed an issue with the stack node on the Mineshaft. Now you can use it to close the gap between Buffalo modules separated by trailer hitches!
+
+---ACKNOWLEDGEMENTS
+
+Eve: Order Zero graphic courtesy of Kuzztler and used with permission.
+
+0.7.8
 
 Templates
 - Added LqdHydrogen/Oxidizer converter to the Watney.
@@ -241,6 +270,7 @@ Module Manager by ialdabaot
 Community Resource Pack by RoverDude, Nertea, and the KSP community
 Portions of this codebase include source by Snjo and Swamp-IG, used under CC BY-NC SA 4.0 license
 Icons by icons8: https://icons8.com/license/
+Eve: Order Zero graphic courtesy of Kuzztler and used with permission.
 
 ---LICENSE---
 
