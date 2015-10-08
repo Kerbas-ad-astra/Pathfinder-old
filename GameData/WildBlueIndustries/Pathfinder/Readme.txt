@@ -8,9 +8,15 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
-0.8.2
+0.8.3
 
 This update brings with it some more bug fixes, play balance, and some new parts. The existing Ponderosa now has a near twin that is radially attached just like the Hacienda and Doc. Originally I wanted the Ponderosa to work this way, but couldn't figure out how to make the airlocks work properly. Now that I do know how to make them work, it might be time to retire the containerized Ponderosa. Anyway, since a radially attached Ponderosa needs something to attach to, I also created the Switchback, a 4-way base hub that also has a small amount of storage and a solar panel on its roof. Simply attach a Saddle to the ground and place the Switchback onto the Saddle. Due to some constraints on placing the crew ports so they line up with the inflatable modules, the Switchback does not inflate. Instead, it's assembled off-camera when you pull it from storage. Finally, to resolve an issue with Extraplanetary Launchpads, Pathfinder introduces the Spyglass Survey Module. The Spyglass provides a spot to monitor your vessel construction efforts.
+
+Buffalo
+The Buffalo is now located in its own dedicated directory under WildBlueIndustries, and has its own category in the parts catalog. While it continues to be bundled with Pathfinder for the time being, the Buffalo MSEV is now available separately as its own mod. You can download it here.
+
+Buckboard
+- Gave the MC-1000 Buckboard a facelift; it is also now a common asset for WildBlueTools, which means it's no longer in the Pathfinder category. You can find it under Utilities.
 
 New Parts
 - By popular request, added the radially attached Ponderosa. It works just like the existing containerized Ponderosa, but it is radially attached like the Doc and Hacienda.
@@ -21,7 +27,7 @@ New Parts
 
 Templates
 - Reduced output of the greenhouse to feed 2 kerbals for about 90 days. It just wasn't as fun with the greater yield, even though the math does support the higher output.
-- Added ExWorkshop module to the Fireworks to improve base productivity.
+- Added ExWorkshop module to the Fireworks to improve base productivity, and removed ExSurveyStation since it wasn't responding well to being loaded dynamically.
 
 Bug Fixes
 - The Hacienda Operations Manager now correctly labels its operations manager as Hacienda Operations.
@@ -31,7 +37,7 @@ Bug Fixes
 - Fixed an issue where the Extraplanetary Launchpads window wouldn't show up (see Spyglass for the solution).
 
 Other
-- By popular request, added support for USI-LS
+- By popular request, added support for USI-LS. Thanks for the patch, badsector! :)
 
 0.8.1: William Tell Overture
 
