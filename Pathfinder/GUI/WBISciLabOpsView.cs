@@ -168,6 +168,7 @@ namespace WildBlueIndustries
 
             GUILayout.BeginHorizontal();
 
+            //Transmit button
             if (GUILayout.Button(scienceIcon, new GUILayoutOption[] { GUILayout.Width(64), GUILayout.Height(64) }))
                 converter.TransmitResearch();
 
@@ -188,44 +189,49 @@ namespace WildBlueIndustries
                 scienceIcon = scienceIconBlack;
             }
 
-            if (GUILayout.Button(publishIcon, new GUILayoutOption[] { GUILayout.Width(64), GUILayout.Height(64) }))
-                converter.PublishResearch();
+            if (HighLogic.CurrentGame.Mode == Game.Modes.CAREER)
+            {
+                //Publish button
+                if (GUILayout.Button(publishIcon, new GUILayoutOption[] { GUILayout.Width(64), GUILayout.Height(64) }))
+                    converter.PublishResearch();
 
-            if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
-            {
-                publishIcon = publishIconWhite;
-                publishHighlighted = true;
-                message = kPublishResearch;
-            }
-            else if (publishHighlighted)
-            {
-                publishIcon = publishIconWhite;
-                publishHighlighted = false;
-                message = kPublishResearch;
-            }
-            else
-            {
-                publishIcon = publishIconBlack;
-            }
+                if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+                {
+                    publishIcon = publishIconWhite;
+                    publishHighlighted = true;
+                    message = kPublishResearch;
+                }
+                else if (publishHighlighted)
+                {
+                    publishIcon = publishIconWhite;
+                    publishHighlighted = false;
+                    message = kPublishResearch;
+                }
+                else
+                {
+                    publishIcon = publishIconBlack;
+                }
 
-            if (GUILayout.Button(sellIcon, new GUILayoutOption[] { GUILayout.Width(64), GUILayout.Height(64) }))
-                converter.SellResearch();
+                //Sell button
+                if (GUILayout.Button(sellIcon, new GUILayoutOption[] { GUILayout.Width(64), GUILayout.Height(64) }))
+                    converter.SellResearch();
 
-            if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
-            {
-                sellIcon = sellIconWhite;
-                sellHighlighted = true;
-                message = kSellResearch;
-            }
-            else if (sellHighlighted)
-            {
-                sellIcon = sellIconWhite;
-                sellHighlighted = false;
-                message = kSellResearch;
-            }
-            else
-            {
-                sellIcon = sellIconBlack;
+                if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+                {
+                    sellIcon = sellIconWhite;
+                    sellHighlighted = true;
+                    message = kSellResearch;
+                }
+                else if (sellHighlighted)
+                {
+                    sellIcon = sellIconWhite;
+                    sellHighlighted = false;
+                    message = kSellResearch;
+                }
+                else
+                {
+                    sellIcon = sellIconBlack;
+                }
             }
 
             GUILayout.BeginScrollView(new Vector2(0, 0));
@@ -264,14 +270,17 @@ namespace WildBlueIndustries
                 new GUILayoutOption[] { GUILayout.Height(24) });
             GUILayout.EndScrollView();
 
-            GUILayout.BeginScrollView(new Vector2(0, 0));
-            GUILayout.Label(new GUIContent("<color=yellow><b> Reputation: </b>" + sciLab.storedScience * converter.reputationPerData + "</color>", publishIconWhite),
-                new GUILayoutOption[] { GUILayout.Height(24) });
-            GUILayout.EndScrollView();
+            if (HighLogic.CurrentGame.Mode == Game.Modes.CAREER)
+            {
+                GUILayout.BeginScrollView(new Vector2(0, 0));
+                GUILayout.Label(new GUIContent("<color=yellow><b> Reputation: </b>" + sciLab.storedScience * converter.reputationPerData + "</color>", publishIconWhite),
+                    new GUILayoutOption[] { GUILayout.Height(24) });
+                GUILayout.EndScrollView();
 
-            GUILayout.BeginScrollView(new Vector2(0, 0));
-            GUILayout.Label(new GUIContent("<b> Funds: </b>" + sciLab.storedScience * converter.fundsPerData, sellIconWhite), new GUILayoutOption[] { GUILayout.Height(24) });
-            GUILayout.EndScrollView();
+                GUILayout.BeginScrollView(new Vector2(0, 0));
+                GUILayout.Label(new GUIContent("<b> Funds: </b>" + sciLab.storedScience * converter.fundsPerData, sellIconWhite), new GUILayoutOption[] { GUILayout.Height(24) });
+                GUILayout.EndScrollView();
+            }
 
             GUILayout.EndVertical();
         }

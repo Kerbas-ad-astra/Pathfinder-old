@@ -53,6 +53,7 @@
     <Compile Include="GUI\PathfinderKeyMonitor.cs" />
     <Compile Include="Habitat\WBIGreenhouse.cs" />
     <Compile Include="GUI\PathfinderSettings.cs" />
+    <Compile Include="OutbackSystem\JetWing.cs" />
     <Compile Include="Science\WBIBasicScienceLab.cs" />
     <Compile Include="Science\WBIBiomeAnalysis.cs" />
     <Compile Include="GUI\TerainUplinkView.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Drills\WBIModuleCoreSample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenario\WBIEfficiencyMonitor.cs" />
-    <Compile Include="Habitat\WBISurveyStation.cs" />
+    <Compile Include="TestData.cs" />
     <Compile Include="Utility\WBIMultipurposeStorage.cs" />
     <Compile Include="Habitat\WBIHabitat.cs" />
     <Compile Include="Industry\WBIBreakableResourceConverter.cs" />

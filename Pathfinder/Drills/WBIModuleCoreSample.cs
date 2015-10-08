@@ -242,6 +242,9 @@ namespace WildBlueIndustries
         #region Helpers
         protected int getSamplesLeft()
         {
+            if (!situationIsValid())
+                return 0;
+
             CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
             HarvestTypes harvestType = (HarvestTypes)resourceType;
             int samplesLeft = WBIPathfinderScenario.Instance.GetCoreSamplesRemaining(this.part.vessel.mainBody.flightGlobalsIndex, biome.name, harvestType);
@@ -683,6 +686,9 @@ namespace WildBlueIndustries
                         message = kNeedVesselSplashed;
                     }
                     break;
+
+                default:
+                    return false;
             }
 
             //Inform the player if needed

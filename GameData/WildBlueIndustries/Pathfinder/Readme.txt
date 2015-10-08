@@ -8,7 +8,51 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
-0.8.0: Pathfinder Beta: Where The Buffalo Roam
+0.8.2
+
+This update brings with it some more bug fixes, play balance, and some new parts. The existing Ponderosa now has a near twin that is radially attached just like the Hacienda and Doc. Originally I wanted the Ponderosa to work this way, but couldn't figure out how to make the airlocks work properly. Now that I do know how to make them work, it might be time to retire the containerized Ponderosa. Anyway, since a radially attached Ponderosa needs something to attach to, I also created the Switchback, a 4-way base hub that also has a small amount of storage and a solar panel on its roof. Simply attach a Saddle to the ground and place the Switchback onto the Saddle. Due to some constraints on placing the crew ports so they line up with the inflatable modules, the Switchback does not inflate. Instead, it's assembled off-camera when you pull it from storage. Finally, to resolve an issue with Extraplanetary Launchpads, Pathfinder introduces the Spyglass Survey Module. The Spyglass provides a spot to monitor your vessel construction efforts.
+
+New Parts
+- By popular request, added the radially attached Ponderosa. It works just like the existing containerized Ponderosa, but it is radially attached like the Doc and Hacienda.
+
+- Added the Switchback 4-way hub. Unlike other base components, the Switchback is assembled off-camera once the kerbal pulls it out of storage.
+
+- Added the Spyglass Survey Module. Right-click the part to show the Extrplanetary Launchpads UI. Yes, I do have plans to make the light rotate.
+
+Templates
+- Reduced output of the greenhouse to feed 2 kerbals for about 90 days. It just wasn't as fun with the greater yield, even though the math does support the higher output.
+- Added ExWorkshop module to the Fireworks to improve base productivity.
+
+Bug Fixes
+- The Hacienda Operations Manager now correctly labels its operations manager as Hacienda Operations.
+- Fixed an issue Where efficiency and extraction monitors were creating NREs while in solar orbit.
+- Fixed an issue where the Gold Digger was creating NREs while in solar orbit.
+- Fixed an issue where the hints window would keep showing up even though Pathfinder had already shown the hint.
+- Fixed an issue where the Extraplanetary Launchpads window wouldn't show up (see Spyglass for the solution).
+
+Other
+- By popular request, added support for USI-LS
+
+0.8.1: William Tell Overture
+
+Buffalo
+
+- Added ElectricCharge to the Buffalo Crew Cab and Wagon.
+- The Buffalo Wagon now properly shows up in the Utility tab.
+
+Module Manager Patches
+
+- Added Antenna Range Module Manager patch by badsector. Thanks badsector & linuxgurugamer! :)
+
+Bug Fixes
+
+- The Recycle ScrapMetal converter (which requires Extraplanetary Launchpads) now requires 9.75 units of ScrapMetal to produce 1 unit of Metal. This accounts for conservation of mass and for density differences between Metal and ScrapMetal.
+
+- Fixed an issue in the commercial science lab where it was incorrectly converting the lab's data into Funds and Reputation instead of its stored Science.
+- Fixed an issue in the commercial science lab where it would remove the stored science before completing data transmission.
+- The commercial science lab will only show the Publish Research and Sell Research buttons when in Career Mode.
+
+0.8.0: Pathfinder Beta: Home On The Range
 
 NOTE: This is a beta release, there are bound to be bugs.
 

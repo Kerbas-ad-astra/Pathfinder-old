@@ -36,12 +36,12 @@ namespace WildBlueIndustries
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
-            CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
-
-            biomeName = biome.name;
 
             if (this.part.vessel.situation == Vessel.Situations.LANDED || this.part.vessel.situation == Vessel.Situations.SPLASHED || this.part.vessel.situation == Vessel.Situations.PRELAUNCH)
             {
+                CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
+
+                biomeName = biome.name;
                 harvestID = (HarvestTypes)harvestType;
                 planetID = this.part.vessel.mainBody.flightGlobalsIndex;
             }
@@ -52,6 +52,12 @@ namespace WildBlueIndustries
         public override void OnUpdate()
         {
             base.OnUpdate();
+
+            if (HighLogic.LoadedSceneIsFlight == false)
+                return;
+
+            if (planetID == -1 || string.IsNullOrEmpty(biomeName))
+                return;
 
             if (converters == null)
                 converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
@@ -64,12 +70,6 @@ namespace WildBlueIndustries
                 converters = null;
                 return;
             }
-
-            if (HighLogic.LoadedSceneIsFlight == false)
-                return;
-
-            if (planetID == -1)
-                return;
 
             float efficiencyModifier = WBIPathfinderScenario.Instance.GetEfficiencyModifier(planetID, biomeName, harvestID, efficiencyType);
             if (efficiency != efficiencyModifier)

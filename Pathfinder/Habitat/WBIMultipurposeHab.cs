@@ -31,6 +31,9 @@ namespace WildBlueIndustries
         [KSPField]
         public string partToolTipTitle;
 
+        [KSPField]
+        public string opsViewTitle;
+
         Animation anim;
         PartModule impactSeismometer;
 
@@ -54,11 +57,12 @@ namespace WildBlueIndustries
             anim = this.part.FindModelAnimators(animationName)[0];
 
             foreach (PartModule mod in this.part.Modules)
+            {
                 if (mod.moduleName == "Seismometer")
-                {
                     impactSeismometer = mod;
-                    break;
-                }
+            }
+
+            moduleOpsView.WindowTitle = opsViewTitle;
         }
 
         public override void OnUpdate()

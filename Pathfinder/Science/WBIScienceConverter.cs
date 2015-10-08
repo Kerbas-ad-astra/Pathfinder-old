@@ -40,21 +40,21 @@ namespace WildBlueIndustries
         [KSPEvent(guiName = "Publish Research", active = true, guiActive = true)]
         public void PublishResearch()
         {
-            float dataStored = sciLab.dataStored;
+            float storedScience = sciLab.storedScience;
+            float value = storedScience * reputationPerData * (1.0f + (scientistBonus * GetTotalCrewSkill()));
 
             //Transmit data for publishing (Reputation gain)
-            if (transmitData(dataStored, false))
-                sciLab.dataStored -= dataStored;
+            transmitHelper.TransmitToKSC(0, value, 0, storedScience);
         }
 
         [KSPEvent(guiName = "Sell Research", active = true, guiActive = true)]
         public void SellResearch()
         {
-            float dataStored = sciLab.dataStored;
+            float storedScience = sciLab.storedScience;
+            float value = storedScience * fundsPerData * (1.0f + (scientistBonus * GetTotalCrewSkill()));
 
             //Transmit data for sale (Funds gain)
-            if (transmitData(dataStored, true))
-                sciLab.dataStored -= dataStored;
+            transmitHelper.TransmitToKSC(0, 0, value, storedScience);
         }
 
         public override void OnStart(StartState state)
@@ -66,6 +66,13 @@ namespace WildBlueIndustries
             sciLab.Events["TransmitScience"].guiActive = false;
 
             transmitHelper.part = this.part;
+            transmitHelper.transmitCompleteDelegate = DataTransmitted;
+
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER)
+            {
+                Events["PublishResearch"].guiActive = false;
+                Events["SellResearch"].guiActive = false;
+            }
         }
 
         protected bool transmitData(float dataAmount, bool transmitForSale = false)
@@ -76,15 +83,20 @@ namespace WildBlueIndustries
             if (transmitForSale)
             {
                 amount = dataAmount * fundsPerData * (1.0f + (scientistBonus * GetTotalCrewSkill()));
-                dataTransmitted = transmitHelper.TransmitToKSC(0, 0, amount);
+                dataTransmitted = transmitHelper.TransmitToKSC(0, 0, amount, dataAmount);
             }
             else
             {
                 amount = dataAmount * reputationPerData * (1.0f + (scientistBonus * GetTotalCrewSkill()));
-                dataTransmitted = transmitHelper.TransmitToKSC(0, amount, 0);
+                dataTransmitted = transmitHelper.TransmitToKSC(0, amount, 0, dataAmount);
             }
 
             return dataTransmitted;
+        }
+
+        public void DataTransmitted()
+        {
+            sciLab.storedScience = 0f;
         }
 
         public void SetGuiVisible(bool isVisible)
@@ -98,6 +110,13 @@ namespace WildBlueIndustries
             Fields["rateString"].guiActive = isVisible;
             Fields["sciString"].guiActive = isVisible;
             Fields["status"].guiActive = isVisible;
+
+            //Hide publish and sell buttons when we aren't in Career mode.
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER)
+            {
+                Events["PublishResearch"].guiActive = false;
+                Events["SellResearch"].guiActive = false;
+            }
 
             //Don't forget about the science lab!
             sciLab.Fields["statusText"].guiActive = isVisible;
