@@ -8,6 +8,12 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.8.5
+- Fixes issues with the Buffalo. When KSP 1.0.5 comes out, the Buffalo will not be included in Pathfinder.
+
+0.8.4
+- Hotfix to add collider to the Buckboard.
+
 0.8.3
 
 This update brings with it some more bug fixes, play balance, and some new parts. The existing Ponderosa now has a near twin that is radially attached just like the Hacienda and Doc. Originally I wanted the Ponderosa to work this way, but couldn't figure out how to make the airlocks work properly. Now that I do know how to make them work, it might be time to retire the containerized Ponderosa. Anyway, since a radially attached Ponderosa needs something to attach to, I also created the Switchback, a 4-way base hub that also has a small amount of storage and a solar panel on its roof. Simply attach a Saddle to the ground and place the Switchback onto the Saddle. Due to some constraints on placing the crew ports so they line up with the inflatable modules, the Switchback does not inflate. Instead, it's assembled off-camera when you pull it from storage. Finally, to resolve an issue with Extraplanetary Launchpads, Pathfinder introduces the Spyglass Survey Module. The Spyglass provides a spot to monitor your vessel construction efforts.
