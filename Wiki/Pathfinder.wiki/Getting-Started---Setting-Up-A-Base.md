@@ -1,6 +1,7 @@
-This tutorial will help you get started with Pathfinder's parts and configurations. Imagine for a moment that your Astronauts are conducting a training exercise on the grounds of KSC. Their mission is to practice setting up a Pathfinder base so that when they reach another planet, they'll know what to do. For this tutorial, download the following craft file and place it in your save's VAB directory. For this tutorial, it's best to play in the Sandbox.
+This tutorial will help you get started with Pathfinder's parts and configurations. Imagine for a moment that your Astronauts are conducting a training exercise on the grounds of KSC. Their mission is to practice setting up a Pathfinder base so that when they reach another planet, they'll know what to do. For this tutorial, download the following craft file and place it in your save's VAB directory. For this tutorial, it's best to play in the Sandbox. You have two choices: use the Buffalo (requires the [Buffalo mod](https://kerbalstuff.com/mod/1199/Buffalo:%20NASA%20Inspired%20MSEV%20-%20Explore%20In%20Style)), or use the stock starter craft. This tutorial assumes you're using the Buffalo, but you'll find all the components you need in the stock craft as well.
 
-[Pathfinder Starter Base Craft File](https://github.com/Angel-125/Pathfinder/wiki/PathfinderStarterBase.craft)
+[Pathfinder Buffalo Starter Craft File](https://github.com/Angel-125/Pathfinder/wiki/PathfinderStarterBase.craft)  
+[Pathfinder Stock Starter Craft](https://github.com/Angel-125/Pathfinder/wiki/GettingStartedStock.craft)
 
 # Step 1
 Locate the Pathfinder Starter Base craft file in your VAB craft list, and load it. Select at least one Engineer to crew the Buffalo. Next, drive off the launch pad and find a nice flat spot to set up your base.  

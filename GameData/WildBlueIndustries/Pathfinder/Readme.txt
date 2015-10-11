@@ -8,6 +8,79 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.8.6
+
+This release fixes a bunch of issues that cropped up in Pathfinder as well as the Buffalo. It also introduces new game mechanics for the Hot Springs geothermal plant- thanks for your input, AdmiralTigerclaw! :)
+
+New Parts
+- Added MC-2000 Buckboard and MC-3000 Buckboard. With colliders and glowing resource decals. ;)
+- Added the Auxiliary Electronic Navigator (AuxEN). In the Old West, oxen were frequently used to pull wagons. The AuxEN doesn't pull anything, but it does the driving. The probe core is the same size as a Chassis 1u, and supports RemoteTech, AntennaRange, and kOS.
+- Added an adapter that tapers from the Buffalo cab form factor to a 1.25m cylinder. 
+
+Buffalo Command cab
+- Widened the headlight beams and angled them down slightly for better ground operations.
+- You can now toggle the headlights separately from the cabin lights. Both cabin lights and headlights will turn on when you tap on the Lights button.
+
+Buffalo Crew Cab
+- Reworked the crew cab to include doors and ladders on its sides.
+- Added a small amount of inventory space.
+
+Doc
+- Added an ImpactTransform node to the 3D mesh to accomodate drills.
+
+Ponderosa
+- Renamed the radially attached Ponderosa to the Casa.
+- Increased empty mass of the Ponderosa to 0.35t to reflect its contents.
+- Added an ImpactTransform node to the 3D mesh to accomodate drills.
+
+Hacienda
+- Increased empty mass of the Hacienda to 0.5t.
+- Added an ImpactTransform node to the 3D mesh to accomodate drills.
+
+Clockworks
+- Maximum storage will increase to 10k liters when you convert the Hacienda to become a Clockworks. This matches the maximum volume part that you can 3D print.
+
+Fireworks
+- Really added EL productivity to the Fireworks, and got rid of ExSurveyStation. There was a mixup when preparing the last release...
+
+Brew Works
+- Brought the Autobots in and transformed Xenon into XenonGas.
+
+Hot Springs
+- Refactored the power planet to require Water and GeoEnergy as resources before it can operate. The HotSprings has a dedicated "drill" to extract GeoEnergy, called the Geothermal Tap. Right-click on the Hacienda to use the Geothermal Tap. You can also drill for GeoEnergy using the Gold Digger and stock Drill-O-Matic. Simply right-click on the drill and modify the resource that it drills for. Not all planets are ideal for finding GeoEnergy. Check out GeoEnergyResource.cfg to see how this initial pass is set up. Below is a quick rundown:
+
+Geologically Active Worlds
+Eve
+Kerbin (duh)
+Laythe
+Eeloo (!) See See http://io9.com/breaking-geologic-activity-has-been-detected-on-the-su-1718055390
+
+Possibly Geologically Active. (% chance per save)
+Moho (70%)
+Mun (85%) See http://www.space.com/14632-moon-dead-geologic-activity-monitored.html
+Duna (70%) See http://astrogeo.oxfordjournals.org/content/44/4/4.16.full
+Ike (70%)
+Val (70%)
+Tylo (60%)
+
+Not geologically active
+Sun
+Gilly
+Minmus - wiki suggests that it's a captured comet
+Jool
+Bop
+Pol
+Dres
+
+If a world is not listed, then it has a base 70% chance of having GeoEnergy.
+
+Bug Fixes
+- The Switchback's nodes are now in their correct places.
+- The Buckboard MC-1000's decal glows again.
+- Fixed file paths for several Buffalo parts so they'll show up again.
+- Moved Trailer Hitch to Utility.
+- Moved Chassis Decoupler to Structural.
+
 0.8.5
 - Fixes issues with the Buffalo. When KSP 1.0.5 comes out, the Buffalo will not be included in Pathfinder.
 
@@ -322,7 +395,7 @@ Do you have what it takes to be a prospector? Then step right up and try your lu
 
 ---ACKNOWLEDGEMENTS
 
-Module Manager by ialdabaot
+Module Manager by saribian
 Community Resource Pack by RoverDude, Nertea, and the KSP community
 Portions of this codebase include source by Snjo and Swamp-IG, used under CC BY-NC SA 4.0 license
 Icons by icons8: https://icons8.com/license/

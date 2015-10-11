@@ -234,12 +234,16 @@ namespace WildBlueIndustries
         }
 
         #region ITemplateOps
-        public void DrawOpsWindow()
+        public virtual void DrawOpsWindow()
         {
+            string absentResource = GetMissingResource();
             GUILayout.BeginVertical();
 
             GUILayout.BeginScrollView(new Vector2(0, 0), new GUIStyle(GUI.skin.textArea), GUILayout.Height(140));
-            GUILayout.Label("<color=white><b>Status: </b>" + this.status + "</color>");
+            if (string.IsNullOrEmpty(absentResource))
+                GUILayout.Label("<color=white><b>Status: </b>" + this.status + "</color>");
+            else
+                GUILayout.Label("<color=white><b>Status: </b>Requires " + absentResource + "</color>");
             GUILayout.Label(string.Format("<color=white><b>" + efficiencyString + ": </b>{0:f2}%</color>", this.Efficiency * 100f));
             GUILayout.Label("<color=white><b>Time Until Maintennance: </b>" + getTimeUntilCheck() + "</color>");
             GUILayout.Label("<color=white><b>Failure Probability: </b>" + criticalFail + "%</color>");

@@ -80,7 +80,7 @@
     <Compile Include="Utility\WBIMultipurposeStorage.cs" />
     <Compile Include="Habitat\WBIHabitat.cs" />
     <Compile Include="Industry\WBIBreakableResourceConverter.cs" />
-    <Compile Include="WBIGeoThermalPlant.cs" />
+    <Compile Include="Industry\WBIGeoThermalPlant.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">
