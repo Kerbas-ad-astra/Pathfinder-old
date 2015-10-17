@@ -189,10 +189,6 @@ namespace WildBlueIndustries
             //Hide repair button
             Events["PerformRepairs"].guiActiveUnfocused = false;
             Events["PerformRepairs"].guiActive = false;
-
-            Log("FRED part name: " + this.part.partName);
-            Log("FRED startActionName: " + StartActionName);
-            Log("FRED stopActionname: " + StopActionName);
         }
 
         protected override void onFailure()

@@ -1,5 +1,5 @@
 ![](http://i.imgur.com/r5Vbnqy.jpg)
-**Mass:** 0.1t (unconfigured. Configured mass varies)  
+**Mass:** 0.35t (unconfigured. Configured mass varies)  
 **Crew Capacity:** 4  
 **Cost:** 8,000  
 **Research:** Space Exploration  

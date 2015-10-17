@@ -1,12 +1,12 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/Chuckwagon.jpg)  
-**Mass:** 0.025t (empty, loaded mass varies)  
+**Mass:** 0.25t (empty, loaded mass varies)  
 **Cost:** 500  
 **Research:** Advanced Construction  
 **Research Cost:** 4,000  
 **Max Temp:** 2,000 K  
 **Max Storage Volume:** 31,320 L 
 
-The Chuckwagon Inflatable Multipurpose Warehouse (IMW) holds a large amount of different resources. It requires the [Kerbal Inventory System (KIS)](http://forum.kerbalspaceprogram.com/threads/113111-1-0-4-Kerbal-Inventory-System-%28KIS%29-1-2-2) in order to carry it on a kerbal's back. You can radially attach the Chuckwagon to your vessel. It takes an Engineer to assemble the IMW.
+The Chuckwagon Inflatable Multipurpose Warehouse (IMW) holds a large amount of different resources. It requires the [Kerbal Inventory System (KIS)](http://forum.kerbalspaceprogram.com/threads/113111-1-0-4-Kerbal-Inventory-System-%28KIS%29-1-2-2) in order to carry it on a kerbal's back. You can radially attach the Chuckwagon to your vessel; it takes an Engineer to assemble the IMW.
 #Usage  
 To configure the Chuckwagon to store a different resource, simply right-click on the part to bring up its context menu, and press the Next or Prev buttons to change the desired resource. In the VAB/SPH and out in the field, the Chuckwagon will switch to the new resource. If you have resources stored in the container, you will be asked to click the button again to confirm switching. At the top of the context menu is a status field showing you what the IMW currently holds. Finally, if you want to show or hide the decals, simply press the Toggle Decals button.
 ![](https://github.com/Angel-125/Pathfinder/wiki/ChuckwagonUsage.jpg)  

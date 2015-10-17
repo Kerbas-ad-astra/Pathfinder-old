@@ -11,10 +11,8 @@ Requires Kerbal Inventory System (KIS) and Kerbal Attachment System (KAS) by Kos
 
 # Helpful Links
 
-[[Getting Started: Setting Up A Base|Getting-Started---Setting-Up-A-Base]]
-
-[[Pathfinder Parts List|Pathfinder-Parts-List]]
-
-[[Pathfinder Settings|Pathfinder-Settings]]
-
-[[Anatomy of a Template|Anatomy-Of-A-Template]]
+[[Getting Started: Setting Up A Base|Getting-Started---Setting-Up-A-Base]]  
+[[Pathfinder Parts List|Pathfinder-Parts-List]]  
+[[Pathfinder Resources|Pathfinder-Resources]]  
+[[Pathfinder Settings|Pathfinder-Settings]]  
+[[Anatomy of a Template|Anatomy-Of-A-Template]]  

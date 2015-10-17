@@ -41,4 +41,4 @@ This converter produces Xenon gas from Ore. It has the following recipe:
 _Ore:_ 2.25 units/sec  
 _ElectricCharge:_ 30 units/sec  
 **Output**  
-_Xenon:_ 0.1 units/sec  
+_XenonGas:_ 0.1 units/sec  

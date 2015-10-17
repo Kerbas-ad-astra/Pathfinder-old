@@ -23,12 +23,20 @@ namespace WildBlueIndustries
     {
         public bool engineActivated;
         ModuleEnginesFX engine;
+        VesselAutopilot autopilot;
 
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
 
             engine = this.part.FindModuleImplementing<ModuleEnginesFX>();
+            autopilot = this.part.FindModuleImplementing<VesselAutopilot>();
+
+            if (autopilot != null)
+            {
+                autopilot.Enable(VesselAutopilot.AutopilotMode.StabilityAssist);
+                Debug.Log("FRED I have an autopilot");
+            }
         }
 
         public override void OnUpdate()

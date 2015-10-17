@@ -34,8 +34,12 @@ namespace WildBlueIndustries
         [KSPField]
         public string opsViewTitle;
 
+        [KSPField]
+        public float baseProductivity = 4.0f;
+
         Animation anim;
         PartModule impactSeismometer;
+        PartModule exWorkshop;
 
         public void AddConverter(ModuleResourceConverter converter)
         {
@@ -60,6 +64,8 @@ namespace WildBlueIndustries
             {
                 if (mod.moduleName == "Seismometer")
                     impactSeismometer = mod;
+                else if (mod.moduleName == "ExWorkshop")
+                    exWorkshop = mod;
             }
 
             moduleOpsView.WindowTitle = opsViewTitle;
@@ -132,8 +138,6 @@ namespace WildBlueIndustries
                     }
                 }
             }
-
-            base.UpdateContentsAndGui(templateName);
 
             //Check to see if we've displayed the tooltip for the template.
 
