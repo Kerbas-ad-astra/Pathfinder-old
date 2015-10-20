@@ -1,0 +1,8 @@
+@PART[WBI_BuffaloCab]:NEEDS[RasterPropMonitor]
+{
+    MODULE
+    {
+        name = JSITransparentPod
+        transparentTransforms = BackWindow|FrontWindow|SideWindow001|SideWindow002|SideWindow003|TopWindows001|Topwindows001 1
+    }
+}

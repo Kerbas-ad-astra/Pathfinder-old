@@ -145,12 +145,11 @@ namespace WildBlueIndustries
 
         protected float calculateRepairCost()
         {
-            float repairUnits = repairAmount;
+            if (this.part.vessel == null)
+                return -1.0f;
 
-            if (FlightGlobals.ActiveVessel.isEVA == false)
-            {
-                return -1.0f; //Should not get to here as the event is set up for EVA only.
-            }
+            float repairUnits = repairAmount;
+            double totalResources = ResourceHelper.GetTotalResourceAmount(repairResource, this.part.vessel);
 
             //Anybody can repair the scope, but the right skill can reduce the cost by as much as 60%
             Experience.ExperienceTrait experience = FlightGlobals.ActiveVessel.GetVesselCrew()[0].experienceTrait;
@@ -164,11 +163,7 @@ namespace WildBlueIndustries
                 return -1.0f;
 
             //make sure the ship has enough of the resource
-            Vessel.ActiveResource activeResource = FlightGlobals.ActiveVessel.GetActiveResource(definition);
-            if (activeResource == null)
-                return -1.0f;
-
-            if (activeResource.amount < repairUnits)
+            if (totalResources < repairUnits)
                 return -1.0f;
 
             return repairUnits;

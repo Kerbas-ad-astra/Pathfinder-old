@@ -8,7 +8,7 @@
 **Max Temp:** 900 K  
 **Stored Volume:** 404.39 L  
 
-The Doc Commercial Science Lab is designed to house the Science related functions of your base. It attaches to Pathfinder's standard crew ports included on all inhabitable modules such as the Chuckwagon, Hacienda, [[Ponderosa|Ponderosa]], and of course the Doc Commercial Science lab. The Doc can be stored in a standard KIS container, but it can also be surface attached to save storage space.
+The Doc Commercial Science Lab is designed to house the Science related functions of your base. It attaches to Pathfinder's standard crew ports included on all inhabitable modules such as the Chuckwagon, Hacienda, [[Ponderosa|Ponderosa]], and of course the Doc Commercial Science lab. The Doc can be stored in a standard KIS container, but it can also be surface attached to save storage space. The module is equipped with a special node called ImpactTransform to support drilling modules, though no templates with drills are currently available.
 
 # Setup
 As with any other part, simply grab the Doc out of your inventory and attach it to an available standard crew port.  

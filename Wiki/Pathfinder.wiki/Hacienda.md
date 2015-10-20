@@ -8,7 +8,7 @@
 **Max Temp:** 900 K  
 **Stored Volume:** 509.21 L  
 
-The Hacienda is Pathfinder's industrial module. While not needed for prospecting missions, the Hacienda offers industrial configurations such as power generation, production of rocket fuels, creating RocketParts, 3D printing large components, and managing the production of entire vessels. It benefits from the Pathfinder Geology Lab's Metallurgy research.
+The Hacienda is Pathfinder's industrial module. While not needed for prospecting missions, the Hacienda offers industrial configurations such as power generation, production of rocket fuels, creating RocketParts, 3D printing large components, and managing the production of entire vessels. It benefits from the Pathfinder Geology Lab's Metallurgy research. The module is equipped with a special node called ImpactTransform to support drilling modules. Currently, the Hot Springs makes use of this node to support the geothermal tap.
 
 # Setup
 As with any other part, simply grab the Hacienda out of your inventory and attach it to an available standard crew port.  
@@ -52,9 +52,6 @@ The Brew Works provides the ability to convert Ore into LiquidFuel, Oxidizer, Mo
 ### Ironworks  
 Link: [[Ironworks Foundry|Ironworks-Foundry]]  
 The Ironworks produces RocketParts from Metals (or Metal if Extraplanetary Launchpads (EL) is installed), and it can smelt Metals from MetallicOre (or MetalOre with EL installed). With OSE Workshop installed, the Iron Works produces MaterialKits from Ore, and can convert RocketParts to MaterialKits and vice versa.
-### Fireworks  
-Link: [[Fireworks Survey Station|Fireworks]]   
-With Extraplanetary Launchpads installed, the Fireworks provides a survey station to manage the construction of whole vessels.
 ### Clockworks  
 Link: [[Clockworks 3D Print Shop|Clockworks-3D-Print-Shop]]  
 With OSE Workshop installed, the Clockworks 3D Workshop gives you a space to build parts. It has more production volume than the blacksmith.

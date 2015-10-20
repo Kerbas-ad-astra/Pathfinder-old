@@ -8,7 +8,7 @@
 **Max Temp:** 900 K  
 **Stored Volume:** 1,100 L  
 
-The Ponderosa is a containerized inflatable module that serves as a foundation for your temporary bases. It has three standard crew transfer ports that enable you to attach other inflatable modules such as the Chuckwagon, Doc Science Lab, and Hacienda. Like all inflatable base modules in Pathfinder, the Ponderosa can be configured for a variety of different uses. Specifically, it houses all Habitation related templates. The Ponderosa can be stored inside a standard KIS container.
+The Ponderosa is a containerized inflatable module that serves as a foundation for your temporary bases. It has three standard crew transfer ports that enable you to attach other inflatable modules such as the Chuckwagon, Doc Science Lab, and Hacienda. Like all inflatable base modules in Pathfinder, the Ponderosa can be configured for a variety of different uses. Specifically, it houses all Habitation related templates. The Ponderosa can be stored inside a standard KIS container. The module is equipped with a special node called ImpactTransform to support drilling modules, though no templates with drills are currently available.
 
 # Usage
 ## Mounting Points

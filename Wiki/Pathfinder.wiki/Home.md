@@ -5,7 +5,7 @@ You’ve done your resource scanning and looked around some, now comes the time 
 Pathfinders travel light, and with this mod you’ll have KIS/KAS friendly, portable equipment to go “space camping” with.
 
 **Your Game, Your Choice**
-Pathfinder is flexible and easily customizable using ModuleManager patches. Options out of the box include support for Snacks, TAC_LS, Impact, AntennaRange, Remote Tech, and more.
+Pathfinder is flexible and easily customizable using ModuleManager patches. Options out of the box include support for Snacks, TAC_LS, Impact, AntennaRange, Remote Tech, USI-LS, and more.
 
 Requires Kerbal Inventory System (KIS) and Kerbal Attachment System (KAS) by KospY & Winn78.
 

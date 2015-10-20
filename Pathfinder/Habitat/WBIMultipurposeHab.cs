@@ -139,8 +139,10 @@ namespace WildBlueIndustries
                 }
             }
 
-            //Check to see if we've displayed the tooltip for the template.
+            //Now reconfigure
+            base.UpdateContentsAndGui(templateName);
 
+            //Check to see if we've displayed the tooltip for the template.
             //First, we're only interested in deployed modules.
             if (isDeployed == false)
                 return;

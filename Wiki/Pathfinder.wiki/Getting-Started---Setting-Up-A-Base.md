@@ -24,7 +24,7 @@ Press G to grab the Ponderosa. It's the one with a crew hatch, and because it is
 ![](https://github.com/Angel-125/Pathfinder/wiki/Pathfinder.jpg)  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step5.jpg)  
 # Step 6  
-Next, while holding down the left-mouse button, drag the Ponderosa over to the Saddle. You should see a blue outline of the Ponderosa and the option to mount the module onto the Saddle:  
+Next, while holding down the left-mouse button, drag the Ponderosa over to the Saddle. Press R to change the attachment node to bottom (you might need to do this a couple of times.) You should see a blue outline of the Ponderosa. Press and hold the X button; you should see the option to attach the module onto the Saddle:  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step6.jpg)  
 # Step 7 & 8  
 In order to inflate the Ponderosa, we need RocketParts. Fortunately the Buffalo already has a Buckboard full of them. Right-click on the Trailer Hitch at the back of the Buffalo to bring up its context menu. Select one of the ports closest to the Saddle (they are numbered if you look closely), and link it to a port on the Saddle:  
@@ -37,7 +37,7 @@ We now have everything we need to inflate the Ponderosa. Right click on the Pond
 Congratulations, you've just inflated your first Ponderosa! You'll see some popup windows appear that will give some hints about how to use the modules. Next go back to the Buckboard configured for storage, grab the Chuckwagon, and place it in your inventory. Like the Buckboard, the Chuckwagon can store all sorts of resources, but it holds a lot more than the Buckboard.
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step10.jpg)  
 # Step 11  
-Walk over to one of the Ponderosa's crew ports. Next, Drag the Chuckwagon out of your inventory by pressing and holding the left-mouse button, and place it over one of the attachment nodes. The Chuckwagon should pretend to inflate and its outline will appear blue-green.  
+Walk over to one of the Ponderosa's crew ports. Next, Drag the Chuckwagon out of your inventory by pressing and holding the left-mouse button, and place it over one of the attachment nodes. Again press R to change the attachment node, and hold the X button. The Chuckwagon should pretend to inflate and its outline will appear blue-green.  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step11.jpg)  
 # Step 12  
 Next we'll install the Gold Digger Portable Drill. The Gold Digger provides core samples that may help improve- or worsen- your resource extraction rates in the current biome. It can also be used to extract resources, although it's much worse than the stock Drill-O-Matic.  
