@@ -8,6 +8,40 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.8.9
+
+This update brings some new parts, some more bug fixes, and minor tweaks. By popular request, the orbital construction docks from Multipurpose Colony Modules (MCM) are back as the Stockyard 250 and Stockyard 375. These parts need Extraplanetary Launchpads to function properly. To help with your orbital construction needs, the new Homestead provides the same industrial facilities as the Hacienda- minus the Hot Springs. For now these are the only orbital elements of Pathfinder; I have plans for other modules but they'll take awhile to build properly.
+
+New Parts
+- By popular request, added the Stockyard 250 and Stockyard 375. Use these parts to build vessels in orbit or recycle them.
+- Added the Homestead, the orbital equivalent to the Hacienda. Unlike the Hacienda though, the Homestead lacks a Hot Springs configuration.
+
+Spyglass
+- The spotlight now rotates. :)
+
+Clockworks
+- Increased maximum part volume that can be produced to 14,500L, and increased maximum KIS storage to match it. You'll need to switch away from the Clockworks and switch back for the changes to take effect.
+
+Buffalo Crew Cab
+- Adjusted the default EVA airlock to the right side, just like the command cab.
+- Adjusted the ladder colliders to make it easier to climb up.
+
+Command Cab
+- Adjusted the ladder colliders to make it easier to climb up.
+
+Buffalo Chassis
+- Increased the Chassis 2u KIS storage to 200L.
+- Decreased the Chassis End Unit KIS storage to 80L.
+
+Bug Fixes
+- Fixed the rocket parts production in the Ironworks when Extraplanetary Launchpads isn't installed.
+- Fixed the rocket parts to material kits production in the Ironwoks when OSE Workshop is installed.
+- Fixed CLS issues with the Casa.
+- Adjusted the costs of the Hacienda.
+
+Other
+- Updated to latest CommunityResourcePack and ModuleManager.
+
 0.8.8
 
 This update has a bunch of bug fixes- gotta reduce that technical debt!
