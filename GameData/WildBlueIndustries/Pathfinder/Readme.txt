@@ -8,6 +8,37 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.0
+
+The Buffalo gets new wheels! The stock-based RoveMax M1A1 wheels were always interim placeholders, but now the Buffalo has its real wheels. The new M1A1 Mountain Goat is inspired by the wheels found on NASA’s MMSEV but they have been brought inline with the KSP art style. The current stock-based wheel will be going away. They are deprecated in this release (existing craft won’t break but you won’t find the wheels in the catalog) and it will be removed at a later date, so be sure to retrofit or retire your rovers that have the older wheels.
+
+New Parts
+- Added the Patio, a 3.75m muncrete slab that's useful for making landing pads and foundations for bases on uneven terrain. You can clip slabs together to form larger areas. To use it, bolt it into the ground NOTE: This is an experimental part, use at your own risk.
+
+- Added the M1A1 Mountain Goat. The M1A1 can switch between a wide wheelbase for normal driving, and a narrow wheelbase to get in and out of cargo bays. And to top it off, it has sound effects if you have the Wheel Sounds mod installed. Thanks for the suggestion, Supermarine! :)
+
+- Added the Tundra 200 and Tundra 400. These are conformal storage tanks for the Buffalo that are intended for ground and aerospace craft. Unlike the Wagon, they do not expand, but you can attach other parts to them.
+
+Gold Digger
+- Lowered EC requirements for the Gold Digger to reflect its lower efficiency compared to the stock Drill-O-Matic.
+
+Buffalo Command Cab
+- Increased storage slots slightly.
+
+Interim Rover Wheel
+- The existing stock-based rover wheel has been deprecated in favor of the new M1A1 Omni Wheel. Be sure to retrofit your rovers.
+
+Other
+- Moved the Mineshaft, Capstone, and Switchback to the Structural tab (they are still found under the Pathfinder category as well).
+- Moved the part config files to the new Parts directoy, organized by tab. Textures and mesh files remain in the Assets folder.
+
+Bug Fixes
+- The greenhouse will now retain its resources when you switch away from the vessel and switch back.
+- The Spyglass can now attach KAS pipes.
+- The Watney Rainmaker no longer complains about a lack of Oxidizer or MonoPropellant (you might need to transfer some into the Doc).
+- Fixed GeoEnergy resource distribution for Eeloo. Thanks for pointing it out, CyberFoxx! :)
+- The Switchback's KIS storage capacity is now available from inside your base as well as during EVA.
+
 0.8.9
 
 This update brings some new parts, some more bug fixes, and minor tweaks. By popular request, the orbital construction docks from Multipurpose Colony Modules (MCM) are back as the Stockyard 250 and Stockyard 375. These parts need Extraplanetary Launchpads to function properly. To help with your orbital construction needs, the new Homestead provides the same industrial facilities as the Hacienda- minus the Hot Springs. For now these are the only orbital elements of Pathfinder; I have plans for other modules but they'll take awhile to build properly.
