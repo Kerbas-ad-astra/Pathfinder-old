@@ -8,6 +8,17 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.1
+
+This release has some hotfixes.
+
+Watney Chemistry Lab
+- Adjusted ElectricCharge output on the Rainmaker.
+- Added a Rainmaker variant that creates Water from LiquidFuel and Oxidizer. It also produces ElectricCharge.
+
+Bug Fixes
+- Added collider to broken wheel mesh on the M1A1.
+
 0.9.0
 
 The Buffalo gets new wheels! The stock-based RoveMax M1A1 wheels were always interim placeholders, but now the Buffalo has its real wheels. The new M1A1 Mountain Goat is inspired by the wheels found on NASA’s MMSEV but they have been brought inline with the KSP art style. The current stock-based wheel will be going away. They are deprecated in this release (existing craft won’t break but you won’t find the wheels in the catalog) and it will be removed at a later date, so be sure to retrofit or retire your rovers that have the older wheels.
