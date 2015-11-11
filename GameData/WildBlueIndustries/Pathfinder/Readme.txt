@@ -8,6 +8,42 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.2
+
+New Part
+- Added the Smoke Pipe portable cooling tower. It is good at radiating heat. Be sure to keep it charged with electricity and fill it with water; it needs both.
+
+Gold Digger
+- Increased efficiency on the drill, but it now also generates heat. Be sure to plan accordingly.
+
+Hacienda
+- Added the Claw Marks Strip Miner. Credit goes to AdmiralTigerclaw for the concept, thanks AdmiralTigerclaw! :)
+
+Hot Springs
+- The Hot Springs now generates heat. Be sure to plan accordingly.
+
+Sunburn Lab
+- Added Ore, Water, and Minerals resources to help with conversions.
+
+Pigpen
+- Added Organics, Ore, and Minerals resources.
+
+Flatbeds
+- Removed KIS part mount module; it was only applicable to a small number of parts.
+- You can now surface-attach parts to the flatbeds.
+
+Buckboards
+- Anybody can now stack Buckboards.
+
+Other
+- Added ability to switch between different resources to the stock shuttle and airliner wings.
+- Increased breaking torque and breaking force on all base parts.
+- Updated to KSP 1.0.5
+
+Bug Fixes
+- The TERRAIN satellite will now benefit from Antenna Range if installed.
+- Added missing resources to the Brew Works.
+
 0.9.1
 
 This release has some hotfixes.

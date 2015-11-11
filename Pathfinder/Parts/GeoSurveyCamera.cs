@@ -103,7 +103,7 @@ namespace WildBlueIndustries
             orbitalScanner = this.part.FindModuleImplementing<ModuleOrbitalScanner>();
 
             //Verify that the planet is really unlocked
-            verifyPlanetUnlock();
+            //verifyPlanetUnlock();
 
             //Hide stock survey GUI
             if (orbitalSurveyer != null)
@@ -177,6 +177,8 @@ namespace WildBlueIndustries
             float scienceCap = WBIBiomeAnalysis.GetScienceCap(this.part);
             float totalScience = scienceAdded;
 
+            totalScience = 5.0f;
+
             while (totalScience > 0.001f)
             {
                 //Set the experiment title
@@ -217,6 +219,7 @@ namespace WildBlueIndustries
 
         protected override void transmitResults(ScienceData data)
         {
+            Debug.Log("FRED transmitResults called");
             if (transmitHelper.TransmitToKSC(dataAmount, 0, 0))
             {
                 scienceAdded -= dataAmount;
@@ -335,6 +338,8 @@ namespace WildBlueIndustries
         protected void verifyPlanetUnlock()
         {
             if (orbitalSurveyer == null)
+                return;
+            if (ResourceMap.Instance == null)
                 return;
 
             bool planetUnlocked = ResourceMap.Instance.IsPlanetScanned(FlightGlobals.currentMainBody.flightGlobalsIndex);

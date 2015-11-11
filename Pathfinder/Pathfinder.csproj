@@ -78,6 +78,7 @@
     <Compile Include="Habitat\WBIHabitat.cs" />
     <Compile Include="Industry\WBIBreakableResourceConverter.cs" />
     <Compile Include="Industry\WBIGeoThermalPlant.cs" />
+    <Compile Include="WBICoolingTower.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">
