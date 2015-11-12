@@ -18,7 +18,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    class WBICoolingTower : WBIAnimation
+    class WBICoolingTower : WBIInflatablePartModule
     {
         ModuleActiveRadiator radiator;
         KSPParticleEmitter emitter;
@@ -39,9 +39,9 @@ namespace WildBlueIndustries
             }
         }
 
-        public override void ToggleAnimation()
+        public override void ToggleInflation()
         {
-            base.ToggleAnimation();
+            base.ToggleInflation();
 
             radiator.isEnabled = isDeployed;
             radiator.enabled = isDeployed;

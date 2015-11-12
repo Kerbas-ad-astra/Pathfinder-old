@@ -8,6 +8,17 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.3
+- Increased the node size on all the base attachment nodes.
+
+Chuckwagon
+- Moved center of mass for the Chuckwagon to the center of the dome.
+- Adjusted storage capacity after taking a closer look at the mesh's volume. No more Tardis Chuckwagon...
+
+Bug Fixes
+- You can now carry the Smoke Pipe.
+- Some inflatable modules have resources that are kept even when switching templates. Now, those resources won't be affected by the part being inflated or deflated.
+
 0.9.2
 
 New Part
