@@ -23,19 +23,55 @@ namespace WildBlueIndustries
         ModuleActiveRadiator radiator;
         KSPParticleEmitter emitter;
 
+        [KSPField(guiActive = true)]
+        public string Status;
+
+        [KSPField(isPersistant = true)]
+        public bool isCooling = true;
+
+        [KSPEvent(guiActive = true, guiActiveUnfocused = true, unfocusedRange = 3.0f)]
+        public void ToggleCooling()
+        {
+            isCooling = !isCooling;
+
+            radiator.isEnabled = isDeployed && isCooling;
+            radiator.enabled = isDeployed && isCooling;
+            emitter.emit = isDeployed && isCooling;
+            emitter.enabled = isDeployed && isCooling;
+
+            UpdateStatus();
+        }
+
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
 
             radiator = this.part.FindModuleImplementing<ModuleActiveRadiator>();
-            radiator.isEnabled = isDeployed;
-            radiator.enabled = isDeployed;
+            radiator.isEnabled = isDeployed && isCooling;
+            radiator.enabled = isDeployed && isCooling;
 
             emitter = this.part.GetComponentInChildren<KSPParticleEmitter>();
             if (emitter != null)
             {
-                emitter.emit = isDeployed;
-                emitter.enabled = isDeployed;
+                emitter.emit = isDeployed && isCooling;
+                emitter.enabled = isDeployed && isCooling;
+            }
+
+            UpdateStatus();
+        }
+
+        public void UpdateStatus()
+        {
+            if (isCooling)
+            {
+                Status = "Cooling";
+                Events["ToggleCooling"].guiName = "Turn cooling off";
+            }
+
+            else
+            {
+                Status = "Off";
+                Events["ToggleCooling"].guiName = "Turn cooling on";
             }
         }
 
@@ -51,6 +87,9 @@ namespace WildBlueIndustries
                 emitter.emit = isDeployed;
                 emitter.enabled = isDeployed;
             }
+
+            isCooling = isDeployed;
+            UpdateStatus();
         }
     }
 }

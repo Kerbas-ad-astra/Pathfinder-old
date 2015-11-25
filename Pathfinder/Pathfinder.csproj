@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WildBlueIndustries</RootNamespace>
     <AssemblyName>Pathfinder</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,7 +39,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
@@ -50,7 +50,6 @@
     <Compile Include="GUI\PathfinderKeyMonitor.cs" />
     <Compile Include="Habitat\WBIGreenhouse.cs" />
     <Compile Include="GUI\PathfinderSettings.cs" />
-    <Compile Include="OutbackSystem\JetWing.cs" />
     <Compile Include="Science\WBIBasicScienceLab.cs" />
     <Compile Include="Science\WBIBiomeAnalysis.cs" />
     <Compile Include="GUI\TerainUplinkView.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="Parts\WBIMultiKASPipe.cs" />
     <Compile Include="Science\WBIMultipurposeLab.cs" />
     <Compile Include="Habitat\WBIOSEWorkshop.cs" />
-    <Compile Include="OutbackSystem\WBIOutback.cs" />
     <Compile Include="Habitat\WBIMultipurposeHab.cs" />
     <Compile Include="Science\WBIScienceConverter.cs" />
     <Compile Include="GUI\WBISciLabOpsView.cs" />
@@ -78,7 +76,7 @@
     <Compile Include="Habitat\WBIHabitat.cs" />
     <Compile Include="Industry\WBIBreakableResourceConverter.cs" />
     <Compile Include="Industry\WBIGeoThermalPlant.cs" />
-    <Compile Include="WBICoolingTower.cs" />
+    <Compile Include="Parts\WBICoolingTower.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">

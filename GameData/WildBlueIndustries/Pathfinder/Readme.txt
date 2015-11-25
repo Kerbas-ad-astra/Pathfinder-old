@@ -8,6 +8,60 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.4 Believe it or Not
+The Greatest American Hero Theme Song - Believe it or Not 
+
+Now you can fly around any planet that has an atmosphere with a personal jet-powered wing! It works similarly to a command seat; just drop it on the ground (be careful, some terrain is explosive), right-click to board it, then rotate upright. Alternately, bolt it to the side of a craft, board, and decouple. The wing can be used on any planet with an atmosphere thanks to its monopropellant-powered jet engines. Just don't expect terrific range, unless you switch to liquid fuel and fly in an oxygenated atmosphere like Kerbin or Laythe. JetWing is inspired by JetMan Yves Rossy and the defunct KerbolQuest winged jetpack. The JetWing and its accessories work best with Kerbal Inventory System and either GoodSpeed Fuel Pump or TAC Fuel Balancer.
+
+In addition to the Jetwing, this release also introduces the M1A2 Grizzly, a larger wheel than the Mountain Goat that has a wider wheelbase and better traction. This all comes at the expense of not being able to enter and exit Mk3 cargo bays, however.
+
+Finally, there were some big changes to OSE Workshop and the Community Resource Pack recently, and Pathfinder has been updated to reflect the changes. You might find prospecting a lucrative business if you bring stuff home...
+
+NOTE: Due to changes in OSE Workshop, you can no longer switch between MaterialKits and RocketParts. However, the Ironworks still has converters that switch between RocketParts and MaterialKits. Additionally, OSE Workshop's changes now require ExoticMinerals and RareMetals for some parts, so plan accordingly.
+
+New Parts
+- Added the M1A2 Grizzly.
+- Added the JetWing. 
+- Added the JetWing Drop Tank. Works great with Good Speed Fuel Pump or TAC Fuel Balancer.
+- Added the JetWing Parachute. Like the Outback, it can be attached to the JetWing.
+- Added the JetWing Cargo Pallet. Mount these to the wing's hardpoints and you can surface-attach small items.
+
+JetWing Flight controls
+Insert: Toggle VTOL mode
+PageUp: Increase vertical speed
+PageDown: Decrease vertical speed
+Delete: Reset vertical speed to zero
+Gear: Toggle kickstand
+
+Outback
+- Moved the Outback from Pathfinder to the Buffalo mod.
+
+Storage Templates
+- Added ExoticMinerals template.
+- Added RareMetals template.
+
+Blacksmith
+- Removed ability to switch between RocketParts and MaterialKits.
+- Updated production requirements to latest OSE Workshop standards.
+
+Clockworks
+- Removed ability to switch between RocketParts and MaterialKits.
+- Updated production requirements to latest OSE Workshop standards.
+- Added converter to sift Dirt into ExoticMinerals and RareMetals.
+
+Pathfinder Geology Lab
+- Added converter to sift Dirt into ExoticMinerals and RareMetals. It isn't as efficient as the converter in the Clockworks but it gets the job done.
+
+Bug Fixes
+- The Greenhouse will now properly account for the current crewmember residing in the module.
+- If you have Extraplanetary Launchpads installed, when making RocketParts, excess ScrapMetal will be dumped instead of halting RocketPart creation.
+- The Smoke Pipe should inflate properly now, and its active cooling can be enabled/disabled.
+
+Other
+- Updated to latest CRP
+- Updated to latest OSE Workshop.
+- Adjusted maximum stored resources by module. Ponderosa/Casa: 2000, Doc: 3000, Hacienda/Homestead: 4000
+
 0.9.3
 - Increased the node size on all the base attachment nodes.
 
