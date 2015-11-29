@@ -31,8 +31,15 @@ namespace WildBlueIndustries
         [KSPField]
         public string partToolTipTitle;
 
+        [KSPField]
+        public string opsViewTitle;
+
+        [KSPField]
+        public float baseProductivity = 4.0f;
+
         Animation anim;
         PartModule impactSeismometer;
+        PartModule exWorkshop;
 
         public void AddConverter(ModuleResourceConverter converter)
         {
@@ -54,11 +61,14 @@ namespace WildBlueIndustries
             anim = this.part.FindModelAnimators(animationName)[0];
 
             foreach (PartModule mod in this.part.Modules)
+            {
                 if (mod.moduleName == "Seismometer")
-                {
                     impactSeismometer = mod;
-                    break;
-                }
+                else if (mod.moduleName == "ExWorkshop")
+                    exWorkshop = mod;
+            }
+
+            moduleOpsView.WindowTitle = opsViewTitle;
         }
 
         public override void OnUpdate()
@@ -129,10 +139,10 @@ namespace WildBlueIndustries
                 }
             }
 
+            //Now reconfigure
             base.UpdateContentsAndGui(templateName);
 
             //Check to see if we've displayed the tooltip for the template.
-
             //First, we're only interested in deployed modules.
             if (isDeployed == false)
                 return;

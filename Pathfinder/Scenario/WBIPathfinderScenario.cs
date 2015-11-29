@@ -31,7 +31,7 @@ namespace WildBlueIndustries
         public int reputationIndex;
 
         private Dictionary<string, EfficiencyData> efficiencyDataMap = new Dictionary<string, EfficiencyData>();
-        private List<ConfigNode> toolTipsList = new List<ConfigNode>();
+        private static Dictionary<string, ConfigNode> toolTips = new Dictionary<string, ConfigNode>();
 
         public override void OnAwake()
         {
@@ -57,7 +57,16 @@ namespace WildBlueIndustries
             }
 
             foreach (ConfigNode toolTipNode in toolTipsShown)
-                toolTipsList.Add(toolTipNode);
+            {
+                if (toolTipNode.HasValue("name") == false)
+                    continue;
+                value = toolTipNode.GetValue("name");
+
+                if (toolTips.ContainsKey(value))
+                    toolTips[value] = toolTipNode;
+                else
+                    toolTips.Add(value, toolTipNode);
+            }
         }
 
         public override void OnSave(ConfigNode node)
@@ -78,32 +87,27 @@ namespace WildBlueIndustries
             }
 
             node.RemoveNodes(kToolTip);
-            foreach (ConfigNode toolTipNode in toolTipsList)
+            foreach (ConfigNode toolTipNode in toolTips.Values)
                 node.AddNode(toolTipNode);
         }
 
         public void SetToolTipShown(string toolTipName)
         {
             //If we've already set the tool tip then we're done.
-            foreach (ConfigNode node in toolTipsList)
-            {
-                if (node.GetValue("name") == toolTipName)
-                    return;
-            }
+            if (toolTips.ContainsKey(toolTipName))
+                return;
 
             //Node does not exist, then add it.
             ConfigNode nodeTip = new ConfigNode(kToolTip);
             nodeTip.AddValue("name", toolTipName);
-            toolTipsList.Add(nodeTip);
+            //toolTipsList.Add(nodeTip);
+            toolTips.Add(toolTipName, nodeTip);
         }
 
         public bool HasShownToolTip(string toolTipName)
         {
-            foreach (ConfigNode node in toolTipsList)
-            {
-                if (node.GetValue("name") == toolTipName)
-                    return true;
-            }
+            if (toolTips.ContainsKey(toolTipName))
+                return true;
 
             return false;
         }

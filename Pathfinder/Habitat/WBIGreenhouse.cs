@@ -66,6 +66,7 @@ namespace WildBlueIndustries
             double daysPerCycle = (hoursPerCycle - (50f * totalCrewSkill)) / 6.0f;
 
             cropInfo.Append(moduleInfo + "\r\n");
+            cropInfo.Append("Current Crew Skill: " + totalCrewSkill + "\r\n");
             cropInfo.Append("Crop Yield\r\n");
             cropInfo.Append("Growing Time: ");
             cropInfo.Append(string.Format("{0:f1} days\r\n", daysPerCycle));
@@ -90,7 +91,34 @@ namespace WildBlueIndustries
             }
 
             moduleSwitcher = this.part.FindModuleImplementing<WBIModuleSwitcher>();
+
+            GameEvents.onCrewOnEva.Add(this.onCrewEVA);
+            GameEvents.onCrewTransferred.Add(this.onCrewTransfer);
+            GameEvents.onCrewBoardVessel.Add(this.onCrewBoardVessel);
+
             setupModuleInfo();
+        }
+
+        public void OnDestroy()
+        {
+            GameEvents.onCrewBoardVessel.Remove(this.onCrewBoardVessel);
+            GameEvents.onCrewTransferred.Remove(this.onCrewTransfer);
+            GameEvents.onCrewOnEva.Remove(this.onCrewEVA);
+        }
+
+        protected void onCrewBoardVessel(GameEvents.FromToAction<Part, Part> evnt)
+        {
+            totalCrewSkill = GetTotalCrewSkill();
+        }
+
+        protected void onCrewTransfer(GameEvents.HostedFromToAction<ProtoCrewMember, Part> evnt)
+        {
+            totalCrewSkill = GetTotalCrewSkill();
+        }
+
+        protected void onCrewEVA(GameEvents.FromToAction<Part, Part> evnt)
+        {
+            totalCrewSkill = GetTotalCrewSkill();
         }
 
         public override void OnFixedUpdate()
@@ -167,6 +195,8 @@ namespace WildBlueIndustries
             string description = "";
             Texture moduleLogo = null;
             string panelName;
+
+            totalCrewSkill = GetTotalCrewSkill();
 
             infoView = new InfoView();
 

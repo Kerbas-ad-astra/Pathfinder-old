@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WildBlueIndustries</RootNamespace>
     <AssemblyName>Pathfinder</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,14 +35,10 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Kerbal Space Program\KSP_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Launchpad">
-      <HintPath>..\..\..\..\..\KSPDev\GameData\ExtraplanetaryLaunchpads\Plugins\Launchpad.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
@@ -63,7 +60,6 @@
     <Compile Include="Parts\WBIMultiKASPipe.cs" />
     <Compile Include="Science\WBIMultipurposeLab.cs" />
     <Compile Include="Habitat\WBIOSEWorkshop.cs" />
-    <Compile Include="OutbackSystem\WBIOutback.cs" />
     <Compile Include="Habitat\WBIMultipurposeHab.cs" />
     <Compile Include="Science\WBIScienceConverter.cs" />
     <Compile Include="GUI\WBISciLabOpsView.cs" />
@@ -75,11 +71,12 @@
     <Compile Include="Drills\WBIModuleCoreSample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenario\WBIEfficiencyMonitor.cs" />
-    <Compile Include="Habitat\WBISurveyStation.cs" />
+    <Compile Include="TestData.cs" />
     <Compile Include="Utility\WBIMultipurposeStorage.cs" />
     <Compile Include="Habitat\WBIHabitat.cs" />
     <Compile Include="Industry\WBIBreakableResourceConverter.cs" />
-    <Compile Include="WBIGeoThermalPlant.cs" />
+    <Compile Include="Industry\WBIGeoThermalPlant.cs" />
+    <Compile Include="Parts\WBICoolingTower.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WildBlueTools\WildBlueTools.csproj">

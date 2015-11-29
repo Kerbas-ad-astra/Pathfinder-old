@@ -31,12 +31,12 @@ namespace WildBlueIndustries
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
-            CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
-
-            biomeName = biome.name;
 
             if (this.part.vessel.situation == Vessel.Situations.LANDED || this.part.vessel.situation == Vessel.Situations.SPLASHED || this.part.vessel.situation == Vessel.Situations.PRELAUNCH)
             {
+                CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);
+
+                biomeName = biome.name;
                 harvestType = HarvestTypes.Planetary;
                 planetID = this.part.vessel.mainBody.flightGlobalsIndex;
             }
@@ -50,7 +50,7 @@ namespace WildBlueIndustries
             if (HighLogic.LoadedSceneIsFlight == false)
                 return;
 
-            if (planetID == -1)
+            if (planetID == -1 || string.IsNullOrEmpty(biomeName))
                 return;
             
             float efficiencyModifier = WBIPathfinderScenario.Instance.GetEfficiencyModifier(planetID, biomeName, harvestType, EfficiencyData.kExtractionMod);

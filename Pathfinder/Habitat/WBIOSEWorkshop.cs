@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using UnityEngine;
 using KSP.IO;
 
@@ -21,23 +22,18 @@ namespace WildBlueIndustries
 {
     public class WBIOSEWorkshop : ExtendedPartModule, ITemplateOps
     {
-        [KSPField]
-        public string mainProductionResource = "MaterialKits";
-
-        [KSPField]
-        public string altProductionResource = null;
-
-        [KSPField(isPersistant = true)]
-        public bool useMainResource = true;
-
         PartModule oseWorkshop;
         PartModule oseRecycler;
+        MethodInfo methodOpenWorkshop = null;
+        MethodInfo methodOpenRecycler = null;
+        WBIInflatablePartModule inflatableModule = null;
 
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
 
-            //Get the workshop and recycler
+            inflatableModule = this.part.FindModuleImplementing<WBIInflatablePartModule>();
+
             foreach (PartModule mod in this.part.Modules)
             {
                 if (mod.moduleName == "OseModuleWorkshop")
@@ -46,101 +42,102 @@ namespace WildBlueIndustries
                     oseRecycler = mod;
             }
 
+            /* For some reason we can't seem to hide the fields and events anymore. :(
             //Now, hide the workshop and recycler GUI.
-            if (oseWorkshop != null && oseRecycler != null)
+            if (oseWorkshop != null)
             {
                 oseWorkshop.Fields["Status"].guiActive = false;
-                oseWorkshop.Fields["Status"].guiActiveEditor = false;
                 oseWorkshop.Events["ContextMenuOnOpenWorkbench"].guiActive = false;
-                oseWorkshop.Events["ContextMenuOnOpenWorkbench"].guiActiveEditor = false;
-                oseWorkshop.Events["ContextMenuOnOpenWorkbench"].guiActiveUnfocused = false;
-
-                oseRecycler.Fields["Status"].guiActive = false;
-                oseRecycler.Fields["Status"].guiActiveEditor = false;
-                oseRecycler.Events["ContextMenuOnOpenWorkbench"].guiActive = false;
-                oseRecycler.Events["ContextMenuOnOpenWorkbench"].guiActiveEditor = false;
-                oseRecycler.Events["ContextMenuOnOpenWorkbench"].guiActiveUnfocused = false;
-
-                //Setup production material
-                if (useMainResource)
-                {
-                    Utils.SetField("InputResource", mainProductionResource, oseWorkshop);
-                    Utils.SetField("OutputResource", mainProductionResource, oseRecycler);
-                }
-                else
-                {
-                    Utils.SetField("InputResource", altProductionResource, oseWorkshop);
-                    Utils.SetField("OutputResource", altProductionResource, oseRecycler);
-                }
             }
+
+            if (oseRecycler != null)
+            {
+                oseRecycler.Fields["Status"].guiActive = false;
+                oseRecycler.Events["ContextMenuOnOpenWorkbench"].guiActive = false;
+            }
+             */ 
+
+            //Use reflection to find the methods we need.
+            findWorkshopMethods();
         }
 
         public void DrawOpsWindow()
         {
+            string workshopStatus;
+            string recyclerStatus;
+
             GUILayout.BeginVertical();
-            if (oseWorkshop != null && oseRecycler != null)
-            {
-                if (!string.IsNullOrEmpty(mainProductionResource) && !string.IsNullOrEmpty(altProductionResource))
-                {
-                    string resource;
-                    if (useMainResource)
-                        resource = mainProductionResource;
-                    else
-                        resource = altProductionResource;
-
-                    GUILayout.Label("<b>Resource Mode: </b>" + resource);
-                }
-
-                string workshopStatus = (string)Utils.GetField("Status", oseWorkshop);
-                string recyclerStatus = (string)Utils.GetField("Status", oseRecycler);
-
-                GUILayout.Label("<b>Workshop Status:</b> " + workshopStatus);
-                GUILayout.Label("<b>Recycler Status:</b> " + recyclerStatus);
-
-                if (GUILayout.Button("Open Workshop"))
-                    oseWorkshop.Events["ContextMenuOnOpenWorkbench"].Invoke();
-
-                if (GUILayout.Button("Open Recycler"))
-                    oseRecycler.Events["ContextMenuOnOpenWorkbench"].Invoke();
-
-                //Only draw the toggle button if we have a main and alternate production resource.
-                if (!string.IsNullOrEmpty(mainProductionResource) && !string.IsNullOrEmpty(altProductionResource))
-                {
-                    if (useMainResource)
-                    {
-                        if (GUILayout.Button("Use " + altProductionResource + " for building/recycling"))
-                        {
-                            useMainResource = false;
-                            Utils.SetField("InputResource", altProductionResource, oseWorkshop);
-                            Utils.SetField("OutputResource", altProductionResource, oseRecycler);
-                        }
-                    }
-                    else
-                    {
-                        if (GUILayout.Button("Use " + mainProductionResource + " for building/recycling"))
-                        {
-                            useMainResource = true;
-                            Utils.SetField("InputResource", mainProductionResource, oseWorkshop);
-                            Utils.SetField("OutputResource", mainProductionResource, oseRecycler);
-                        }
-                    }
-                }
-            }
-
-            else //This can happen when KIS gets updated and OSE Workshop hasn't been updated yet.
+            //This can happen when KIS gets updated and OSE Workshop hasn't been updated yet.
+            if (oseWorkshop == null && oseRecycler == null)
             {
                 GUILayout.Label("Unable to render the OSE Workshop GUI, please install the latest version of OSE Workshop.");
+            }
 
+            else
+            {
+                if (inflatableModule != null)
+                {
+                    if (inflatableModule.isInflatable && inflatableModule.isDeployed == false)
+                    {
+                        GUILayout.Label("In order to use the workshop, you need to inflate it first.");
+                        GUILayout.EndVertical();
+                        return;
+                    }
+                }
+
+                //Draw status fields
+                if (oseWorkshop != null)
+                {
+                    workshopStatus = (string)Utils.GetField("Status", oseWorkshop);
+                    GUILayout.Label("<b>Workshop Status:</b> " + workshopStatus);
+                }
+
+                if (oseRecycler != null)
+                {
+                    recyclerStatus = (string)Utils.GetField("Status", oseRecycler);
+                    GUILayout.Label("<b>Recycler Status:</b> " + recyclerStatus);
+                }
+
+                //Draw buttons
+                if (oseWorkshop != null)
+                {
+                    if (GUILayout.Button("Open Workshop"))
+                    {
+                        methodOpenWorkshop.Invoke(oseWorkshop, null);
+                    }
+                }
+
+                if (oseRecycler != null)
+                {
+                    if (GUILayout.Button("Open Recycler"))
+                        methodOpenRecycler.Invoke(oseRecycler, null);
+                }
             }
             GUILayout.EndVertical();
         }
 
-        protected override void getProtoNodeValues(ConfigNode protoNode)
+        protected void findWorkshopMethods()
         {
-            base.getProtoNodeValues(protoNode);
+            if (oseWorkshop == null && oseRecycler == null)
+                return;
 
-            mainProductionResource = protoNode.GetValue("mainProductionResource");
-            altProductionResource = protoNode.GetValue("altProductionResource");
+            //Find the methods we need.
+            foreach (AssemblyLoader.LoadedAssembly assembly in AssemblyLoader.loadedAssemblies)
+            {
+                if (assembly.name == "Workshop")
+                {
+                    Type[] classes = assembly.assembly.GetTypes();
+                    foreach (Type OseModuleWorkshop in classes)
+                    {
+                        if (OseModuleWorkshop.Name == "OseModuleWorkshop" && oseWorkshop != null)
+                            methodOpenWorkshop = OseModuleWorkshop.GetMethod("ContextMenuOpenWorkbench");
+
+                        else if (OseModuleWorkshop.Name == "OseModuleRecycler" && oseRecycler != null)
+                            methodOpenRecycler = OseModuleWorkshop.GetMethod("ContextMenuOpenWorkbench");
+                    }
+                }
+            }
+
         }
     }
 }

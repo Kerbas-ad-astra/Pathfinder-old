@@ -94,12 +94,13 @@ namespace WildBlueIndustries
             if (HighLogic.LoadedSceneIsFlight == false)
                 return;
             WBIPathfinderScenario scenario = WBIPathfinderScenario.Instance;
-            if (scenario.HasShownToolTip(this.ClassName))
-                return;
-            scenario.SetToolTipShown(this.ClassName);
+            if (!scenario.HasShownToolTip(this.ClassName))
+            {
+                scenario.SetToolTipShown(this.ClassName);
 
-            WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(kToolTipTitle, kDrillSwitchTooltip);
-            toolTipWindow.SetVisible(true);
+                WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(kToolTipTitle, kDrillSwitchTooltip);
+                toolTipWindow.SetVisible(true);
+            }
         }
 
         [KSPEvent(guiName = "Modify Drill", guiActive = false, guiActiveEditor = false, guiActiveUnfocused = true, unfocusedRange = 3.0f)]
