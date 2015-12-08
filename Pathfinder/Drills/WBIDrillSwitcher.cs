@@ -103,7 +103,7 @@ namespace WildBlueIndustries
             }
         }
 
-        [KSPEvent(guiName = "Modify Drill", guiActive = false, guiActiveEditor = false, guiActiveUnfocused = true, unfocusedRange = 3.0f)]
+        [KSPEvent(guiName = "Modify Drill", guiActive = true, guiActiveEditor = false, guiActiveUnfocused = true, unfocusedRange = 3.0f)]
         public void ShowDrillSwitchWindow()
         {
             //Make sure we have an experienced engineer.

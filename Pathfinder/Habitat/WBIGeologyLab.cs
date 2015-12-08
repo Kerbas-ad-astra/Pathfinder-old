@@ -353,6 +353,11 @@ namespace WildBlueIndustries
             GUILayout.Label("<color=white><b>Industry Efficiency:</b> " + string.Format("{0:f1}%", industryEfficiency * 100f) + "</color>");
             GUILayout.EndScrollView();
 
+            if (resourceList == null)
+                resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
+            else if (resourceList.Count == 0)
+                resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
+
             scrollPosResources = GUILayout.BeginScrollView(scrollPosResources, new GUIStyle(GUI.skin.textArea));
             foreach (PResource.Resource resource in resourceList)
                 GUILayout.Label("<color=white>" + resource.resourceName + " abundance: " + getAbundance(resource.resourceName) + "</color>");
