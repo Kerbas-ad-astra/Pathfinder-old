@@ -8,6 +8,31 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.7
+
+Ponderosa/Casa IVA
+- You can now click on a screen to change its image, provided that your scene loaded with a kerbal in the part. See KNOWN ISSUES below.
+
+Buffalo Command Cab
+- Added support for TAC-LS
+
+Buffalo Crew Cab
+- Added support for TAC-LS
+
+Prairie
+- To help with part count at the base, the Prairie now produces enough Snacks/Supplies/Food for 3 kerbals for 90 days.
+
+Bug Fixes
+- Updated required Organics in the Prairie to match rebalanced max resource storage amounts.
+- Fixed an issue where the Prairie wouldn't start running the Snacks greenhouse even though it had a full load of required resources.
+- Kerbals won't fall over if trying to strap a Casa/Ponderosa onto their back.
+- Ponderosa/Casa won't explode when attached to another part.
+
+KNOWN ISSUES
+- The monitors in the Ponderosa/Casa will retain their default image if the scene loads without a kerbal in the part.
+WORKAROUND: Put a kerbal in the part, and reload the scene.
+
+
 0.9.6 Young Feathers
 This update brings a bunch of new parts, Pathfinder's first official IVA, and some tweaks. At last the Ponderosa/Casa has its official IVA! The internal view reflects the module's role as the habitation component of Pathfinder's base building (the bottom floor is deliberately empty- for now). For the memory conscious, you can safely delete the Pathfinder/Spaces folder and revert back to the placeholder IVA.
 
