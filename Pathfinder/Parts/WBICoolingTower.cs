@@ -23,11 +23,30 @@ namespace WildBlueIndustries
         ModuleActiveRadiator radiator;
         KSPParticleEmitter emitter;
 
+        [KSPField]
+        public string coolantResource = "Water";
+
+        [KSPField]
+        public float dumpRate = 1.0f;
+
         [KSPField(guiActive = true)]
         public string Status;
 
         [KSPField(isPersistant = true)]
         public bool isCooling = true;
+
+        [KSPField(isPersistant = true)]
+        public bool isOpenCycle;
+
+        [KSPEvent(guiActive = true, guiActiveUnfocused = true, unfocusedRange = 3.0f, guiName = "Toggle Open Cycle")]
+        public void ToggleOpenCycle()
+        {
+            isOpenCycle = !isOpenCycle;
+            if (isOpenCycle)
+                this.Events["ToggleOpenCycle"].guiName = "Open Cycle Off";
+            else
+                this.Events["ToggleOpenCycle"].guiName = "Open Cycle On";
+        }
 
         [KSPEvent(guiActive = true, guiActiveUnfocused = true, unfocusedRange = 3.0f)]
         public void ToggleCooling()
@@ -58,6 +77,39 @@ namespace WildBlueIndustries
             }
 
             UpdateStatus();
+
+            if (isOpenCycle)
+                this.Events["ToggleOpenCycle"].guiName = "Open Cycle Off";
+            else
+                this.Events["ToggleOpenCycle"].guiName = "Open Cycle On";
+        }
+
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+
+            if (isOpenCycle)
+                dumpCoolant();
+        }
+
+        protected void dumpCoolant()
+        {
+            PartResourceDefinitionList definitions = PartResourceLibrary.Instance.resourceDefinitions;
+            PartResourceDefinition resourceDef;
+            double coolantToDump = dumpRate * TimeWarp.fixedDeltaTime;
+            double coolantDumped = 0;
+            double thermalEnergyCoolant = 0;
+
+            //The the resource definition
+            resourceDef = definitions[coolantResource];
+
+            //Now calculate the resource amount dumped and the thermal energy of that slug of resource.
+            coolantDumped = this.part.RequestResource(resourceDef.id, coolantToDump * dumpRate, ResourceFlowMode.ALL_VESSEL);
+            thermalEnergyCoolant = this.part.temperature * this.part.resourceThermalMass * coolantDumped;
+
+            //Practice conservation of energy...
+            if (coolantDumped > 0.001)
+                this.part.AddThermalFlux(-thermalEnergyCoolant);
         }
 
         public void UpdateStatus()
