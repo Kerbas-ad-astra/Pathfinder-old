@@ -1,4 +1,4 @@
-Pathfinder
+aPathfinder
 
 A KSP mod that blazes the trail for more permanent installations. Geoscience for better resource extraction.
 
@@ -7,6 +7,51 @@ A KSP mod that blazes the trail for more permanent installations. Geoscience for
 Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
+
+0.9.8 Life, don't talk to me about life.
+This update overhauls the various module manager patches for Snacks, TAC-LS, and USI-LS. This overhaul takes advantage of new resources available in the Community Resource Pack, and as a result, the converter inputs and outputs for the Prairie and Pigpen make more sense now.
+
+Snacks
+- The Pigpen composter now benefits from Scientists, not Engineers.
+- The Pigpen Composter now creates Fertilizer (you need ElectricCharge, Organics, Minerals, and Dirt).
+- The Pigpen can create Dirt (you need ElectricCharge, Ore, Minerals, and Fertilizer).
+- The Prairie greenhouse now consumes ElectricCharge, Water and Fertilizer, and requires Dirt.
+- The Watney lab can produce Organics (you need Ore, Water, and ElectricCharge). Go organic chemistry! :)
+- Removed the Watney's Snack Grinder.
+
+TAC-LS
+- The Pigpen converters now benefit from Scientists, not Engineers.
+- The Pigpen Composter now creates Fertilizer (you need ElectricCharge, Water, Waste, and Minerals).
+- The Pigpen can create Dirt (you need ElectricCharge, Ore, Minerals, and Fertilizer).
+- The Prairie greenhouse now consumes ElectricCharge, Water and Fertilizer, and requires Dirt.
+
+USI-LS
+- Overhauled the converters and support for USI-LS to reflect the latest version. See MM_USI-LS.cfg for details. Thanks for the tips on how to configure things, RoverDude! :)
+- Modules now have a lifespan and will wear out over time if USI-LS is installed.
+- The Pigpen converters now benefit from Scientists, not Engineers.
+- The Pigpen Composter now creates Fertilizer (you need ElectricCharge and Mulch).
+- The Pigpen can create Dirt (you need ElectricCharge, Organics, Minerals, and Fertilizer).
+- The Prairie greenhouse now uses ElectricCharge, Water and Fertilizer, and requires Dirt.
+- The Ponderosa habitat template has a life support recycler that supports up to 6 kerbals.
+- The Watney lab can produce Organics (you need Ore, Water, Minerals, and ElectricCharge). Go organic chemistry! :)
+
+Sunburn Lab
+- Added the ability to make Glykerol (you need ElectricCharge, ExoticMinerals, RareMetals, and Coolant) if Deep Freeze is installed.
+
+Storage Templates
+- Added Dirt template.
+- Added Fertilizer template.
+
+Old Faithful
+- The Old Faithful now has the ability to toggle open cycle cooling. With open cycle cooling, it can shed even more heat at the cost of expending water.
+
+Other
+- Moved Module Manager patches to the Pathfinder/ModuleManagerPatches folder. There's a lot of them now...
+- Added support for Connected Living Spaces to the Buffalo. Thanks for the assist, Technologicat! :)
+
+Bug Fixes
+- The Watney Rainmaker converters will now dump excess ElectricCharge instead of getting stuck.
+- Fixed Remote Tech issues with the TERRAIN. Thanks for the investigation and fix, Vaga! :)
 
 0.9.7
 

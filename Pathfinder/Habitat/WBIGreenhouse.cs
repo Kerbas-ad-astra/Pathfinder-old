@@ -61,11 +61,13 @@ namespace WildBlueIndustries
 
         public override string GetInfo()
         {
+            GetTotalCrewSkill();
             string moduleInfo = base.GetInfo();
             StringBuilder cropInfo = new StringBuilder();
             double daysPerCycle = (hoursPerCycle - (50f * totalCrewSkill)) / 6.0f;
 
             cropInfo.Append(moduleInfo + "\r\n");
+            cropInfo.Append("Specialist Needed: " + Specialty + "\r\n");
             cropInfo.Append("Current Crew Skill: " + totalCrewSkill + "\r\n");
             cropInfo.Append("Crop Yield\r\n");
             cropInfo.Append("Growing Time: ");
@@ -134,7 +136,7 @@ namespace WildBlueIndustries
             if (totalCrewSkill == 0)
                 totalCrewSkill = GetTotalCrewSkill();
 
-            return (hoursPerCycle - 50f * totalCrewSkill) * 3600;
+            return (hoursPerCycle - (50f * totalCrewSkill)) * 3600;
         }
 
         protected override void onSuccess()
