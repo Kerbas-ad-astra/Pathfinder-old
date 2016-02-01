@@ -35,12 +35,12 @@ USI-LS
 - The Ponderosa habitat template has a life support recycler that supports up to 6 kerbals.
 - The Watney lab can produce Organics (you need Ore, Water, Minerals, and ElectricCharge). Go organic chemistry! :)
 
-Sunburn Lab
-- Added the ability to make Glykerol (you need ElectricCharge, ExoticMinerals, RareMetals, and Coolant) if Deep Freeze is installed.
-
-Storage Templates
+Templates
 - Added Dirt template.
 - Added Fertilizer template.
+
+Sunburn Lab
+- Added the ability to make Glykerol (you need ElectricCharge, ExoticMinerals, RareMetals, and Coolant) if Deep Freeze is installed.
 
 Old Faithful
 - The Old Faithful now has the ability to toggle open cycle cooling. With open cycle cooling, it can shed even more heat at the cost of expending water.
