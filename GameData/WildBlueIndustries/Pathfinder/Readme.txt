@@ -8,6 +8,9 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.9
+- Fixed an issue with USI-LS support where the Life Support template wasn't showing up. Also, added Dirt since there was enough room in the template.
+
 0.9.8 Life, don't talk to me about life.
 This update overhauls the various module manager patches for Snacks, TAC-LS, and USI-LS. This overhaul takes advantage of new resources available in the Community Resource Pack, and as a result, the converter inputs and outputs for the Prairie and Pigpen make more sense now.
 
