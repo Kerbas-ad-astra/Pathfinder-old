@@ -3,7 +3,7 @@
 **Cost:** 600 RocketParts  
 **Research:** Space Exploration
 
-One of the many configurations possible for the [[Ponderosa Inflatable Module|Ponderosa]], the Pathfinder Geology Lab, along with the Gold Digger Portable Drill, forms the cornerstone of Pathfinder's geological research system. With the geology lab, you'll be able to research a planet's resources to improve resource abundance. Also, you can improve your production efficiencies for your Habitation, Science, and Industry modules. Additionally, you can research impact data if you have the [[Impact|http://forum.kerbalspaceprogram.com/threads/114087-1-0-Impact!-impact-science-and-contracts-v1-1-0-With-Asteroids-30-6-15]] mod installed. Finally, you can keep track of your orbiting TERRAIN-equipped satellites.  
+One of the many configurations possible for the [[Ponderosa Inflatable Module|Ponderosa]], the Pathfinder Geology Lab, along with the Gold Digger Portable Drill, forms the cornerstone of Pathfinder's geological research system. With the geology lab, you'll be able to research a planet's resources to improve resource abundance. Also, you can improve your production efficiencies for your Habitation, Science, and Industry modules. Additionally, you can research impact data if you have the [[Impact|http://forum.kerbalspaceprogram.com/threads/114087-1-0-Impact!-impact-science-and-contracts-v1-1-0-With-Asteroids-30-6-15]] mod installed. Plus, you can sift through Dirt to find RareMetals and ExoticMinerals. Finally, you can keep track of your orbiting TERRAIN-equipped satellites.  
 # Scanning The Surface  
 In the stock game, after sending an M700 Survey Scanner into polar orbit of a planet and performing a scan, the next step is to land a Surface Scanning Module to analyze the surface. With Pathfinder, you have the option of sending a [[TERRAIN Geo Scanner|TERRAIN-Geo-Scanner]] into orbit and landing a Ponderosa configured as a Pathfinder Geology Lab. The geology lab has the same functionality as the Surface Scanning Module and is available earlier in the game, but it requires extra resources to operate.
 
@@ -27,6 +27,14 @@ Once a planet's soil has been researched, the Geology Lab opens up new capabilit
 ![](https://github.com/Angel-125/Pathfinder/wiki/GeologyLab3.jpg)  
 **Satellites In Orbit:** This field shows you how many TERRAIN Geo Scanner satellites are currently in orbit.  
 **Vessel Status:** Each satellite reports its last known status, the Science it has collected during its geological survey, and enables you to quickly switch focus to the satellite.  
+# Prospecting  
+The Pathfinder lab is capable of sifting through Dirt to find ExoticMinerals and RareMetals. These valuable resources are used in some 3D printing processes and can be returned to Kerbin for a profit. The Prospector converter has the following recipe:  
+**Inputs**  
+_Dirt:_ 2 units/sec  
+_ElectricCharge:_ 5 units/sec  
+**Output**  
+_RareMetals:_ 0.015 units/sec  
+_ExoticMinerals:_ 0.015 units/sec  
 # Improving Production Efficiency  
 After you've successfully performed your initial analysis, not only will you be able to take core samples with the Gold Digger, you'll be able to use the core samples in your research projects. if successful, your projects will help improve the production efficiency of your resource converters.
 

@@ -177,7 +177,11 @@ namespace WildBlueIndustries
             float scienceCap = WBIBiomeAnalysis.GetScienceCap(this.part);
             float totalScience = scienceAdded;
 
-            totalScience = 5.0f;
+            if (totalScience < 0.001f)
+            {
+                ScreenMessages.PostScreenMessage(kNoScience, 5.0f, ScreenMessageStyle.UPPER_CENTER);
+                return;
+            }
 
             while (totalScience > 0.001f)
             {
@@ -219,7 +223,6 @@ namespace WildBlueIndustries
 
         protected override void transmitResults(ScienceData data)
         {
-            Debug.Log("FRED transmitResults called");
             if (transmitHelper.TransmitToKSC(dataAmount, 0, 0))
             {
                 scienceAdded -= dataAmount;

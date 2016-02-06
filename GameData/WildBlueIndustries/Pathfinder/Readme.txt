@@ -1,4 +1,4 @@
-Pathfinder
+aPathfinder
 
 A KSP mod that blazes the trail for more permanent installations. Geoscience for better resource extraction.
 
@@ -8,14 +8,120 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
-0.9.5 Flight by Erik Groysman
-This update has some minor tweaks and bug fixes to the JetWing. It is still experimental but the flight controls are a little easier to use.
+0.9.9
+- Fixed an issue with USI-LS support where the Life Support template wasn't showing up. Also, added Dirt since there was enough room in the template.
 
+0.9.8 Life, don't talk to me about life.
+This update overhauls the various module manager patches for Snacks, TAC-LS, and USI-LS. This overhaul takes advantage of new resources available in the Community Resource Pack, and as a result, the converter inputs and outputs for the Prairie and Pigpen make more sense now.
+
+Snacks
+- The Pigpen composter now benefits from Scientists, not Engineers.
+- The Pigpen Composter now creates Fertilizer (you need ElectricCharge, Organics, Minerals, and Dirt).
+- The Pigpen can create Dirt (you need ElectricCharge, Ore, Minerals, and Fertilizer).
+- The Prairie greenhouse now consumes ElectricCharge, Water and Fertilizer, and requires Dirt.
+- The Watney lab can produce Organics (you need Ore, Water, and ElectricCharge). Go organic chemistry! :)
+- Removed the Watney's Snack Grinder.
+
+TAC-LS
+- The Pigpen converters now benefit from Scientists, not Engineers.
+- The Pigpen Composter now creates Fertilizer (you need ElectricCharge, Water, Waste, and Minerals).
+- The Pigpen can create Dirt (you need ElectricCharge, Ore, Minerals, and Fertilizer).
+- The Prairie greenhouse now consumes ElectricCharge, Water and Fertilizer, and requires Dirt.
+
+USI-LS
+- Overhauled the converters and support for USI-LS to reflect the latest version. See MM_USI-LS.cfg for details. Thanks for the tips on how to configure things, RoverDude! :)
+- Modules now have a lifespan and will wear out over time if USI-LS is installed.
+- The Pigpen converters now benefit from Scientists, not Engineers.
+- The Pigpen Composter now creates Fertilizer (you need ElectricCharge and Mulch).
+- The Pigpen can create Dirt (you need ElectricCharge, Organics, Minerals, and Fertilizer).
+- The Prairie greenhouse now uses ElectricCharge, Water and Fertilizer, and requires Dirt.
+- The Ponderosa habitat template has a life support recycler that supports up to 6 kerbals.
+- The Watney lab can produce Organics (you need Ore, Water, Minerals, and ElectricCharge). Go organic chemistry! :)
+
+Templates
+- Added Dirt template.
+- Added Fertilizer template.
+
+Sunburn Lab
+- Added the ability to make Glykerol (you need ElectricCharge, ExoticMinerals, RareMetals, and Coolant) if Deep Freeze is installed.
+
+Old Faithful
+- The Old Faithful now has the ability to toggle open cycle cooling. With open cycle cooling, it can shed even more heat at the cost of expending water.
+
+Other
+- Moved Module Manager patches to the Pathfinder/ModuleManagerPatches folder. There's a lot of them now...
+- Added support for Connected Living Spaces to the Buffalo. Thanks for the assist, Technologicat! :)
+
+Bug Fixes
+- The Watney Rainmaker converters will now dump excess ElectricCharge instead of getting stuck.
+- Fixed Remote Tech issues with the TERRAIN. Thanks for the investigation and fix, Vaga! :)
+
+0.9.7
+
+Ponderosa/Casa IVA
+- You can now click on a screen to change its image, provided that your scene loaded with a kerbal in the part. See KNOWN ISSUES below.
+
+Buffalo Command Cab
+- Added support for TAC-LS
+
+Buffalo Crew Cab
+- Added support for TAC-LS
+
+Prairie
+- To help with part count at the base, the Prairie now produces enough Snacks/Supplies/Food for 3 kerbals for 90 days.
+
+Bug Fixes
+- Updated required Organics in the Prairie to match rebalanced max resource storage amounts.
+- Fixed an issue where the Prairie wouldn't start running the Snacks greenhouse even though it had a full load of required resources.
+- Kerbals won't fall over if trying to strap a Casa/Ponderosa onto their back.
+- Ponderosa/Casa won't explode when attached to another part.
+
+KNOWN ISSUES
+- The monitors in the Ponderosa/Casa will retain their default image if the scene loads without a kerbal in the part.
+WORKAROUND: Put a kerbal in the part, and reload the scene.
+
+
+0.9.6 Young Feathers
+This update brings a bunch of new parts, Pathfinder's first official IVA, and some tweaks. At last the Ponderosa/Casa has its official IVA! The internal view reflects the module's role as the habitation component of Pathfinder's base building (the bottom floor is deliberately empty- for now). For the memory conscious, you can safely delete the Pathfinder/Spaces folder and revert back to the placeholder IVA.
+
+New Parts
+- Added the M1A0 Bear Cub. This adorable wheel is used for small rovers.
+- Added the WJ400 Jaguar, a micro-jet engine. It's a great booster engine for weighed down JetWings.
+- Added a half-sized chassis. It has an integrated solar panel, but no KIS storage.
+- Added a quarter-sized chassis. It too has an integrated solar panel and lacks KIS storage.
+- Added the ATV Command Seat. It's just like the External Command Seat, except that it can only be stack attached to parts.
+
+Ponderosa/Casa
+- Added the official IVA. Remember, you can delete Pathfinder/Spaces if you need more memory.
+- If you put an image in the Pathfinder/Spaces/Screens folder then it'll appear on the monitor. Be sure to use an aspect ratio of 1.33:1 (width:height, such as 1024 by 768). See WBIScreenPropHelper module in Ponderosa.cfg and Ponderosa2.cfg for other goodies. Want to add an image? Post it on the forums and I'll give you credit. Special thanks to Kuzzter for allowing me to use his artwork. :)
+- If you want to change the static images on the walls, simply navigate to the Pathfinder/Spaces/Assets folder, and replace the StaticImages.png file with one of your own design. Tip: If you change the image size to, say 2048 by 2048, you can increase the picture resolution.
+
+JetWing
+- Reduced the engine ISP by half. Transcontinental flights are fun and all but you know, a wee bit OP...
+
+Wheels
+- Adjusted traction values to be more in line with stock wheels. This work is ongoing, some of the stock values don't work for these wheels. Many thanks to Taniwha for the scrips that gave me the values. :)
+- Removed the interim rover wheel.
+
+Templates
+- Renamed the Claw Marks to the Claim Jumper, and Smoke Pipe to Old Faithful- thanks for the names, AdmiralTigerClaw! :)
+
+Bug Fixes
+- Fixed an issue where the Geology Lab would be unable to show the resource percentages after reloading the base.
+- Fixed an issue preventing the OSE Recycler from working with the latest version of OSE Workshop.
+- Fixed an issue with the TERRAIN that let you spam data reviews before starting the geo survey.
+- Fixed a bug that would cause a crash when switching to a Terrain satellite from the geology lab.
+- Starter craft from wiki now has the proper wheels.
+- Fixed a collider issue with the Grizzly. It shouldn't drag its feet now. Thanks for your help Beeks! :)
+
+Other
+- Added support for RemoteTech.
+
+0.9.5
 JetWing
 - When you load the flight scene, the JetWing will look at what fuel you're using and set up the engine mode automatically.
 - Improved the jet flame effects for liquid fuel mode.
 - You can now re-bind the hover control keys. Simply right-click on the wing, click "Show GUI" to display the on-screen hover controls, and click the gear button to display the hover controls keyboard mapper.
-- Moved center of thrust a little lower to make the wing a bit easier to fly.
 - JetWing's art assets and config files are now in the Buffalo/Parts/JetWing folder. You can safely delete all other folders in the Buffalo/Parts folder as well as the Buffalo/Spaces folder and Buffalo/Assets folder if all you want is the JetWing.
 
 Outback

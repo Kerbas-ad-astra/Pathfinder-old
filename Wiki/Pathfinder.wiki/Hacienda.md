@@ -61,5 +61,8 @@ The Hot Springs taps into the geothermal energy contained in a planet or moon in
 ### Solar Flare Experimental Fusion Reactor  
 Link: [[Solar Flare Experimental Fusion Plant|Solar-Flare-Fusion-Reactor]]  
 The pinnacle of Pathfinder's power generation technologies, the Solar Flare is a large experimental fusion reactor. It generates more power than the Hot Springs and uses FusionPellets.
+### Claim Jumper Strip Miner  
+Link: [[Claim Jumper|Claim-Jumper]]  
+The Claim Jumper is designed to rapidly extract resources from a given area compared to the stock Drill-O-Matic and especially compared to the Gold Digger drill.  
 # Designer's Notes  
 In order to reinforce the theme of a space western, I've named Pathfinder's parts after names associated with the Old West. Originally, I wanted to use the name Hacienda for a larger version of the Ponderosa. It was supposed to be a permanent structure that's built on site. But when I needed a name for a factory module and did some research on the hacienda, I found out that hacienda were more than estates; they were factories as well! That sealed the deal for me, and the factory module became known as the Hacienda.

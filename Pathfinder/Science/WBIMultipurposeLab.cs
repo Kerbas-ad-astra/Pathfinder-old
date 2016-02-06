@@ -29,6 +29,15 @@ namespace WildBlueIndustries
         [KSPField]
         public string partToolTipTitle;
 
+        [KSPField]
+        public float productivity = 1.0f;
+
+        [KSPField]
+        public float efficiency = 1.0f;
+
+        [KSPField]
+        public string opsViewTitle;
+
         Animation anim;
         WBIScienceConverter scienceConverter;
 
@@ -48,7 +57,10 @@ namespace WildBlueIndustries
             base.OnUpdate();
 
             if (anim == null)
+            {
+                checkAndShowToolTip();
                 return;
+            }
 
             //We're only interested in the act of inflating the module.
             if (isDeployed == false)
@@ -72,6 +84,12 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
+        public override void RedecorateModule(bool payForRedecoration = true, bool loadTemplateResources = true)
+        {
+            base.RedecorateModule(payForRedecoration, loadTemplateResources);
+            updateProductivity();
+        }
+
         public override void UpdateContentsAndGui(string templateName)
         {
             base.UpdateContentsAndGui(templateName);
@@ -85,6 +103,21 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
+        protected void updateProductivity()
+        {
+            //Find all the resource converters and set their productivity
+            List<ModuleResourceConverter> converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
+
+            foreach (ModuleResourceConverter converter in converters)
+            {
+                converter.Efficiency = efficiency;
+
+                //Now adjust the output.
+                foreach (ResourceRatio ratio in converter.outputList)
+                    ratio.Ratio *= productivity;
+            }
+        }
+        
         protected void checkAndShowToolTip()
         {
             //Now we can check to see if the tooltip for the current template has been shown.
@@ -120,7 +153,11 @@ namespace WildBlueIndustries
         protected override void createModuleOpsView()
         {
             base.createModuleOpsView();
-            moduleOpsView.WindowTitle = kDocOpsView;
+            if (string.IsNullOrEmpty(opsViewTitle) == false)
+                moduleOpsView.WindowTitle = opsViewTitle;
+            else
+                moduleOpsView.WindowTitle = kDocOpsView;
         }
+
     }
 }

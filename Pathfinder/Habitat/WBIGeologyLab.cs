@@ -28,7 +28,16 @@ namespace WildBlueIndustries
         None
     }
 
-    public class WBIGeologyLab : WBIBasicScienceLab, ITemplateOps
+    /*
+    public struct TerrainStatus
+    {
+        public string vesselName;
+        public string status;
+        public float scienceAdded;
+        public Vessel vessel;
+    }
+    */
+    public class WBIGeologyLab : WBIBasicScienceLab, ITemplateOps2
     {
         const float kBiomeResearchCost = 100f;
         const float kBiomeAnalysisFactor = 0.75f;
@@ -105,41 +114,9 @@ namespace WildBlueIndustries
 
             resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
 
-            gps = this.part.FindModuleImplementing<ModuleGPS>();
-            biomeScanner = this.part.FindModuleImplementing<ModuleBiomeScanner>();
-            hideStockGUI();
-
-            //Grab the seismometer (if any)
-            foreach (PartModule mod in this.part.Modules)
-                if (mod.moduleName == "Seismometer")
-                {
-                    impactSeismometer = mod;
-                    impactSensor = (IScienceDataContainer)impactSeismometer;
-                    break;
-                }
-
             //Create swizzler
             swizzler = new WBIResultsDialogSwizzler();
             swizzler.onTransmit = transmitData;
-
-            //Setup the science container
-            scienceContainer = this.part.FindModuleImplementing<ModuleScienceContainer>();
-            scienceContainer.Events["ReviewDataEvent"].guiActiveUnfocused = false;
-            scienceContainer.Events["ReviewDataEvent"].guiActive = false;
-
-            if (impactSensor != null)
-            {
-                ScienceData[] impactData = impactSensor.GetData();
-
-                foreach (ScienceData data in impactData)
-                    scienceContainer.AddData(data);
-                foreach (ScienceData doomed in impactData)
-                    impactSensor.DumpData(doomed);
-            }
-
-            //Terrain uplink
-            terrainUplinkView.part = this.part;
-            terrainUplinkView.scienceContainer = scienceContainer;
 
             //Elapsed time for current experiment
             if (ModuleIsActive())
@@ -165,6 +142,8 @@ namespace WildBlueIndustries
         public override void OnUpdate()
         {
             base.OnUpdate();
+
+            setupPartModules();
 
             if (impactSeismometer != null)
             {
@@ -274,29 +253,84 @@ namespace WildBlueIndustries
             return bonus * kBiomeAnalysisFactor;
         }
 
-        protected void hideStockGUI()
-        {
-            //GPS
-            gps.Fields["bioName"].guiActive = false;
-            gps.Fields["body"].guiActive = false;
-            gps.Fields["lat"].guiActive = false;
-            gps.Fields["lon"].guiActive = false;
-
-            //Biome Scanner
-            biomeScanner.Events["RunAnalysis"].guiActive = false;
-            biomeScanner.Events["RunAnalysis"].guiActiveUnfocused = false;
-        }
         #endregion
 
+        protected void setupPartModules()
+        {
+            //GPS
+            if (gps == null)
+            {
+                gps = this.part.FindModuleImplementing<ModuleGPS>();
+                gps.Fields["bioName"].guiActive = false;
+                gps.Fields["body"].guiActive = false;
+                gps.Fields["lat"].guiActive = false;
+                gps.Fields["lon"].guiActive = false;
+            }
+
+            //Biome Scanner
+            if (biomeScanner == null)
+            {
+                biomeScanner = this.part.FindModuleImplementing<ModuleBiomeScanner>();
+                biomeScanner.Events["RunAnalysis"].guiActive = false;
+                biomeScanner.Events["RunAnalysis"].guiActiveUnfocused = false;
+            }
+
+            //Setup the science container
+            if (scienceContainer == null)
+            {
+                scienceContainer = this.part.FindModuleImplementing<ModuleScienceContainer>();
+                scienceContainer = this.part.FindModuleImplementing<ModuleScienceContainer>();
+                scienceContainer.Events["ReviewDataEvent"].guiActiveUnfocused = false;
+                scienceContainer.Events["ReviewDataEvent"].guiActive = false;
+
+                //Terrain uplink
+                terrainUplinkView.part = this.part;
+                terrainUplinkView.scienceContainer = scienceContainer;
+            }
+
+            //Grab the seismometer (if any)
+            foreach (PartModule mod in this.part.Modules)
+                if (mod.moduleName == "Seismometer")
+                {
+                    impactSeismometer = mod;
+                    impactSensor = (IScienceDataContainer)impactSeismometer;
+                    ScienceData[] impactData = impactSensor.GetData();
+
+                    foreach (ScienceData data in impactData)
+                        scienceContainer.AddData(data);
+                    foreach (ScienceData doomed in impactData)
+                        impactSensor.DumpData(doomed);
+                    break;
+                }
+
+            //Resource list
+            if (resourceList == null)
+                resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
+            else if (resourceList.Count == 0)
+                resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
+        }
+
+        protected Vessel terrainVesselTarget;
+
+        public void SwitchVessel(Vessel targetVessel)
+        {
+            terrainUplinkView.SetVisible(false);
+            terrainVesselTarget = targetVessel;
+        }
+
         #region ITemplateOps
+
+        protected OpsView opsView = null;
+        public void SetOpsView(OpsView view)
+        {
+            opsView = view;
+        }
 
         public void DrawOpsWindow()
         {
             bool biomeUnlocked = Utils.IsBiomeUnlocked(this.part.vessel);
-
             GUILayout.BeginHorizontal();
-
-            drawAbundanceGUI();
+            drawAbundanceGUI(biomeUnlocked);
 
             //C&C buttons
             GUILayout.BeginVertical();
@@ -318,7 +352,7 @@ namespace WildBlueIndustries
                 }
             }
 
-            //Research projects
+            //Research projects/Terrain
             drawResearchProjectsGUI(biomeUnlocked);
 
             GUILayout.EndScrollView();
@@ -333,7 +367,7 @@ namespace WildBlueIndustries
             }
         }
 
-        protected void drawAbundanceGUI()
+        protected void drawAbundanceGUI(bool biomeUnlocked)
         {
             float habitationEfficiency = WBIPathfinderScenario.Instance.GetEfficiencyModifier(planetID, biomeName, harvestType, EfficiencyData.kHabitationMod);
             float scienceEfficiency = WBIPathfinderScenario.Instance.GetEfficiencyModifier(planetID, biomeName, harvestType, EfficiencyData.kScienceMod);
@@ -353,9 +387,29 @@ namespace WildBlueIndustries
             GUILayout.Label("<color=white><b>Industry Efficiency:</b> " + string.Format("{0:f1}%", industryEfficiency * 100f) + "</color>");
             GUILayout.EndScrollView();
 
-            scrollPosResources = GUILayout.BeginScrollView(scrollPosResources, new GUIStyle(GUI.skin.textArea));
-            foreach (PResource.Resource resource in resourceList)
-                GUILayout.Label("<color=white>" + resource.resourceName + " abundance: " + getAbundance(resource.resourceName) + "</color>");
+            if (biomeUnlocked)
+            {
+                if (resourceList.Count > 0)
+                {
+                    scrollPosResources = GUILayout.BeginScrollView(scrollPosResources, new GUIStyle(GUI.skin.textArea));
+                    foreach (PResource.Resource resource in resourceList)
+                    {
+                        GUILayout.Label("<color=white>" + resource.resourceName + " abundance: " + getAbundance(resource.resourceName) + "</color>");
+                    }
+                }
+                else
+                {
+                    scrollPosResources = GUILayout.BeginScrollView(scrollPosResources, new GUIStyle(GUI.skin.textArea));
+                    GUILayout.Label("<color=yellow>No detectable resources in this area.</color>");
+                }
+            }
+
+            else
+            {
+                scrollPosResources = GUILayout.BeginScrollView(scrollPosResources, new GUIStyle(GUI.skin.textArea));
+                GUILayout.Label("<color=yellow>Unlock the biome to get the resource composition.</color>");
+            }
+
 
             GUILayout.EndScrollView();
             GUILayout.EndVertical();
@@ -412,7 +466,10 @@ namespace WildBlueIndustries
                 drawGeoExperimentGUI();
 
                 if (GUILayout.Button("T.E.R.R.A.I.N. Uplink"))
+                {
+                    terrainUplinkView.opsView = this.opsView;
                     terrainUplinkView.SetVisible(true);
+                }
             }
         }
 

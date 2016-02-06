@@ -50,7 +50,6 @@
     <Compile Include="GUI\PathfinderKeyMonitor.cs" />
     <Compile Include="Habitat\WBIGreenhouse.cs" />
     <Compile Include="GUI\PathfinderSettings.cs" />
-    <Compile Include="Science\WBIBasicScienceLab.cs" />
     <Compile Include="Science\WBIBiomeAnalysis.cs" />
     <Compile Include="GUI\TerainUplinkView.cs" />
     <Compile Include="Drills\WBIDrillSwitcher.cs" />

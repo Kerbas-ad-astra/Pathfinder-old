@@ -133,7 +133,7 @@ namespace WildBlueIndustries
                             methodOpenWorkshop = OseModuleWorkshop.GetMethod("ContextMenuOpenWorkbench");
 
                         else if (OseModuleWorkshop.Name == "OseModuleRecycler" && oseRecycler != null)
-                            methodOpenRecycler = OseModuleWorkshop.GetMethod("ContextMenuOpenWorkbench");
+                            methodOpenRecycler = OseModuleWorkshop.GetMethod("ContextMenuOnOpenRecycler");
                     }
                 }
             }

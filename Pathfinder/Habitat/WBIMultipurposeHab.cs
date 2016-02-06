@@ -35,7 +35,10 @@ namespace WildBlueIndustries
         public string opsViewTitle;
 
         [KSPField]
-        public float baseProductivity = 4.0f;
+        public float productivity = 1.0f;
+
+        [KSPField]
+        public float efficiency = 1.0f;
 
         Animation anim;
         PartModule impactSeismometer;
@@ -76,7 +79,10 @@ namespace WildBlueIndustries
             base.OnUpdate();
 
             if (anim == null)
+            {
+                checkAndShowToolTip();
                 return;
+            }
 
             //We're only interested in the act of inflating the module.
             if (isDeployed == false)
@@ -141,14 +147,30 @@ namespace WildBlueIndustries
 
             //Now reconfigure
             base.UpdateContentsAndGui(templateName);
+            updateProductivity();
 
             //Check to see if we've displayed the tooltip for the template.
             //First, we're only interested in deployed modules.
-            if (isDeployed == false)
+            if (isInflatable && isDeployed == false)
                 return;
 
             //Now check
             checkAndShowToolTip();
+        }
+
+        protected void updateProductivity()
+        {
+            //Find all the resource converters and set their productivity
+            List<ModuleResourceConverter> converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
+
+            foreach (ModuleResourceConverter converter in converters)
+            {
+                converter.Efficiency = efficiency;
+
+                //Now adjust the output.
+                foreach (ResourceRatio ratio in converter.outputList)
+                    ratio.Ratio *= productivity;
+            }
         }
 
         protected override void notEnoughParts()
