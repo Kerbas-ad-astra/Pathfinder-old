@@ -31,6 +31,9 @@ namespace WildBlueIndustries
         public static bool canBreak = true;
 
         [KSPField]
+        public string progressLabel = "Progress";
+
+        [KSPField]
         public string efficiencyType;
 
         [KSPField]
@@ -129,7 +132,7 @@ namespace WildBlueIndustries
                 status = kNeedsRepairs;
             }
 
-            SetGuiVisible(false);
+            SetGuiVisible(showGUI);
         }
 
         public override string GetInfo()
@@ -171,7 +174,7 @@ namespace WildBlueIndustries
 
         public void SetupGUI()
         {
-            SetGuiVisible(false);
+            SetGuiVisible(showGUI);
 
             if (isBroken)
             {
@@ -184,6 +187,8 @@ namespace WildBlueIndustries
             //Hide repair button
             Events["PerformRepairs"].guiActiveUnfocused = false;
             Events["PerformRepairs"].guiActive = false;
+
+            Fields["progress"].guiName = progressLabel;
         }
 
         protected override void onFailure()

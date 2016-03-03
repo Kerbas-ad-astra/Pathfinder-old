@@ -25,6 +25,7 @@ namespace WildBlueIndustries
         MetallurgyAnalysis,
         ChemicalAnalysis,
         BiomeAnalysis,
+        Drilling,
         None
     }
 
@@ -51,11 +52,13 @@ namespace WildBlueIndustries
         const string kTTMetalAnalysis = "Core samples can be analyzed for their metallurgic content and can provide clues about how well in-situ resources will perform when creating construction materials. The better the results, the better your construction material creation will be. Bad results will have the opposite effect.";
         const string kTTChemAnalysis = "The chemical composition of core samples can be useful to know when using in-situ resources to induce chemical reactions. Good results will improve your chemical processes, while bad results will worsen them.";
         const string kTTBiomeAnalysis = "The Biome Analysis costs 100 Science to perform, but you have the potential to improve your return on investment with a good result. Similarly, a poor result will result in lost knowledge. When you hit the transmit button, you'll have the option to transmit research for Science, publish it to gain Reputation, or sell it for Funds. Finally, the analysis counts as a core sample when attempting to improve your production efficiencies.";
+        const string kTTDrilling = "Core samples can be analyzed to help improve drilling efficiencies. Good results will help you improve your extraction yields, while poor results will worsen them.";
         const string kBetterEfficiency = "<color=lime>Production efficiency improved by <b>{0:f2}%</b> for ";
         const string kWorseEfficiency = "<color=orange>Production efficiency worsened by <b>{0:f2}%</b> for ";
         const string kLifeSupport = "life support processors.";
         const string kManufacturing = "fabrication processors.";
         const string kChemicalProducts = "chemical processeors.";
+        const string kExtraction = "extraction rates.";
         const string kNotEnoughScience = "Not enough Science in the budget to continue research. Efforts wasted!";
 
         [KSPField]
@@ -67,8 +70,8 @@ namespace WildBlueIndustries
         IScienceDataContainer impactSensor;
         private Vector2 scrollPosResources;
         List<PResource.Resource> resourceList;
-        string[] experimentTypes = { "Soil", "Metallurgy", "Chemical", "Biome" };
-        double[] elapsedTimes = new double[4];
+        string[] experimentTypes = { "Soil", "Metallurgy", "Chemical", "Biome", "Drilling" };
+        double[] elapsedTimes = new double[5];
         ModuleScienceContainer scienceContainer;
         WBIResultsDialogSwizzler swizzler;
         GeologyLabExperiments currentExperiment;
@@ -206,7 +209,7 @@ namespace WildBlueIndustries
             return true;
         }
 
-        protected override void transmitResults(ScienceData data)
+        public override void TransmitResults()
         {
             WBIBiomeAnalysis.ResetScienceGains(this.part);
         }
@@ -594,6 +597,10 @@ namespace WildBlueIndustries
                     case GeologyLabExperiments.BiomeAnalysis:
                         experimentTip = kTTBiomeAnalysis;
                         break;
+
+                    case GeologyLabExperiments.Drilling:
+                        experimentTip = kTTDrilling;
+                        break;
                 }
 
                 WBIToolTipWindow toolTipWindow = new WBIToolTipWindow(kTTTitle + experimentName, experimentTip);
@@ -775,6 +782,12 @@ namespace WildBlueIndustries
                 case GeologyLabExperiments.MetallurgyAnalysis:
                     modifierName = EfficiencyData.kIndustryMod;
                     processChanged = kManufacturing;
+                    break;
+
+                case GeologyLabExperiments.Drilling:
+                    modifierName = EfficiencyData.kExtractionMod;
+                    processChanged = kExtraction;
+                    efficiencyModifier /= 2.0f;
                     break;
 
                 default:

@@ -23,8 +23,61 @@ namespace WildBlueIndustries
     class PathfinderKeyMonitor : MonoBehaviour
     {
         public PathfinderKeyMonitor Instance;
+        private static ApplicationLauncherButton appLauncherButton = null;
+        private Texture2D appIcon = null;
 
         protected PathfinderSettings settingsWindow;
+
+        public void Awake()
+        {
+            if (ApplicationLauncher.Ready)
+            {
+                appLauncherButton = InitializeApplicationButton();
+
+                if (appLauncherButton != null)
+                    appLauncherButton.VisibleInScenes = ApplicationLauncher.AppScenes.FLIGHT | ApplicationLauncher.AppScenes.MAPVIEW | ApplicationLauncher.AppScenes.SPACECENTER;
+            }
+        }
+
+        public void OnDestroy()
+        {
+            if (appLauncherButton != null)
+            {
+                ApplicationLauncher.Instance.RemoveModApplication(appLauncherButton);
+                appLauncherButton = null;
+            }
+        }
+
+        ApplicationLauncherButton InitializeApplicationButton()
+        {
+            ApplicationLauncherButton appButton = null;
+            appIcon = GameDatabase.Instance.GetTexture("WildBlueIndustries/Pathfinder/Icons/PathfinderApp", false);
+
+            if (appIcon != null)
+            {
+                appButton = ApplicationLauncher.Instance.AddModApplication(
+                    OnAppLauncherTrue,
+                    OnAppLauncherFalse,
+                    null,
+                    null,
+                    null,
+                    null,
+                    ApplicationLauncher.AppScenes.SPACECENTER,
+                    appIcon);
+            }
+
+            return appButton;
+        }
+
+        void OnAppLauncherTrue()
+        {
+            settingsWindow.SetVisible(!settingsWindow.IsVisible());
+        }
+
+        void OnAppLauncherFalse()
+        {
+            settingsWindow.SetVisible(!settingsWindow.IsVisible());
+        }
 
         public void Start()
         {
@@ -35,7 +88,7 @@ namespace WildBlueIndustries
         public void Update()
         {
             if (GameSettings.MODIFIER_KEY.GetKey() && Input.GetKeyDown(KeyCode.P))
-             {
+            {
                 settingsWindow.SetVisible(!settingsWindow.IsVisible());
             }
         }

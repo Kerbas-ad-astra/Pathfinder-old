@@ -29,7 +29,7 @@ namespace WildBlueIndustries
         private const int kDrillLabelWidth = 220;
 
         public List<ModuleResourceHarvester> groundDrills;
-        public List<PResource.Resource> resourceList;
+        public List<string> resourceList = new List<string>();
         public Part part;
 
         public string requiredResource;
@@ -49,7 +49,6 @@ namespace WildBlueIndustries
 
         public override void SetVisible(bool newValue)
         {
-            PResource.Resource res;
             int index;
             base.SetVisible(newValue);
 
@@ -59,21 +58,26 @@ namespace WildBlueIndustries
                 biomIsUnlocked = Utils.IsBiomeUnlocked(this.part.vessel);
 
                 //Get the list of resources for the biome
-                resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
+                IEnumerator<string> nameEnumerator = ResourceMap.Instance.FetchAllResourceNames(HarvestTypes.Planetary).GetEnumerator();
+                while (nameEnumerator.MoveNext())
+                {
+                    Debug.Log("FRED resource: " + nameEnumerator.Current);
+                    resourceList.Add(nameEnumerator.Current);
+                }
 
                 //For each drill, find the index of the resource that it drills for.
                 foreach (ModuleResourceHarvester drill in groundDrills)
                 {
                     for (index = 0; index < resourceList.Count; index++)
                     {
-                        res = resourceList[index];
-                        if (drill.ResourceName == res.resourceName)
+                        if (drill.ResourceName == resourceList[index])
                         {
                             groundDrillResourceIndexes.Add(index);
                             break;
                         }
                     }
                 }
+                Debug.Log("FRED groundDrillResourceIndexes count: " + groundDrillResourceIndexes.Count);
             }
         }
 
@@ -84,14 +88,22 @@ namespace WildBlueIndustries
 
             if (biomIsUnlocked)
             {
-                scrollPos = GUILayout.BeginScrollView(scrollPos, new GUIStyle(GUI.skin.textArea));
+                if (resourceList.Count > 0)
+                {
+                    scrollPos = GUILayout.BeginScrollView(scrollPos, new GUIStyle(GUI.skin.textArea));
 
-                drawGroundDrills();
+                    drawGroundDrills();
 
-                if (GUILayout.Button("Reconfigure Drill"))
-                    reconfigureDrill();
+                    if (GUILayout.Button("Reconfigure Drill"))
+                        reconfigureDrill();
 
-                GUILayout.EndScrollView();
+                    GUILayout.EndScrollView();
+                }
+
+                else
+                {
+                    GUILayout.Label("Biome appears unlocked but the resource map isn't listing any resources.");
+                }
             }
 
             else
@@ -141,12 +153,12 @@ namespace WildBlueIndustries
 
             //Now reconfigure the drill.
             ModuleResourceHarvester drill;
-            PResource.Resource res;
+            string resourceName;
             for (int drillIndex = 0; drillIndex < groundDrills.Count; drillIndex++)
             {
                 drill = groundDrills[drillIndex];
-                res = resourceList[groundDrillResourceIndexes[drillIndex]];
-                setupDrillGUI(drill, res);
+                resourceName = resourceList[groundDrillResourceIndexes[drillIndex]];
+                setupDrillGUI(drill, resourceName);
             }
             ScreenMessages.PostScreenMessage(kDrillReconfigured, 5.0f, ScreenMessageStyle.UPPER_CENTER);
         }
@@ -154,7 +166,7 @@ namespace WildBlueIndustries
         protected void drawGroundDrills()
         {
             ModuleResourceHarvester drill;
-            PResource.Resource res;
+            string resourceName;
             int index;
 
             for (index = 0; index < groundDrills.Count; index++)
@@ -172,8 +184,8 @@ namespace WildBlueIndustries
                 }
 
                 //Drill labeling
-                res = resourceList[groundDrillResourceIndexes[index]];
-                GUILayout.Label("Resource: " + res.resourceName, GUILayout.Width(kDrillLabelWidth));
+                resourceName = resourceList[groundDrillResourceIndexes[index]];
+                GUILayout.Label("Resource: " + resourceName, GUILayout.Width(kDrillLabelWidth));
 
                 //Next resource
                 if (GUILayout.Button(">", GUILayout.Width(20)))
@@ -187,12 +199,12 @@ namespace WildBlueIndustries
             }
         }
 
-        protected void setupDrillGUI(ModuleResourceHarvester drill, PResource.Resource res)
+        protected void setupDrillGUI(ModuleResourceHarvester drill, string resourceName)
         {
-            drill.ResourceName = res.resourceName;
-            drill.StartActionName = "Start " + res.resourceName + " drill";
-            drill.StopActionName = "Stop " + res.resourceName + " drill";
-            drill.Fields["ResourceStatus"].guiName = res.resourceName + " rate";
+            drill.ResourceName = resourceName;
+            drill.StartActionName = "Start " + resourceName + " drill";
+            drill.StopActionName = "Stop " + resourceName + " drill";
+            drill.Fields["ResourceStatus"].guiName = resourceName + " rate";
         }
     }
 }

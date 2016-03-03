@@ -87,6 +87,25 @@ namespace WildBlueIndustries
         public override void RedecorateModule(bool payForRedecoration = true, bool loadTemplateResources = true)
         {
             base.RedecorateModule(payForRedecoration, loadTemplateResources);
+            bool enableMPLModules = false;
+
+            if (CurrentTemplate.HasValue("enableMPLModules"))
+                enableMPLModules = bool.Parse(CurrentTemplate.GetValue("enableMPLModules"));
+
+            ModuleScienceLab sciLab = this.part.FindModuleImplementing<ModuleScienceLab>();
+            if (sciLab != null)
+            {
+                sciLab.isEnabled = enableMPLModules;
+                sciLab.enabled = enableMPLModules;
+            }
+
+            ModuleScienceConverter converter = this.part.FindModuleImplementing<ModuleScienceConverter>();
+            if (converter != null)
+            {
+                converter.isEnabled = enableMPLModules;
+                converter.enabled = enableMPLModules;
+            }
+
             updateProductivity();
         }
 

@@ -241,7 +241,7 @@ namespace WildBlueIndustries
         protected override void createModuleOpsView()
         {
             base.createModuleOpsView();
-            moduleOpsView.WindowTitle = kPonderosaOpsView;
+            moduleOpsView.WindowTitle = opsViewTitle;
         }
     }
 }

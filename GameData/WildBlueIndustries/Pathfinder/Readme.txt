@@ -8,6 +8,35 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.10
+
+This update brings some quality of life improvements, bug fixes, and new uses for the Buckboards. It also provides support for Nils77's excellent Kerbal Planetary Base Systems. If you haven't seen KPBS, check it out! The design and art quality is simply stunning.
+
+Switchback
+- The attachment nodes now support symmetrical installation of parts.
+
+Buckboard 2000 & 3000
+- The Buckboard 2000 & 3000 can now be converted into an ore-powered generator. It consumes Ore to produce ElectricCharge. The generator can break down (unless you opt-out via Pathfinder's Settings screen), and it generates heat. It also benefits from the Pathfinder Geology Lab's Metallurgy research. In career mode, the generator conversion is available after you research Advanced Electrics. Thanks for the suggestion, Geschosskopf! :)
+
+Kerbal Planetary Base Systems
+- Added support for Kerbal Planetary Base Systems. While not as efficient as Pathfinder's modules due to their size, they can still contribute to your Pathfinder base, and still benefit from efficiency improvements created in the geology lab.
+  * The K&K Planetary Habitat MK2 can be used as part of Pathfinder's habitat wing.
+  * The K&K Planetary Laboratory can be used as part of Pathfinder's science wing.
+  * The K&K Planetary Greenhouse uses Pathfinder's greenhouse module code.
+  * The K&K Rocket Fuel tanks now hold a variety of different resources (and default to LiquidFuel/Oxidizer).
+
+Other
+- You can now access the Pathfinder Settings window from the application toolbar.
+- You can now dump resources in flight without having to switch templates. Click "Dump Resources" once, then again to confirm.
+- The airlocks on the inflatable modules have been offset to make it easier to enter the desired module. NOTE: due to space constraints the Casa now only has one inflatable airlock. A new version of the Casa is planned that won't break existing bases.
+
+Bug Fixes
+- The internal screens in the Ponderosa/Casa work better now. Click on a screen to select an image from your Screenshots folder. You can also enable random selection of images; currently the images will change once every 30 seconds if configured to do so, but a future update will let you configure the screen switch time. Thanks for the challenge, Kuzzter! :)
+- Fixed attachment nodes on all inflatable modules so that you can properly stack-mount the inflatable modules in the VAB/SPH.
+- Fixed a KIS issue with the Buckboard 3000 that prevented it from being carried properly.
+- Fixed a KIS issue with the Buckboard 2000 that prevented it from being carried properly.
+- Fixed a rare case where the drill modify window would lock up the game.
+
 0.9.9
 - Fixed an issue with USI-LS support where the Life Support template wasn't showing up. Also, added Dirt since there was enough room in the template.
 
