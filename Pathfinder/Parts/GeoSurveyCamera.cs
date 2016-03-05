@@ -276,7 +276,7 @@ namespace WildBlueIndustries
                 orbitalScanner.EnableModule();
 
             //Hide repair button
-            Events["RepairTelescope"].active = false;
+            Events["RepairLab"].active = false;
 
             //Show the perform orbital survey button if we've unlocked the planet
             Events["PerformOrbitalSurvey"].active = !planetUnlocked;

@@ -8,7 +8,12 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
-0.9.10
+0.9.11
+
+- Fixed an issue preventing the Buckboards from allowing resource switching.
+- Fixed an issue causing the TERRAIN to fly off into space upon loading the vessel.
+
+0.9.10 The Calm Before The Storm
 
 This update brings some quality of life improvements, bug fixes, and new uses for the Buckboards. It also provides support for Nils77's excellent Kerbal Planetary Base Systems. If you haven't seen KPBS, check it out! The design and art quality is simply stunning.
 
