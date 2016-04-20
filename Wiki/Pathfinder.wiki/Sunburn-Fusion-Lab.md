@@ -1,6 +1,6 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/Sunburn.jpg)  
 **Mass:** 3t  
-**Cost:** 1,200 RocketParts  
+**Cost:** 1,200 Equipment  
 **Research:** Advanced Exploration
 
 The Sunburn Fusion Lab is one of the configurations for the [[Doc Science Lab|Doc-Commercial-Science-Lab]]. Its purpose is to create FusionPellets for fusion reactors like the Hacienda's Solar Flare, and the engine and reactors found in the [Deep Space Exploration Vessels](http://forum.kerbalspaceprogram.com/threads/135717-1-0-4-Deep-Space-Exploration-Vessels-1-0-Build-NASA-Inspired-Ships-In-KSP?p=2225231#post2225231) mod. It also produces Coolant for heat radiators. When you right-click on a Doc configured as a Sunburn, and open the Operations Manager, you'll see the following window:  

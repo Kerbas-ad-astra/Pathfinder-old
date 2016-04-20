@@ -7,7 +7,7 @@
 **Impact Tolerance:** 15 m/sec  
 **Max Temp:** 900 K  
 
-The Homestead is an expandable module for use in orbit that can be configured for a variety of different uses. In Pathfinder, the Homestead offers industrial configurations such as power generation, production of rocket fuels, creating RocketParts, and 3D printing large components. It benefits from the Pathfinder Geology Lab's Metallurgy research.
+The Homestead is an expandable module for use in orbit that can be configured for a variety of different uses. In Pathfinder, the Homestead offers industrial configurations such as power generation, production of rocket fuels, creating Equipment, and 3D printing large components. It benefits from the Pathfinder Geology Lab's Metallurgy research.
 
 # Setup
 Unlike the ground elements of Pathfinder, the Homestead cannot be stored in a standard KIS container. Instead, it must be launched into orbit like other crewed modules such as the Hitchhiker. Once in orbit, Press the Deploy button to expand the module to its full diameter.
@@ -33,7 +33,7 @@ _The resources panel for the Homestead is the same as for the Ponderosa._
 
 The Resources tab displays the current and maximum resources that the module currently has. The contents of this window vary depending upon the module's current configuration.
 ## Reconfiguring
-If you haven’t changed the settings in Pathfinder’s Settings Window, then you’ll need an Engineer to inflate/deflate the Homestead as well as to reconfigure the module into a different configuration. Inflating the module or changing its configuration requires RocketParts, which represent the equipment and furnishings (cups, computers, desks, etc.) required by the module.  In Standard Mode, it won't cost you any RocketParts to reconfigure.
+If you haven’t changed the settings in Pathfinder’s Settings Window, then you’ll need an Engineer to inflate/deflate the Homestead as well as to reconfigure the module into a different configuration. Inflating the module or changing its configuration requires Equipment, which represent the equipment and furnishings (cups, computers, desks, etc.) required by the module.  In Standard Mode, it won't cost you any Equipment to reconfigure.
 
 In addition to reconfiguring the Homestead in the field, you can reconfigure it in the VAB/SPH. Before launch, you can choose any configuration you want, and it won't cost you resources to do so.  
 
@@ -44,7 +44,7 @@ Link: [[Brew Works ISRU|Brew-Works-ISRU]]
 The Brew Works provides the ability to convert Ore into LiquidFuel, Oxidizer, MonoPropellant, and XenonGas. It's slightly more efficient than the stock ISRU converter, but it's larger and heavier.
 ### Ironworks  
 Link: [[Ironworks Foundry|Ironworks-Foundry]]  
-The Ironworks produces RocketParts from Metals (or Metal if Extraplanetary Launchpads (EL) is installed), and it can smelt Metals from MetallicOre (or MetalOre with EL installed). With OSE Workshop installed, the Iron Works produces MaterialKits from Ore, and can convert RocketParts to MaterialKits and vice versa.
+The Ironworks is responsible for creating a variety of different resources including Equipment needed to inflate and configure Pathfinder's inflatable modules. It also produces RocketParts from Metal, and it can smelt Metal from MetalOre (if Extraplanetary Launchpads (EL) is installed. Without EL, RocketParts are made from Metals). With OSE Workshop installed, the Iron Works produces MaterialKits from Ore, and can convert RocketParts to MaterialKits and vice versa.
 ### Clockworks  
 Link: [[Clockworks 3D Print Shop|Clockworks-3D-Print-Shop]]  
 With OSE Workshop installed, the Clockworks 3D Workshop gives you a space to build parts. It has more production volume than the blacksmith.

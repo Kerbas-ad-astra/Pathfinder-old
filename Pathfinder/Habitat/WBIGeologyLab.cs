@@ -64,6 +64,9 @@ namespace WildBlueIndustries
         [KSPField]
         public int harvestID;
 
+        [KSPField]
+        public bool canImproveEfficiency = true;
+
         ModuleBiomeScanner biomeScanner;
         ModuleGPS gps;
         PartModule impactSeismometer;
@@ -111,6 +114,7 @@ namespace WildBlueIndustries
 
         public override void OnStart(StartState state)
         {
+            showGUI = false;
             base.OnStart(state);
             SetGuiVisible(false);
             showResults = false;
@@ -147,6 +151,10 @@ namespace WildBlueIndustries
             base.OnUpdate();
 
             setupPartModules();
+
+            //Hack!
+            if (Events["StartResourceConverter"].guiActive || Events["StopResourceConverter"].guiActive)
+                SetGuiVisible(false);
 
             if (impactSeismometer != null)
             {
@@ -356,7 +364,10 @@ namespace WildBlueIndustries
             }
 
             //Research projects/Terrain
-            drawResearchProjectsGUI(biomeUnlocked);
+            if (canImproveEfficiency)
+                drawResearchProjectsGUI(biomeUnlocked);
+            else
+                GUILayout.Label("<color=white>Biome unlocked</color>");
 
             GUILayout.EndScrollView();
             GUILayout.EndVertical();

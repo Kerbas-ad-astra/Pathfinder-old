@@ -1,10 +1,10 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/DocSci.jpg)  
 **Mass:** 3t  
-**Cost:** 1,200 RocketParts  
+**Cost:** 1,200 Equipment  
 **Research:** Advanced Exploration
 
 Named after the module itself, the Doc Commercial Science Lab provides similar functionality to the stock Mobile Processing Lab. The Doc is best suited for ground-based operations and isn't particularly good in orbit. Specifically, it provides a 35% bonus to surface operations. But unlike the stock lab, the Doc lets you take your researched Science and convert it to Reputation and Funds.
-
+  
 When you open the ops view, you'll see the following:  
 ![](https://github.com/Angel-125/Pathfinder/wiki/DocSciOpsView1.jpg)  
 

@@ -61,7 +61,6 @@ namespace WildBlueIndustries
                 IEnumerator<string> nameEnumerator = ResourceMap.Instance.FetchAllResourceNames(HarvestTypes.Planetary).GetEnumerator();
                 while (nameEnumerator.MoveNext())
                 {
-                    Debug.Log("FRED resource: " + nameEnumerator.Current);
                     resourceList.Add(nameEnumerator.Current);
                 }
 
@@ -77,7 +76,6 @@ namespace WildBlueIndustries
                         }
                     }
                 }
-                Debug.Log("FRED groundDrillResourceIndexes count: " + groundDrillResourceIndexes.Count);
             }
         }
 

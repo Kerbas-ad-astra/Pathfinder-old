@@ -84,9 +84,9 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
-        public override void RedecorateModule(bool payForRedecoration = true, bool loadTemplateResources = true)
+        public override void RedecorateModule(bool loadTemplateResources = true)
         {
-            base.RedecorateModule(payForRedecoration, loadTemplateResources);
+            base.RedecorateModule(loadTemplateResources);
             bool enableMPLModules = false;
 
             if (CurrentTemplate.HasValue("enableMPLModules"))

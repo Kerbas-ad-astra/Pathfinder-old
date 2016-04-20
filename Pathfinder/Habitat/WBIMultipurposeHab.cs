@@ -44,17 +44,6 @@ namespace WildBlueIndustries
         PartModule impactSeismometer;
         PartModule exWorkshop;
 
-        public void AddConverter(ModuleResourceConverter converter)
-        {
-            if (_multiConverter.converters.Contains(converter) == false)
-            {
-                _multiConverter.converters.Add(converter);
-
-                if (addedPartModules.Contains(converter))
-                    addedPartModules.Remove(converter);
-            }
-        }
-
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
@@ -156,6 +145,106 @@ namespace WildBlueIndustries
 
             //Now check
             checkAndShowToolTip();
+        }
+
+        public override void RedecorateModule(bool loadTemplateResources = true)
+        {
+            base.RedecorateModule(loadTemplateResources);
+            updateDrill();
+        }
+
+        protected void updateDrill()
+        {
+            bool enableDrill = false;
+            float value;
+            string resourceName;
+            ModuleResourceHarvester harvester = this.part.FindModuleImplementing<ModuleResourceHarvester>();
+
+            //No drill? No need to proceed.
+            if (harvester == null)
+                return;
+
+            //See if the drill is enabled.
+            if (CurrentTemplate.HasValue("enableDrill"))
+                enableDrill = bool.Parse(CurrentTemplate.GetValue("enableDrill"));
+
+            ModuleOverheatDisplay overheat = this.part.FindModuleImplementing<ModuleOverheatDisplay>();
+            if (overheat != null)
+            {
+                overheat.enabled = enableDrill;
+                overheat.isEnabled = enableDrill;
+            }
+
+            ModuleCoreHeat coreHeat = this.part.FindModuleImplementing<ModuleCoreHeat>();
+            if (coreHeat != null)
+            {
+                coreHeat.enabled = enableDrill;
+                coreHeat.isEnabled = enableDrill;
+            }
+
+            WBIDrillSwitcher drillSwitcher = this.part.FindModuleImplementing<WBIDrillSwitcher>();
+            if (drillSwitcher != null)
+            {
+                drillSwitcher.enabled = enableDrill;
+                drillSwitcher.isEnabled = enableDrill;
+            }
+
+            WBIExtractionMonitor extractionMonitor = this.part.FindModuleImplementing<WBIExtractionMonitor>();
+            if (extractionMonitor != null)
+            {
+                extractionMonitor.enabled = enableDrill;
+                extractionMonitor.isEnabled = enableDrill;
+            }
+
+            //Update the drill
+            if (enableDrill)
+                harvester.EnableModule();
+            else
+                harvester.DisableModule();
+
+            //Setup drill parameters
+            if (enableDrill)
+            {
+                if (CurrentTemplate.HasValue("converterName"))
+                    harvester.ConverterName = CurrentTemplate.GetValue("converterName");
+
+                if (CurrentTemplate.HasValue("drillStartAction"))
+                {
+                    harvester.StartActionName = CurrentTemplate.GetValue("drillStartAction");
+                    harvester.Events["StartResourceConverter"].guiName = CurrentTemplate.GetValue("drillStartAction");
+                }
+
+                if (CurrentTemplate.HasValue("drillStopAction"))
+                {
+                    harvester.StopActionName = CurrentTemplate.GetValue("drillStopAction");
+                    harvester.Events["StopResourceConverter"].guiName = CurrentTemplate.GetValue("drillStopAction");
+                }
+
+                if (CurrentTemplate.HasValue("drillEficiency"))
+                    harvester.Efficiency = float.Parse(CurrentTemplate.GetValue("drillEficiency"));
+
+                if (CurrentTemplate.HasValue("drillResource"))
+                {
+                    resourceName = CurrentTemplate.GetValue("drillResource");
+                    harvester.ResourceName = resourceName;
+                    harvester.Fields["ResourceStatus"].guiName = resourceName + " rate";
+                }
+
+                if (CurrentTemplate.HasValue("drillElectricCharge"))
+                {
+                    if (float.TryParse(CurrentTemplate.GetValue("drillElectricCharge"), out value))
+                    {
+                        foreach (ResourceRatio ratio in harvester.inputList)
+                        {
+                            if (ratio.ResourceName == "ElectricCharge")
+                                ratio.Ratio = value;
+                        }
+                    }
+                }
+
+                harvester.Fields["status"].guiName = "Drill Status";
+                MonoUtilities.RefreshContextWindows(this.part);
+            }
         }
 
         protected void updateProductivity()

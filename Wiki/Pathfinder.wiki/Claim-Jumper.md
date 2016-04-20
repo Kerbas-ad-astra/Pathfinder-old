@@ -1,6 +1,6 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/Claimjumper.jpg)  
 **Mass:** 7.5t  
-**Cost:** 4,000 RocketParts  
+**Cost:** 4,000 Equipment  
 **Research:** Advanced Science Tech
 
 The Claim Jumper is one of the configurations for the [[Hacienda Inflatable Factory|Hacienda]]. This configuration is designed to rapidly extract resources from the current location. It is eight times more efficient than the stock Drill-O-Matic, but also generates more heat as well.

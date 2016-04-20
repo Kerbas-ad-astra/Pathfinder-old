@@ -19,7 +19,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIMultipurposeStorage : WBIModuleSwitcher
+    public class WBIMultipurposeStorage : WBIConvertibleStorage
     {
         Animation anim;
 
@@ -75,22 +75,24 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
+        /*
         protected override void initModuleGUI()
         {
             base.initModuleGUI();
 
-            if (templatesModel.templateNodes.Length > 1)
+            if (templateManager.templateNodes.Length > 1)
             {
                 Events["NextType"].guiActive = true;
                 Events["NextType"].active = true;
 
-                if (templatesModel.templateNodes.Length > 2)
+                if (templateManager.templateNodes.Length > 2)
                 {
                     Events["PrevType"].guiActive = true;
                     Events["PrevType"].active = true;
                 }
             }
         }
+         */
 
         protected void checkAndShowToolTip()
         {

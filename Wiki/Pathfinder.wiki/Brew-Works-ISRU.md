@@ -1,6 +1,6 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/BrewWorks.jpg)  
 **Mass:** 5t  
-**Cost:** 2,000 RocketParts  
+**Cost:** 2,000 Equipment  
 **Research:** Advanced Metal Works
 
 The Brew Works In-Situ Resource Untilization factory is designed to refine Ore into a variety of different resources such as LiquidFuel, Oxidizer, MonoPropellant, and Xenon. It is similar to the stock ISRU part, except that the Brew Works is heavier and slightly more efficient even without the benefits of Metallurgy research from the [[Pathfinder Geology Lab|Pathfinder-geology-lab]]. Below is the ops view for the Brew Works:  

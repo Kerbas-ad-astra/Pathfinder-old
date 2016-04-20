@@ -1,6 +1,6 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/HotSprings.jpg)  
 **Mass:** 5t  
-**Cost:** 2,000 RocketParts  
+**Cost:** 2,000 Equipment  
 **Research:** Large Electrics
 
 The Hot Springs Geothermal Plant uses geothermal energy from the planet or moon to generate ElectricCharge. In game this resource is known as GeoEnergy. You'll need to land on a geologically active world in order to make use of this generator, but not all planets and moons are geologically active. The table below shows the likelihood that a world will be geologically active and thus have GeoEnergy in your current game:  

@@ -50,8 +50,6 @@ namespace WildBlueIndustries
             //If so, we're done and we need to repair the telescope.
 
             //We're good, perform the survey
-            Events["PerformOrbitalSurvey"].guiActive = false;
-            Events["PerformOrbitalSurvey"].guiActiveUnfocused = false;
             monitorSurvey = true;
             orbitalSurveyer.PerformSurvey();
         }
@@ -126,6 +124,8 @@ namespace WildBlueIndustries
                         WBIToolTipWindow introWindow = new WBIToolTipWindow(kToolTipTitle, kToolTip);
                         introWindow.SetVisible(true);
                     }
+                    Events["PerformOrbitalSurvey"].guiActive = false;
+                    Events["PerformOrbitalSurvey"].guiActiveUnfocused = false;
                     monitorSurvey = false;
                     SetupGUI();
                 }
