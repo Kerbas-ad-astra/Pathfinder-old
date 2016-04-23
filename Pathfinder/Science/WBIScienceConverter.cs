@@ -106,10 +106,10 @@ namespace WildBlueIndustries
             Events["SellResearch"].guiActive = isVisible;
             Events["StartResourceConverter"].guiActive = isVisible;
             Events["StopResourceConverter"].guiActive = isVisible;
-            Fields["datString"].guiActive = isVisible;
-            Fields["rateString"].guiActive = isVisible;
-            Fields["sciString"].guiActive = isVisible;
-            Fields["status"].guiActive = isVisible;
+//            Fields["datString"].guiActive = isVisible;
+//            Fields["rateString"].guiActive = isVisible;
+//            Fields["sciString"].guiActive = isVisible;
+//            Fields["status"].guiActive = isVisible;
 
             //Hide publish and sell buttons when we aren't in Career mode.
             if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER)
@@ -119,7 +119,7 @@ namespace WildBlueIndustries
             }
 
             //Don't forget about the science lab!
-            sciLab.Fields["statusText"].guiActive = isVisible;
+//            sciLab.Fields["statusText"].guiActive = isVisible;
             sciLab.Events["CleanModulesEvent"].guiActive = isVisible;
         }
 

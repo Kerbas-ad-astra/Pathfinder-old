@@ -36,7 +36,7 @@ namespace WildBlueIndustries
         string[] orbitalObjectNames;
         List<AttachNode> groundNodes = new List<AttachNode>();
 
-        [KSPEvent(guiActiveEditor = true, guiName = "ToggleConfig")]
+        [KSPEvent(guiActiveEditor = true, guiActive = true, guiActiveUnfocused = true, unfocusedRange = 3.0f)]
         public void ToggleConfig()
         {
             groundOpsMode = !groundOpsMode;
@@ -44,7 +44,7 @@ namespace WildBlueIndustries
             setupGUI();
             setupModules();
             setVisibleObjects();
-
+            /*
             if (HighLogic.LoadedSceneIsEditor && groundOpsMode)
             {
                 foreach (AttachNode node in groundNodes)
@@ -55,6 +55,7 @@ namespace WildBlueIndustries
             }
 
             setupNodes();
+             */
         }
 
         protected override void getProtoNodeValues(ConfigNode protoNode)
@@ -76,6 +77,7 @@ namespace WildBlueIndustries
         {
             base.OnStart(state);
 
+            /*
             if (HighLogic.LoadedSceneIsEditor)
             {
                 foreach (AttachNode node in this.part.attachNodes)
@@ -84,17 +86,12 @@ namespace WildBlueIndustries
                         groundNodes.Add(node);
                 }
             }
+             */
 
             setupGUI();
             setupModules();
             setVisibleObjects();
-            setupNodes();
-
-            if (HighLogic.LoadedSceneIsEditor == false)
-            {
-                this.enabled = false;
-                this.isEnabled = false;
-            }
+//            setupNodes();
         }
 
         protected void setupNodes()
@@ -118,12 +115,6 @@ namespace WildBlueIndustries
 
         protected void setupGUI()
         {
-            if (HighLogic.LoadedSceneIsEditor == false)
-            {
-                Events["ToggleConfig"].active = false;
-                return;
-            }
-
             if (groundOpsMode)
                 Events["ToggleConfig"].guiName = "Configure for orbit";
             else

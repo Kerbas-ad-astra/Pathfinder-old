@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="GUI\DrillSwitchWindow.cs" />
     <Compile Include="GUI\PathfinderConfig.cs" />
+    <Compile Include="GUI\SciLabOpsWindow.cs" />
     <Compile Include="Habitat\WBIGreenhouse.cs" />
     <Compile Include="GUI\PathfinderSettings.cs" />
     <Compile Include="GUI\PlayModesWindow.cs" />

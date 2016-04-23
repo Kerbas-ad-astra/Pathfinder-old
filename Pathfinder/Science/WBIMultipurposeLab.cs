@@ -91,7 +91,6 @@ namespace WildBlueIndustries
 
             if (CurrentTemplate.HasValue("enableMPLModules"))
                 enableMPLModules = bool.Parse(CurrentTemplate.GetValue("enableMPLModules"));
-
             ModuleScienceLab sciLab = this.part.FindModuleImplementing<ModuleScienceLab>();
             if (sciLab != null)
             {
@@ -105,7 +104,7 @@ namespace WildBlueIndustries
                 converter.isEnabled = enableMPLModules;
                 converter.enabled = enableMPLModules;
             }
-
+            
             updateProductivity();
         }
 
