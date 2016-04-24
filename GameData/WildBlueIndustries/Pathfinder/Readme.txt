@@ -8,6 +8,66 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.12 The Perfect Storm
+
+This release updates Pathfinder to KSP 1.1!
+
+eberkain had a request to have a conversion chain similar to Simple Construction’s Ore->Metal->Rocketparts. That got me thinking about dusting off some old plans I had for Pathfinder and rethinking them. Among other things, this update implements those plans. Thanks eberkain! :)
+
+New Parts
+- Added the Tunnel Extender, a part designed to put some space between between modules to make it easier to use the airlocks. It also has a solar panel on the roof and can serve as an attachment location for your stuff.
+- Added the all new Consestoga Multipurpose Base Module (MBM). This redesign turns the Conestoga into a foundation module for your bases. Simply fly and/or drive it to the desired location, eject the wheels (if you attached the M1A1), and rest the module directly on the ground. The original part is still around! The old Conestoga has been renamed the Mule.
+
+M1A1 Mountain Goat
+- M1A1 Mountain Goats now have an eject feature. They're particularly useful for moving a starter base into position before discarding the wheels. The staging is disabled be default to avoid /ragequit ;)
+
+Pathfinder Settings Window
+- Added a Play Mode indicator and a button to change the play mode. This is only available at the Space Center. Pathfinder now offers three different play modes: Default, with all the bells and whistles enabled; Simplified, which reduces the number of resources and configurations you need to keep track of (which has a simplified Ore->RocketParts converter among other things); and Pristine, which just gives you nice looking modules to assemble without the hassle of things like resource extraction and conversion. You can find detailed descriptions of these play modes on the Pathfinder Wiki. To use a play mode, simply open the Pathfinder Settings Window from the Space Center, choose the mode you want, and then restart KSP. Pathfinder’s existing parts and plugin code will adjust accordingly. 
+Warning: changing Pathfinder’s play mode WILL affect your currently deployed bases. Custom play modes are possible, just consult the wiki.
+
+- Added the ability to evenly redistribute resources to all vessels within physics range. This happens automatically, but you can manually initiate a resource distribution from the Pathfinder Settings window. The Ponderosa, Casa, Doc, Hacienda, Chuckwagon, and Conestoga can all distribute their resources automatically if you opt-in. To enable an individual part, simply right-click on the part and make sure that the Distributor is set to "ON." To enable resource distribution on all parts that have the capability on the currently focused vessel, go to the Pathfinder Settings window and press the Distribution button until it says "ON." If you want to prevent a part's individual resource from being distributed, then be sure to lock the resource.
+NOTE: Resource distribution favors parts with converters that have required resources (such as the greenhouse's Dirt). Resources will fill parts that have converters with required resources first before distributing the remainder to other parts. For more information, consult the wiki.
+
+Hacienda
+- Added the official IVA. As with the Ponderosa/Casa, you can safely delete the Ponderosa/Spaces folder if you need more system memory/performance. If you do that, you'll have the placeholder IVAs (which will look wonky).
+- Fixed issues with the drill not showing up for the Claimjumper and Hot Springs.
+
+Pigpen
+- The Pigpen template will only be available if you install a life support mod (Snacks, TAC-LS, or USI-LS).
+
+Doc
+- Added minimalist IVA. It will be completed at a later date.
+
+Chuckwagon
+- Added minimalist IVA. It will be completed at a later date.
+- The ability to convert between storage and a greenhouse will only be available if you install a life support mod (Snacks, TAC-LS, or USI-LS).
+- Revised the in-field template switching. Instead of the Next and Previous buttons, now you click on the Reconfigure Storage button.
+NOTE: If you'e upgrading from previous versions, you'll lose your stored resources. Be sure to Hyper-edit back what you need.
+
+Buckboards
+- Revised the in-field template switching. Instead of the Next and Previous buttons, now you click on the Reconfigure Storage button.
+NOTE: If you'e upgrading from previous versions, you'll lose your stored resources. Be sure to Hyper-edit back what you need.
+
+Ironworks
+- Fixed the conversion recipies for MetalOre->Metal, Metal->RocketParts & ScrapMetal, RocketParts->MaterialKits and MaterialKits->RocketParts. Thanks RiverRat2800!
+- Added the ability to create Equipment from Ore, RareMetals, ExoticMaterials, and ElectricCharge.
+- Added converter to go between RocketParts and Equipment.
+
+TERRAIN
+- Fixed an issue where you could not scan for resources in certain situations. Thanks for the detailed assessment, nobodyhasthis2! :)
+
+Switchback
+- Redesigned the part slightly so that it no longer needs to be attached to a Saddle. Simply drop it onto the ground and you're good to go. It also includes a KAS pipe. The previous design has been deprecated.
+
+Resources
+- Added Equipment resource and template.
+- Refactored RocketParts storage template to reflect that it’s actually a 5-liter resource instead of a 1-liter resource. Whoops!
+- Inflating and reconfiguring modules now uses Equipment instead of RocketParts. Repairs still require RocketParts.
+
+Other
+- You can now specify the resource and amount required to switch a template instead of the previously hard-coded requirement for RocketParts.
+- Changed the texture on the crew ports for inflatable modules because Parkaboy is awesome. Fantastic idea! :)
+
 0.9.11
 
 - Fixed an issue preventing the Buckboards from allowing resource switching.
