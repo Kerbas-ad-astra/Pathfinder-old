@@ -59,6 +59,9 @@ TERRAIN
 Switchback
 - Redesigned the part slightly so that it no longer needs to be attached to a Saddle. Simply drop it onto the ground and you're good to go. It also includes a KAS pipe. The previous design has been deprecated.
 
+Stockyards
+- Both the Stockyard 250 and Stockyard 375 are now properly updated to the latest Extraplanetary Launchpads. Thanks for your help, Taniwha! :)
+
 Resources
 - Added Equipment resource and template.
 - Refactored RocketParts storage template to reflect that it’s actually a 5-liter resource instead of a 1-liter resource. Whoops!
