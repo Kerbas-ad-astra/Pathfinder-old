@@ -8,6 +8,11 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.13
+- Fixed an issue with the Snacks MM patch
+- Fixed ladder and airlock triggers
+- By request, the Pigpen and Prairie greenhouse are available even when there is no life support mod installed.
+
 0.9.12 The Perfect Storm
 
 This release updates Pathfinder to KSP 1.1!
@@ -19,7 +24,7 @@ New Parts
 - Added the all new Consestoga Multipurpose Base Module (MBM). This redesign turns the Conestoga into a foundation module for your bases. Simply fly and/or drive it to the desired location, eject the wheels (if you attached the M1A1), and rest the module directly on the ground. The original part is still around! The old Conestoga has been renamed the Mule.
 
 M1A1 Mountain Goat
-- M1A1 Mountain Goats now have an eject feature. They're particularly useful for moving a starter base into position before discarding the wheels. The staging is disabled be default to avoid /ragequit ;)
+- M1A1 Mountain Goats now have an eject feature. They're particularly useful for moving a starter base into position before discarding the wheels.
 
 Pathfinder Settings Window
 - Added a Play Mode indicator and a button to change the play mode. This is only available at the Space Center. Pathfinder now offers three different play modes: Default, with all the bells and whistles enabled; Simplified, which reduces the number of resources and configurations you need to keep track of (which has a simplified Ore->RocketParts converter among other things); and Pristine, which just gives you nice looking modules to assemble without the hassle of things like resource extraction and conversion. You can find detailed descriptions of these play modes on the Pathfinder Wiki. To use a play mode, simply open the Pathfinder Settings Window from the Space Center, choose the mode you want, and then restart KSP. Pathfinder’s existing parts and plugin code will adjust accordingly. 
@@ -58,9 +63,6 @@ TERRAIN
 
 Switchback
 - Redesigned the part slightly so that it no longer needs to be attached to a Saddle. Simply drop it onto the ground and you're good to go. It also includes a KAS pipe. The previous design has been deprecated.
-
-Stockyards
-- Both the Stockyard 250 and Stockyard 375 are now properly updated to the latest Extraplanetary Launchpads. Thanks for your help, Taniwha! :)
 
 Resources
 - Added Equipment resource and template.
