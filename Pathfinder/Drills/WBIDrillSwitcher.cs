@@ -36,7 +36,13 @@ namespace WildBlueIndustries
 
         protected List<ModuleResourceHarvester> groundDrills;
         protected string[] drillResources;
-        protected DrillSwitchWindow drillSwitchWindow;
+        protected DrillSwitchWindow drillSwitchWindow = new DrillSwitchWindow();
+
+        public void OnGUI()
+        {
+            if (drillSwitchWindow.IsVisible())
+                drillSwitchWindow.DrawWindow();
+        }
 
         public override void OnLoad(ConfigNode node)
         {
@@ -80,7 +86,6 @@ namespace WildBlueIndustries
             }
 
             //Setup the window
-            drillSwitchWindow = new DrillSwitchWindow();
             drillSwitchWindow.groundDrills = groundDrills;
             drillSwitchWindow.part = this.part;
             drillSwitchWindow.reconfigureCost = reconfigureCost;

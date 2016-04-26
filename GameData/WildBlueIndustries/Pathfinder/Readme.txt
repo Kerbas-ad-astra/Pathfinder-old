@@ -8,6 +8,17 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.14
+- Fixed (again) the versioning file
+- The Homestead can now be configured for: Brew Works, Ironworks, Ponderosa, Pathfinder, Pigpen, Sunburn, Watney, and the new Rockhound.
+- Added the Rockhound template. It converts lots of Rock into ExoticMinerals and RareMetals.
+- Grizzly has moved to the Advanced Motors tech node.
+- Retuned the durability and default traction of the Buffalo wheels. Thanks for the testing, Geschosskopf! :)
+- Fixed drill switch window; you can drill for different resources again.
+
+KNOWN ISSUES
+- You're unable to surface attach parts to the Buffalo Command Cab until you change its orientation after spawning the part. Just change the orientation, and change it back to the desired orientation as a workaround.
+
 0.9.13
 - Fixed an issue with the Snacks MM patch
 - Fixed ladder and airlock triggers
