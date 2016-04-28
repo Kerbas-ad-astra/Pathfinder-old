@@ -16,11 +16,13 @@ Listed below are directions on how to use the resource distribution system.
 2.	Press the Distributor button until the button is depressed and the UI says “ON”
 3.	For any resource you wish to distribute, make sure that the resource isn’t locked.
 Note: If a resource is required by a converter, then it will not contribute its resources to the grand total, but it will take from the grand total until completely full.  
+![](https://github.com/Angel-125/Pathfinder/wiki/ResourceDistribution1.jpg)  
   
 ## Opt-In (Entire Active Vessel)
 1.	Open the [[Pathfinder Settings|Pathfinder-Settings]] window.
 2.	Navigate to the Distribution tab.
 3.	Press the Active Vessel: Opt-In button.  
+![](https://github.com/Angel-125/Pathfinder/wiki/ResourceDistribution2.jpg)  
   
 ## Opt-Out (Individual resource)
 1.	Right-click on the part and make sure that the Distributor is on.
@@ -47,4 +49,4 @@ Note: If a resource is required by a converter, then it will automatically opt-o
 3.	In the Distribution Timer field, enter the number of seconds (game-time) to wait until redistributing your resources.
 
 # Designer's Notes  
-Designing the resource distribution system was a lot of fun. I went through several iterations of the architecture and a number of spreadsheet calculations to come up with a solution that was fast and minimized the system memory needed. Figuring out how to calculate how much of a resource each distributor was also a challenge. My first couple of attempts just flat out didn't work. Then my girlfriend pointed out that I should just fill the distributors with required resources (some converters have required resources in order to function, such as the Greenhouse's Dirt requirement) and then distribute the remaining amount to the other distributors. That simplified things. Then I found a better way to compute each distributor's portion size, and that saved me an extra computing step. All in all, I'm quite happy with the end result. :)
+Designing the resource distribution system was a lot of fun. I went through several iterations of the architecture and a number of spreadsheet calculations to come up with a solution that was fast and minimized the system memory needed. Figuring out how to calculate how much of a resource each distributor was also a challenge. My first couple of attempts just flat out didn't work. Then my girlfriend pointed out that I should just fill the distributors with required resources (some converters have required resources in order to function, such as the Greenhouse's Dirt requirement) and then distribute the remaining amount to the other distributors. That simplified things. Then she found a better way to compute each distributor's portion size, and that saved me an extra computing step. All in all, I'm quite happy with the end result. :)

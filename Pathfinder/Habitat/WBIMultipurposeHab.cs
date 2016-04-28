@@ -48,6 +48,9 @@ namespace WildBlueIndustries
         {
             base.OnStart(state);
 
+            if (HighLogic.LoadedSceneIsEditor)
+                this.part.CrewCapacity = 0;
+
             if (string.IsNullOrEmpty(animationName))
                 return;
             anim = this.part.FindModelAnimators(animationName)[0];
@@ -151,6 +154,39 @@ namespace WildBlueIndustries
         {
             base.RedecorateModule(loadTemplateResources);
             updateDrill();
+            updateWorkshop();
+        }
+
+        protected void updateWorkshop()
+        {
+            PartModule oseWorkshop = null;
+            PartModule oseRecycler = null;
+            bool enableWorkshop = false;
+
+            //See if the drill is enabled.
+            if (CurrentTemplate.HasValue("enableWorkshop"))
+                enableWorkshop = bool.Parse(CurrentTemplate.GetValue("enableWorkshop"));
+
+            //Find the workshop modules
+            foreach (PartModule pm in this.part.Modules)
+            {
+                if (pm.moduleName == "OseModuleWorkshop")
+                    oseWorkshop = pm;
+                else if (pm.moduleName == "OseModuleRecycler")
+                    oseRecycler = pm;
+            }
+
+            if (oseWorkshop != null)
+            {
+                oseWorkshop.enabled = enableWorkshop;
+                oseWorkshop.isEnabled = enableWorkshop;
+            }
+
+            if (oseRecycler != null)
+            {
+                oseRecycler.enabled = enableWorkshop;
+                oseRecycler.isEnabled = enableWorkshop;
+            }
         }
 
         protected void updateDrill()

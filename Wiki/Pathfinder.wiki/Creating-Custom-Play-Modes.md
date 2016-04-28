@@ -11,4 +11,18 @@ When you open the Play Modes window, Pathfinder will look in the Pathfinder/Play
 To create your own Play Mode, start by making copies of Simplified Mode.txt and/or Pristine Mode.txt. If you're starting from scratch to, say, integrate Pathfinder with another base building mod, Pristine Mode is a good place to start since it has none of Pathfinder's templates or converters. Simplified Mode would be a place to start for savvy users who want to use Pathfinder's dynamic template system; in this case you'd want to set up the base modules to use custom template nodes (specified by templateNodes). You aren't required to store your custom templates in the Play Mode file, but Pathfinder ensures that at most, only one Play Mode file is active at any given time (you'll see a bunch of .txt files and one .cfg file).  
 
 # PATHFINDER_PLAY_MODE  
-TBD
+Here is a sample PlayMode:  
+> PATHFINDER_PLAYMODE  
+> {  
+> 	//Name of the play mode  
+> 	name = Simplified Mode  
+
+> 	//Description  
+> 	description = Simplified Mode reduces the number of resources required by Pathfinder, and reduces the available templates. This is great for players new to Pathfinder or for those that don't want the complexity of Default Mode. If you have Extraplanetary Launchpads installed, then you can produce RocketParts from Ore in the Hacienda's ISRU configuration.  
+  
+> 	//These are the default settings to use for the Pathfinder menu. The user is free to change them.  
+> 	payToRemodel = false  
+> 	requireSkillCheck = false  
+> 	repairsRequireResources = false  
+> 	partsCanBreak = false  
+> }

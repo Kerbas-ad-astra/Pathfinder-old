@@ -9,12 +9,32 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 ---REVISION HISTORY---
 
 0.9.14
-- Fixed (again) the versioning file
-- The Homestead can now be configured for: Brew Works, Ironworks, Ponderosa, Pathfinder, Pigpen, Sunburn, Watney, and the new Rockhound.
+
+New Part
+- Introducing the kPad Air. It's just like the giant plasma TV screens only smaller. The aspect ratio of width to height is 1 : 1.18. Thanks for the suggestion, Parkaboy! :)
+
+Homestead
+- The Homestead can now be configured for: Brew Works, Ironworks, Ponderosa, Pathfinder, Pigpen, Solar Flare, Sunburn, Watney, and the new Rockhound.
 - Added the Rockhound template. It converts lots of Rock into ExoticMinerals and RareMetals.
+
+Wheels
 - Grizzly has moved to the Advanced Motors tech node.
 - Retuned the durability and default traction of the Buffalo wheels. Thanks for the testing, Geschosskopf! :)
+
+Conestoga & Switchback
+- Increased the crash tolerance on the solar panels- they'll break when the part does.
+
+Inflatable Modules
+- IVA overlays won't be shown when the inflatable modules are deflated.
+- No more crew slots in the VAB/SPH when the inflatable module is deflated.
+- Fixed an issue where the Blacksmith and Clockworks configurations would forget what projects the OSE Workshop was working on.
 - Fixed drill switch window; you can drill for different resources again.
+- Fixed an issue where you could not transfer crew between modules using the Transfer Crew feature.
+- You can get back into and out of the Ponderosa again.
+NOTE: Currently the "Transfer Crew" right-click menu button is unavailable for inflatable parts but you can still transfer crew by clicking on an EVA hatch. I'm working on this one... :)
+
+Other
+- Fixed (again) the versioning file
 
 KNOWN ISSUES
 - You're unable to surface attach parts to the Buffalo Command Cab until you change its orientation after spawning the part. Just change the orientation, and change it back to the desired orientation as a workaround.

@@ -4,8 +4,9 @@ To bring up the Pathfinder Settings window, find the Pathfinder button on the ap
 
 ![](https://github.com/Angel-125/Pathfinder/wiki/SettingsMenu.jpg)  
 
-After pressing the Pathfinder button, you'll see the following window:
-
+After pressing the Pathfinder button, you'll see the following window:  
+![](https://github.com/Angel-125/Pathfinder/wiki/ResourceDistribution2.jpg)  
+Click on the Settings button to display the following:  
 ![](https://github.com/Angel-125/Pathfinder/wiki/PathfinderSettings.jpg)  
 
 For each option, If the check mark by the option is growing green, then it means that the option is enabled. Otherwise, it is disabled. The following options can be configured:
