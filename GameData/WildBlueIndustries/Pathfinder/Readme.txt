@@ -8,6 +8,12 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.15
+- updated to KSP 1.1.1
+- Increased breaking force of the Saddle and Switchback. Hopefully this will help reduce kraken attacks.
+- Moved the Stockyard 250 to Advanced Construction (same as EL Orbital Dock)
+- Slight update to the Tunnel Extender
+
 0.9.14
 
 New Part
