@@ -8,6 +8,9 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.17
+- Fixed missing parts
+
 0.9.16
 - Updated to KSP 1.1.2
 
