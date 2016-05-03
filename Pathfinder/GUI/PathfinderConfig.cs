@@ -20,13 +20,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    [KSPAddon(KSPAddon.Startup.SpaceCentre, false)]
+    [KSPAddon(KSPAddon.Startup.Flight | KSPAddon.Startup.EveryScene, false)]
     class PathfinderConfigMenu : MonoBehaviour
     {
-        static protected ApplicationLauncherButton appLauncherButton = null;
-        static protected bool buttonAdded;
         static protected Texture2D appIcon = null;
-        protected PathfinderSettings pathfinderSettings = new PathfinderSettings();
+        static protected ApplicationLauncherButton appLauncherButton = null;
+        static protected PathfinderSettings pathfinderSettings = new PathfinderSettings();
+
+        public void Awake()
+        {
+            appIcon = GameDatabase.Instance.GetTexture("WildBlueIndustries/Pathfinder/Icons/PathfinderApp", false);
+            GameEvents.onGUIApplicationLauncherReady.Add(SetupGUI);
+        }
 
         public void OnGUI()
         {
@@ -34,76 +39,26 @@ namespace WildBlueIndustries
                 pathfinderSettings.DrawWindow();
         }
 
-        public void Update()
+        private void SetupGUI()
         {
-            addButton();
-        }
-
-        protected virtual void addButton()
-        {
-            if (ApplicationLauncher.Ready && !buttonAdded)
+            if (HighLogic.LoadedScene == GameScenes.FLIGHT || HighLogic.LoadedScene == GameScenes.SPACECENTER)
             {
-                appLauncherButton = InitializeApplicationButton();
-
-                if (appLauncherButton != null)
-                    appLauncherButton.VisibleInScenes = ApplicationLauncher.AppScenes.SPACECENTER;
-
-                buttonAdded = true;
+                if (appLauncherButton == null)
+                    appLauncherButton = ApplicationLauncher.Instance.AddModApplication(ShowGUI, HideGUI, null, null, null, null, ApplicationLauncher.AppScenes.ALWAYS, appIcon);
             }
-        }
-
-        public void OnDestroy()
-        {
-            if (appLauncherButton != null)
-            {
+            else if (appLauncherButton != null)
                 ApplicationLauncher.Instance.RemoveModApplication(appLauncherButton);
-                appLauncherButton = null;
-                buttonAdded = false;
-            }
         }
 
-        protected ApplicationLauncherButton InitializeApplicationButton()
-        {
-            ApplicationLauncherButton appButton = null;
-            appIcon = GameDatabase.Instance.GetTexture("WildBlueIndustries/Pathfinder/Icons/PathfinderApp", false);
-
-            if (appIcon != null)
-            {
-                appButton = ApplicationLauncher.Instance.AddModApplication(
-                    OnAppLauncherTrue,
-                    OnAppLauncherFalse,
-                    null,
-                    null,
-                    null,
-                    null,
-                    ApplicationLauncher.AppScenes.SPACECENTER,
-                    appIcon);
-
-                buttonAdded = true;
-            }
-
-            return appButton;
-        }
-
-        void OnAppLauncherTrue()
+        private void ShowGUI()
         {
             pathfinderSettings.SetVisible(true);
         }
 
-        void OnAppLauncherFalse()
+        private void HideGUI()
         {
             pathfinderSettings.SetVisible(false);
         }
-    }
 
-    [KSPAddon(KSPAddon.Startup.Flight, false)]
-    class PathfinderConfigMenuFlight : PathfinderConfigMenu
-    {
-        protected override void addButton()
-        {
-            base.addButton();
-            if (buttonAdded)
-                appLauncherButton.VisibleInScenes = ApplicationLauncher.AppScenes.FLIGHT;
-        }
     }
 }

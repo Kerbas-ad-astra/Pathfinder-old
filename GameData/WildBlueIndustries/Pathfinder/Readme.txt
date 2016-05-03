@@ -8,6 +8,11 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.18
+- Fixed mission icons and decals
+- Fixed an issue with the toolbar app
+- Added drag cube to the Conestoga
+
 0.9.17
 - Fixed missing parts
 
