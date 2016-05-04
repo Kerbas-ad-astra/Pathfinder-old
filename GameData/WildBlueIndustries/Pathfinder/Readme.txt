@@ -8,6 +8,9 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.19
+- Fixed missing PlayModes and MM patches
+
 0.9.18
 - Fixed mission icons and decals
 - Fixed an issue with the toolbar app

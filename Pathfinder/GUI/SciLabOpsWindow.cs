@@ -59,12 +59,7 @@ namespace WildBlueIndustries
             scienceIcon = scienceIconBlack;
         }
 
-        public override void SetVisible(bool newValue)
-        {
-            base.SetVisible(newValue);
-        }
-
-        public void DrawOpsWindow()
+        public void FindPartModules()
         {
             if (converter == null)
             {
@@ -72,7 +67,15 @@ namespace WildBlueIndustries
                 sciLab = this.part.FindModuleImplementing<ModuleScienceLab>();
                 scienceContainer = this.part.FindModuleImplementing<ModuleScienceContainer>();
             }
+        }
 
+        public override void SetVisible(bool newValue)
+        {
+            base.SetVisible(newValue);
+        }
+
+        public void DrawOpsWindow()
+        {
             GUILayout.BeginVertical();
 
             GUILayout.BeginHorizontal();

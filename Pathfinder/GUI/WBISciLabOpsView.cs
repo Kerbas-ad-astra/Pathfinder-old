@@ -57,6 +57,7 @@ namespace WildBlueIndustries
             //Set up the ops window
             opsWindow.part = this.part;
             opsWindow.WindowTitle = this.part.partInfo.title;
+            opsWindow.FindPartModules();
 
             //If we want to show the ops view dialog instead of the context buttons,
             //then hide the context buttons.
