@@ -8,6 +8,10 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.21
+- Fixed an issue with the Gold Digger and Contract Configurator. Thanks for the fix, Enceos! :)
+- Fixed an issue where the Ponderosa would not allow entry/exit into the module.
+
 0.9.20
 - More bug fixes (sigh)
 
