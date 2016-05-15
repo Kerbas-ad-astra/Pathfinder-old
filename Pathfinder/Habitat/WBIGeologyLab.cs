@@ -114,6 +114,9 @@ namespace WildBlueIndustries
 
         public override void OnStart(StartState state)
         {
+            if (HighLogic.LoadedSceneIsFlight == false)
+                return;
+
             showGUI = false;
             base.OnStart(state);
             SetGuiVisible(false);
@@ -205,6 +208,7 @@ namespace WildBlueIndustries
 
             //Run the analysis
             biomeScanner.RunAnalysis();
+            resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
         }
 
         protected bool transmitData(ScienceData data)

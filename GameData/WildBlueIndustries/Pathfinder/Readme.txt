@@ -8,6 +8,15 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 ---REVISION HISTORY---
 
+0.9.23
+- Fixed NREs and Input is NULL errors.
+- Fixed an issue where the Buffalo Adapter was not showing up in flight.
+- Fixed an attachment node height issue with the M1-A1.
+- Increased ElectricCharge storage in Buffalo parts to account for new KSP 1.1 wheel power requirements.
+- Added support to the Buffalo for Kerbalism.
+- Made some minor updates to the Buffalo Crew Module IVA.
+- Fixed an issue in the Saddleback 2 where it would be spawned partly below ground when pulled from a KIS inventory.
+
 0.9.22
 - Fixed an issue with the Switchback sliding around after being bolted to the ground.
 - The original model for the Switchback is back temporarily to help allieviate some of the issues found.

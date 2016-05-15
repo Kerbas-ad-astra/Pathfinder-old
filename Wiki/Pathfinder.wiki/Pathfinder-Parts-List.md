@@ -11,6 +11,7 @@ Listed below is a compilation of the various parts found in Pathfinder.
 [[Poncho Deployable Solar Blanket|Poncho]]  
 [[Gold Digger Core Sample Drill|Gold-Digger]]  
 [[Switchback 4-way Hub|Switchback]]  
+[[Tunnel Extender|Tunnel-Extender]]  
 [[Homestead Inflatable Module|Homestead]]  
 [[Stockyard Inflatable Space Dock|Stockyard]]  
 [[Conestoga Multipurpose Base Module|Conestoga-Multipurpose-Base-Module]]  
