@@ -24,19 +24,13 @@ namespace WildBlueIndustries
         private const string kDocOpsView = "Doc Operations";
 
         [KSPField]
-        public string partToolTip;
+        public string partToolTip = string.Empty;
 
         [KSPField]
-        public string partToolTipTitle;
+        public string partToolTipTitle = string.Empty;
 
         [KSPField]
-        public float productivity = 1.0f;
-
-        [KSPField]
-        public float efficiency = 1.0f;
-
-        [KSPField]
-        public string opsViewTitle;
+        public string opsViewTitle = string.Empty;
 
         Animation anim;
         WBIScienceConverter scienceConverter;
@@ -104,8 +98,6 @@ namespace WildBlueIndustries
                 converter.isEnabled = enableMPLModules;
                 converter.enabled = enableMPLModules;
             }
-            
-            updateProductivity();
         }
 
         public override void UpdateContentsAndGui(string templateName)
@@ -121,21 +113,6 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
-        protected void updateProductivity()
-        {
-            //Find all the resource converters and set their productivity
-            List<ModuleResourceConverter> converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
-
-            foreach (ModuleResourceConverter converter in converters)
-            {
-                converter.Efficiency = efficiency;
-
-                //Now adjust the output.
-                foreach (ResourceRatio ratio in converter.outputList)
-                    ratio.Ratio *= productivity;
-            }
-        }
-        
         protected void checkAndShowToolTip()
         {
             //Now we can check to see if the tooltip for the current template has been shown.

@@ -34,12 +34,6 @@ namespace WildBlueIndustries
         [KSPField]
         public string opsViewTitle;
 
-        [KSPField]
-        public float productivity = 1.0f;
-
-        [KSPField]
-        public float efficiency = 1.0f;
-
         Animation anim;
         PartModule impactSeismometer;
         PartModule exWorkshop;
@@ -139,7 +133,6 @@ namespace WildBlueIndustries
 
             //Now reconfigure
             base.UpdateContentsAndGui(templateName);
-            updateProductivity();
 
             //Check to see if we've displayed the tooltip for the template.
             //First, we're only interested in deployed modules.
@@ -280,21 +273,6 @@ namespace WildBlueIndustries
 
                 harvester.Fields["status"].guiName = "Drill Status";
                 MonoUtilities.RefreshContextWindows(this.part);
-            }
-        }
-
-        protected void updateProductivity()
-        {
-            //Find all the resource converters and set their productivity
-            List<ModuleResourceConverter> converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
-
-            foreach (ModuleResourceConverter converter in converters)
-            {
-                converter.Efficiency = efficiency;
-
-                //Now adjust the output.
-                foreach (ResourceRatio ratio in converter.outputList)
-                    ratio.Ratio *= productivity;
             }
         }
 

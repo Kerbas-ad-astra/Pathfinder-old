@@ -4,9 +4,12 @@ A KSP mod that blazes the trail for more permanent installations. Geoscience for
 
 ---INSTALLATION---
 
-Copy the contents of the mod's GameData directory into your GameData folder.
+Copy the contents of the mod's GameData directory into your KSP's GameData folder.
 
 ---REVISION HISTORY---
+
+0.9.24
+- Fixed an issue where the Buffalo crew module was not loading properly and messing up the KIS seat inventories as a result.
 
 0.9.23
 - Fixed NREs and Input is NULL errors.

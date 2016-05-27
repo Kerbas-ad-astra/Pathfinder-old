@@ -24,10 +24,10 @@ namespace WildBlueIndustries
         Animation anim;
 
         [KSPField]
-        public string partToolTip;
+        public string partToolTip = string.Empty;
 
         [KSPField]
-        public string partToolTipTitle;
+        public string partToolTipTitle = string.Empty;
 
         protected string prevTemplateName = null;
 
