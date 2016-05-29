@@ -8,6 +8,12 @@ Copy the contents of the mod's GameData directory into your KSP's GameData folde
 
 ---REVISION HISTORY---
 
+0.9.25
+- Updated to latest WildBlueTools, which fixes NREs and Input is NULL errors.
+- Improved GUI for selecting storage templates.
+- Fixed missing texture files in the Hacienda.
+- You can now click on the laptop prop's screen and change its image.
+
 0.9.24
 - Fixed an issue where the Buffalo crew module was not loading properly and messing up the KIS seat inventories as a result.
 
