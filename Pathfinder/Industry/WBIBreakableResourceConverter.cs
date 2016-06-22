@@ -19,7 +19,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIBreakableResourceConverter : WBIResourceConverter, ITemplateOps
+    [KSPModule("Breakable Resource Converter")]
+    public class WBIBreakableResourceConverter : WBIResourceConverter, IOpsView
     {
         private const string kNotEnoughResourcesToRepair = "Unable to repair due to insufficient resources. You need {0:f1} ";
         private const string kInfoRepairSkill = "Best skill for repairs: ";
@@ -29,6 +30,9 @@ namespace WildBlueIndustries
 
         public static bool repairsRequireResources = true;
         public static bool canBreak = true;
+
+        [KSPField]
+        public string progressLabel = "Progress";
 
         [KSPField]
         public string efficiencyType;
@@ -129,7 +133,7 @@ namespace WildBlueIndustries
                 status = kNeedsRepairs;
             }
 
-            SetGuiVisible(false);
+            SetGuiVisible(showGUI);
         }
 
         public override string GetInfo()
@@ -171,7 +175,7 @@ namespace WildBlueIndustries
 
         public void SetupGUI()
         {
-            SetGuiVisible(false);
+            SetGuiVisible(showGUI);
 
             if (isBroken)
             {
@@ -184,6 +188,8 @@ namespace WildBlueIndustries
             //Hide repair button
             Events["PerformRepairs"].guiActiveUnfocused = false;
             Events["PerformRepairs"].guiActive = false;
+
+            Fields["progress"].guiName = progressLabel;
         }
 
         protected override void onFailure()
@@ -224,8 +230,24 @@ namespace WildBlueIndustries
             status = kNeedsRepairs;
         }
 
-        #region ITemplateOps
-        public virtual void DrawOpsWindow()
+        #region IOpsView
+        public void SetContextGUIVisible(bool isVisible)
+        {
+            SetGuiVisible(isVisible);
+        }
+
+        public void SetParentView(IParentView parentView)
+        {
+        }
+
+        public virtual List<string> GetButtonLabels()
+        {
+            List<string> buttonLabels = new List<string>();
+            buttonLabels.Add(ConverterName);
+            return buttonLabels;
+        }
+
+        public virtual void DrawOpsWindow(string buttonLabel)
         {
             string absentResource = GetMissingResource();
             GUILayout.BeginVertical();

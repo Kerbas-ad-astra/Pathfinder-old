@@ -1,6 +1,6 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/Watney.jpg)  
 **Mass:** 3t  
-**Cost:** 1,200 RocketParts  
+**Cost:** 1,200 Equipment  
 **Research:** Advanced Exploration
 
 Available only in Advanced Mode, the Watney Chemistry Lab has several converters that let you make ResearchKits for use in the TERRAIN Geo Scanner and Pathfinder Geology Lab, create Water from MonoPropellant and Oxidizer, or split Water into Oxygen/Oxidizer and LqdHydrogen. The converters are described in detail below.
@@ -39,10 +39,12 @@ _ElectricCharge:_ 22 units/sec
 **Outputs**  
 _Oxidizer:_ 22.78 units/sec  
 _LqdHydrogen:_ 0.7847 units/sec  
-# Snack Grinder    
-This converter is only available if Snacks is installed. It has the following recipe:  
+# O-Chem    
+This converter is only available if Snacks or USI-LS is installed. It has the following recipe:  
 **Inputs**  
-_Ore:_ 0.5 units/sec  
-_ElectricCharge:_ 30 units/sec  
+_Ore:_ 0.002 units/sec  
+_Water:_ 0.002 units/sec  
+_Minerals:_ 0.002 units/sec  
+_ElectricCharge:_ 48 units/sec  
 **Output**  
-_Snacks:_ 1 unit/sec
+_Organics:_ 0.0002 units/sec

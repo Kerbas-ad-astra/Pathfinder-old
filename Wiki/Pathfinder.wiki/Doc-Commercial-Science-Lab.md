@@ -9,7 +9,8 @@
 **Stored Volume:** 404.39 L  
 
 The Doc Commercial Science Lab is designed to house the Science related functions of your base. It attaches to Pathfinder's standard crew ports included on all inhabitable modules such as the Chuckwagon, Hacienda, [[Ponderosa|Ponderosa]], and of course the Doc Commercial Science lab. The Doc can be stored in a standard KIS container, but it can also be surface attached to save storage space. The module is equipped with a special node called ImpactTransform to support drilling modules, though no templates with drills are currently available.
-
+  
+The Doc can participate in Pathfinder's [[Resource Distribution System|Distributed-Bases]]. When participating, its resources will be evenly distributed to all containers within 2.3km that are also participating in resource distribution, and have the same resources as the Doc.
 # Setup
 As with any other part, simply grab the Doc out of your inventory and attach it to an available standard crew port.  
 ![](https://github.com/Angel-125/Pathfinder/wiki/DocSetup1.jpg)  
@@ -40,7 +41,7 @@ _The resources panel for the Doc is the same as for the Ponderosa._
 
 The Resources tab displays the current and maximum resources that the module currently has. The contents of this window vary depending upon the module's current configuration.
 ## Reconfiguring
-If you haven’t changed the settings in Pathfinder’s Settings Window, then you’ll need a Scientist to inflate/deflate the Doc as well as to reconfigure the module into a different configuration. Inflating the module or changing its configuration requires RocketParts, which represent the equipment and furnishings (cups, computers, desks, etc.) required by the module.  
+If you haven’t changed the settings in Pathfinder’s Settings Window, then you’ll need a Scientist to inflate/deflate the Doc as well as to reconfigure the module into a different configuration. Inflating the module or changing its configuration requires Equipment, which represent the equipment and furnishings (cups, computers, desks, etc.) required by the module.  
 
 In addition to reconfiguring the Doc in the field, you can reconfigure it in the VAB/SPH. Before launch, you can choose any configuration you want, and it won't cost you resources to do so.  
 

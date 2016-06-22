@@ -9,7 +9,8 @@
 **Stored Volume:** 1,100 L  
 
 The Casa is the radially attached version of the [[Ponderosa Inflatable Module|Ponderosa]] that serves as a foundation for your temporary bases. It has three standard crew transfer ports that enable you to attach other inflatable modules such as the Chuckwagon, Doc Science Lab, and of course other Casa modules. Like all inflatable base modules in Pathfinder, the Casa can be configured for a variety of different uses. Specifically, it houses all Habitation related templates. The Casa can be stored inside a standard KIS container.
-
+  
+The Casa can participate in Pathfinder's [[Resource Distribution System|Distributed-Bases]]. When participating, its resources will be evenly distributed to all containers within 2.3km that are also participating in resource distribution, and have the same resources as the Casa.
 # Usage
 The Casa is radially attached just like other base modules; simply grab a Casa from your inventory, walk to an available crew port, and drag the Casa onto the crew port. It takes an Engineer to attach a Casa to a crew port.  
 ![](http://i.imgur.com/l5ApqQ2.png) 
@@ -36,9 +37,10 @@ Casas have a lot of functionality associated with them, and they’re organized 
 ![](https://github.com/Angel-125/Pathfinder/wiki/POM3.jpg)  
 The Resources tab displays the current and maximum resources that the module currently has. The contents of this window vary depending upon the module's current configuration.
 ## Reconfiguring
-If you haven’t changed the settings in Pathfinder’s Settings Window, then you’ll need an Engineer to inflate/deflate the Casa as well as to reconfigure the module into a different configuration. Inflating the module or changing its configuration requires RocketParts, which represent the equipment and furnishings (cups, computers, desks, etc.) required by the module.  
+If you haven’t changed the settings in Pathfinder’s Settings Window, then you’ll need an Engineer to inflate/deflate the Casa as well as to reconfigure the module into a different configuration. Inflating the module or changing its configuration requires Equipment, which represent the equipment and furnishings (cups, computers, desks, etc.) required by the module.  
 ***  
-_Don't want to haul a bunch of RocketParts around to inflate and reconfigure your modules? Do you want everybody to be able to reconfigure and inflate them? Change them! Simply press and hold the modifier key (which defaults to Alt on Windows) and P key simultaneously to bring up the [[Pathfinder Settings|Pathfinder-Settings]] window. Then uncheck the requirements for RocketParts and Engineers._  
+_Don't want to haul a bunch of Equipment around to inflate and reconfigure your modules? Do you want everybody to be able to reconfigure and inflate them? Change them! Simply press Pathfinder button on the application toolbar to bring up the [[Pathfinder Settings|Pathfinder-Settings]] window. Then uncheck the requirements for Equipment and Engineers._  
+![](https://github.com/Angel-125/Pathfinder/wiki/SettingsMenu.jpg)  
 ***  
 In addition to reconfiguring the Casa in the field, you can reconfigure it in the VAB/SPH. Before launch, you can choose any configuration you want, and it won't cost you resources to do so.  
 Below is a summary of the Casa’s configurations. For more information, click on the links provided
@@ -53,6 +55,9 @@ Link: [[Ponderosa Habitat|Ponderosa-Habitat]]
 The Habitat is more than just a place for your kerbals to hang out. It also serves as the command and control center for your base. If you have the kOS mod installed, for instance, the Ponderosa Habitat comes equipped with a computer terminal.
 ## Pigpen Recycler  
 Link: [[Pigpen Recycler|Pigpen-Recycler]]  
-If you have a life support mod installed such as Snacks or TAC-LS, then the Pigpen is useful for recycling the waste products produced by the life support systems.
+If you have a life support mod installed such as Snacks or TAC-LS, then the Pigpen is useful for recycling the waste products produced by the life support systems.  
+***  
+_NOTE: The Pigpen is only available if you have a life support mod installed such as Snacks, TAC-LS, or USI-LS._  
+*** 
 # Designer’s Notes
 Originally I wanted the Ponderosa to be radially attached, but I couldn't figure out how to make the airlocks work. Now that I've solved that problem, I went ahead and created the Casa. Some people prefer the Ponderosa, others prefer the Casa, so I kept both of them. You can anchor your base using a single Saddle and either a single Ponderosa or a single Switchback 4-way hub. Either way works. :)

@@ -1,6 +1,6 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/Workshop.jpg)  
 **Mass:** 1.5t  
-**Cost:** 600 RocketParts  
+**Cost:** 600 Equipment  
 **Research:** Advanced Exploration
 
 The Blacksmith is one of the configurations for the [[Ponderosa Inflatable Module|Ponderosa]], and is only available if you have the [[OSE Workshop|http://forum.kerbalspaceprogram.com/threads/108234-1-0-2-OSE-Workshop-MKS-KIS-Addon-%28v0-7-3-2015-06-01%29]] mod installed. With OSE Workshop, you'll be able to 3D print the parts that you find in the VAB and SPH using MaterialKits. Some parts will require ExoticMinerals and RareMetals as well.The workshop can build parts with a maximum volume of 1,200 liters, just enough for all the inflatable base modules up to and including the Ponderosa. Below is the ops view for the Blacksmith:

@@ -1,6 +1,6 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/Pathfinder.jpg)  
 **Mass:** 1.5t  
-**Cost:** 600 RocketParts  
+**Cost:** 600 Equipment  
 **Research:** Space Exploration
 
 One of the many configurations possible for the [[Ponderosa Inflatable Module|Ponderosa]], the Pathfinder Geology Lab, along with the Gold Digger Portable Drill, forms the cornerstone of Pathfinder's geological research system. With the geology lab, you'll be able to research a planet's resources to improve resource abundance. Also, you can improve your production efficiencies for your Habitation, Science, and Industry modules. Additionally, you can research impact data if you have the [[Impact|http://forum.kerbalspaceprogram.com/threads/114087-1-0-Impact!-impact-science-and-contracts-v1-1-0-With-Asteroids-30-6-15]] mod installed. Plus, you can sift through Dirt to find RareMetals and ExoticMinerals. Finally, you can keep track of your orbiting TERRAIN-equipped satellites.  
@@ -60,7 +60,7 @@ A Soil analysis examines the surface for its nutrient contents and potential to 
 A chemical analysis looks for chemical compounds that may prove useful for improving science-related chemical processes. The Doc Science Lab's converters found in the Watney Chemistry lab, for instance, will benefit from this research.
 ### Metallurgy  
 **Benefits:** Industry (Hacienda configurations)  
-A metallurgic analysis seeks out metal ores and examines them for their purity. This knowledge can be helpful to improve production of industrial resources such as RocketParts. The Hacienda's IronWorks, Solar Flare, and Hot Springs configurations will benefit from this research.
+A metallurgic analysis seeks out metal ores and examines them for their purity. This knowledge can be helpful to improve production of industrial resources such as Equipment. The Hacienda's IronWorks, Solar Flare, and Hot Springs configurations will benefit from this research.
 ### Biome  
 **Benefits:** Soil, Chemical, Metallurgy research  
 Since the Gold Digger produces a limited number of core samples for a given biome, a biome analysis provides another means to improve production efficiency ratings. A biome analysis draws upon prior research, so it costs 100 Science in addition to ResearchKits and ElectricCharge. A successful result will generate the equivalent of one core sample that can be used in other research.  

@@ -8,8 +8,9 @@
 **Max Temp:** 900 K  
 **Stored Volume:** 509.21 L  
 
-The Hacienda is Pathfinder's industrial module. While not needed for prospecting missions, the Hacienda offers industrial configurations such as power generation, production of rocket fuels, creating RocketParts, 3D printing large components, and managing the production of entire vessels. It benefits from the Pathfinder Geology Lab's Metallurgy research. The module is equipped with a special node called ImpactTransform to support drilling modules. Currently, the Hot Springs makes use of this node to support the geothermal tap.
-
+The Hacienda is Pathfinder's industrial module. While not needed for prospecting missions, the Hacienda offers industrial configurations such as power generation, production of rocket fuels, creating Equipment, 3D printing large components, and managing the production of entire vessels. It benefits from the Pathfinder Geology Lab's Metallurgy research. The module is equipped with a special node called ImpactTransform to support drilling modules. Currently, the Hot Springs makes use of this node to support the geothermal tap.
+  
+The Hacienda can participate in Pathfinder's [[Resource Distribution System|Distributed-Bases]]. When participating, its resources will be evenly distributed to all containers within 2.3km that are also participating in resource distribution, and have the same resources as the Hacienda.
 # Setup
 As with any other part, simply grab the Hacienda out of your inventory and attach it to an available standard crew port.  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Hacienda1.jpg)  
@@ -40,7 +41,7 @@ _The resources panel for the Hacienda is the same as for the Ponderosa._
 
 The Resources tab displays the current and maximum resources that the module currently has. The contents of this window vary depending upon the module's current configuration.
 ## Reconfiguring
-If you haven’t changed the settings in Pathfinder’s Settings Window, then you’ll need an Engineer to inflate/deflate the Hacienda as well as to reconfigure the module into a different configuration. Inflating the module or changing its configuration requires RocketParts, which represent the equipment and furnishings (cups, computers, desks, etc.) required by the module.  
+If you haven’t changed the settings in Pathfinder’s Settings Window, then you’ll need an Engineer to inflate/deflate the Hacienda as well as to reconfigure the module into a different configuration. Inflating the module or changing its configuration requires Equipment, which represent the equipment and furnishings (cups, computers, desks, etc.) required by the module.  
 
 In addition to reconfiguring the Hacienda in the field, you can reconfigure it in the VAB/SPH. Before launch, you can choose any configuration you want, and it won't cost you resources to do so.  
 
@@ -51,7 +52,7 @@ Link: [[Brew Works ISRU|Brew-Works-ISRU]]
 The Brew Works provides the ability to convert Ore into LiquidFuel, Oxidizer, MonoPropellant, and Xenon. It's slightly more efficient than the stock ISRU converter, but it's larger and heavier.
 ### Ironworks  
 Link: [[Ironworks Foundry|Ironworks-Foundry]]  
-The Ironworks produces RocketParts from Metals (or Metal if Extraplanetary Launchpads (EL) is installed), and it can smelt Metals from MetallicOre (or MetalOre with EL installed). With OSE Workshop installed, the Iron Works produces MaterialKits from Ore, and can convert RocketParts to MaterialKits and vice versa.
+The Ironworks is responsible for creating a variety of different resources including Equipment needed to inflate and configure Pathfinder's inflatable modules. It also produces RocketParts from Metal, and it can smelt Metal from MetalOre (if Extraplanetary Launchpads (EL) is installed. Without EL, RocketParts are made from Metals). With OSE Workshop installed, the Iron Works produces MaterialKits from Ore, and can convert RocketParts to MaterialKits and vice versa.
 ### Clockworks  
 Link: [[Clockworks 3D Print Shop|Clockworks-3D-Print-Shop]]  
 With OSE Workshop installed, the Clockworks 3D Workshop gives you a space to build parts. It has more production volume than the blacksmith.
@@ -64,5 +65,11 @@ The pinnacle of Pathfinder's power generation technologies, the Solar Flare is a
 ### Claim Jumper Strip Miner  
 Link: [[Claim Jumper|Claim-Jumper]]  
 The Claim Jumper is designed to rapidly extract resources from a given area compared to the stock Drill-O-Matic and especially compared to the Gold Digger drill.  
+### ISRU (Simplified Mode)   
+Link: [[ISRU|ISRU]]  
+Available only in [[Simplified Mode|Simplified-Mode]], The ISRU provides the ability to convert Ore into LiquidFuel, Oxidizer, MonoPropellant, Xenon, RocketParts, and MaterialKits. It's slightly more efficient than the stock ISRU converter, but it's larger and heavier.  
+### Power Plant (Simplified Mode)   
+Link: [[Power Plant|Power-Plant]]  
+Available only in [[Simplified Mode|Simplified-Mode]], the Power Plant generates ElectricCharge by consuming Ore and/or LiquidFuel and Oxidizer.  
 # Designer's Notes  
 In order to reinforce the theme of a space western, I've named Pathfinder's parts after names associated with the Old West. Originally, I wanted to use the name Hacienda for a larger version of the Ponderosa. It was supposed to be a permanent structure that's built on site. But when I needed a name for a factory module and did some research on the hacienda, I found out that hacienda were more than estates; they were factories as well! That sealed the deal for me, and the factory module became known as the Hacienda.

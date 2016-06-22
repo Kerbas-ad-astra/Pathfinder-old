@@ -25,19 +25,12 @@ namespace WildBlueIndustries
         MetallurgyAnalysis,
         ChemicalAnalysis,
         BiomeAnalysis,
+        Drilling,
         None
     }
 
-    /*
-    public struct TerrainStatus
-    {
-        public string vesselName;
-        public string status;
-        public float scienceAdded;
-        public Vessel vessel;
-    }
-    */
-    public class WBIGeologyLab : WBIBasicScienceLab, ITemplateOps2
+    [KSPModule("Geology Lab")]
+    public class WBIGeologyLab : WBIBasicScienceLab, IOpsView
     {
         const float kBiomeResearchCost = 100f;
         const float kBiomeAnalysisFactor = 0.75f;
@@ -51,24 +44,30 @@ namespace WildBlueIndustries
         const string kTTMetalAnalysis = "Core samples can be analyzed for their metallurgic content and can provide clues about how well in-situ resources will perform when creating construction materials. The better the results, the better your construction material creation will be. Bad results will have the opposite effect.";
         const string kTTChemAnalysis = "The chemical composition of core samples can be useful to know when using in-situ resources to induce chemical reactions. Good results will improve your chemical processes, while bad results will worsen them.";
         const string kTTBiomeAnalysis = "The Biome Analysis costs 100 Science to perform, but you have the potential to improve your return on investment with a good result. Similarly, a poor result will result in lost knowledge. When you hit the transmit button, you'll have the option to transmit research for Science, publish it to gain Reputation, or sell it for Funds. Finally, the analysis counts as a core sample when attempting to improve your production efficiencies.";
+        const string kTTDrilling = "Core samples can be analyzed to help improve drilling efficiencies. Good results will help you improve your extraction yields, while poor results will worsen them.";
         const string kBetterEfficiency = "<color=lime>Production efficiency improved by <b>{0:f2}%</b> for ";
         const string kWorseEfficiency = "<color=orange>Production efficiency worsened by <b>{0:f2}%</b> for ";
         const string kLifeSupport = "life support processors.";
         const string kManufacturing = "fabrication processors.";
         const string kChemicalProducts = "chemical processeors.";
+        const string kExtraction = "extraction rates.";
         const string kNotEnoughScience = "Not enough Science in the budget to continue research. Efforts wasted!";
 
         [KSPField]
         public int harvestID;
 
+        [KSPField]
+        public bool canImproveEfficiency = true;
+
+        protected IParentView parentView = null;
         ModuleBiomeScanner biomeScanner;
         ModuleGPS gps;
         PartModule impactSeismometer;
         IScienceDataContainer impactSensor;
         private Vector2 scrollPosResources;
         List<PResource.Resource> resourceList;
-        string[] experimentTypes = { "Soil", "Metallurgy", "Chemical", "Biome" };
-        double[] elapsedTimes = new double[4];
+        string[] experimentTypes = { "Soil", "Metallurgy", "Chemical", "Biome", "Drilling" };
+        double[] elapsedTimes = new double[5];
         ModuleScienceContainer scienceContainer;
         WBIResultsDialogSwizzler swizzler;
         GeologyLabExperiments currentExperiment;
@@ -82,7 +81,10 @@ namespace WildBlueIndustries
         {
             base.OnLoad(node);
 
-            currentExperiment = (GeologyLabExperiments)Enum.Parse(typeof(GeologyLabExperiments), node.GetValue("currentExperiment"));
+            if (node.HasValue("currentExperiment"))
+                currentExperiment = (GeologyLabExperiments)Enum.Parse(typeof(GeologyLabExperiments), node.GetValue("currentExperiment"));
+            else
+                currentExperiment = GeologyLabExperiments.None;
 
             if (node.HasValue("experimentTimes"))
             {
@@ -108,6 +110,10 @@ namespace WildBlueIndustries
 
         public override void OnStart(StartState state)
         {
+            if (HighLogic.LoadedSceneIsFlight == false)
+                return;
+
+            showGUI = false;
             base.OnStart(state);
             SetGuiVisible(false);
             showResults = false;
@@ -145,6 +151,10 @@ namespace WildBlueIndustries
 
             setupPartModules();
 
+            //Hack!
+            if (Events["StartResourceConverter"].guiActive || Events["StopResourceConverter"].guiActive)
+                SetGuiVisible(false);
+
             if (impactSeismometer != null)
             {
                 BaseEvent reviewEvent = impactSeismometer.Events["reviewEvent"];
@@ -154,6 +164,12 @@ namespace WildBlueIndustries
                     reviewEvent.guiActiveUnfocused = false;
                 }
             }
+        }
+
+        protected override void OnGUI()
+        {
+            if (terrainUplinkView.IsVisible())
+                terrainUplinkView.DrawWindow();
         }
         #endregion
 
@@ -194,6 +210,7 @@ namespace WildBlueIndustries
 
             //Run the analysis
             biomeScanner.RunAnalysis();
+            resourceList = ResourceMap.Instance.GetResourceItemList(HarvestTypes.Planetary, this.part.vessel.mainBody);
         }
 
         protected bool transmitData(ScienceData data)
@@ -206,7 +223,7 @@ namespace WildBlueIndustries
             return true;
         }
 
-        protected override void transmitResults(ScienceData data)
+        public override void TransmitResults()
         {
             WBIBiomeAnalysis.ResetScienceGains(this.part);
         }
@@ -318,16 +335,35 @@ namespace WildBlueIndustries
             terrainVesselTarget = targetVessel;
         }
 
-        #region ITemplateOps
-
-        protected OpsView opsView = null;
-        public void SetOpsView(OpsView view)
+        #region IOpsView
+        public void SetContextGUIVisible(bool isVisible)
         {
-            opsView = view;
+            SetGuiVisible(isVisible);
         }
 
-        public void DrawOpsWindow()
+        public void SetParentView(IParentView parentView)
         {
+            this.parentView = parentView;
+        }
+
+        public List<string> GetButtonLabels()
+        {
+            List<string> buttonLabels = new List<string>();
+            buttonLabels.Add("GeoLab");
+            return buttonLabels;
+        }
+
+        public void DrawOpsWindow(string buttonLabel)
+        {
+            if (!HighLogic.LoadedSceneIsFlight)
+            {
+                GUILayout.BeginVertical();
+                GUILayout.Label("Geology Lab");
+                GUILayout.Label("This configuration is working, but the contents can only be accessed in flight.");
+                GUILayout.EndVertical();
+                return;
+            }
+
             bool biomeUnlocked = Utils.IsBiomeUnlocked(this.part.vessel);
             GUILayout.BeginHorizontal();
             drawAbundanceGUI(biomeUnlocked);
@@ -353,7 +389,10 @@ namespace WildBlueIndustries
             }
 
             //Research projects/Terrain
-            drawResearchProjectsGUI(biomeUnlocked);
+            if (canImproveEfficiency)
+                drawResearchProjectsGUI(biomeUnlocked);
+            else
+                GUILayout.Label("<color=white>Biome unlocked</color>");
 
             GUILayout.EndScrollView();
             GUILayout.EndVertical();
@@ -467,7 +506,7 @@ namespace WildBlueIndustries
 
                 if (GUILayout.Button("T.E.R.R.A.I.N. Uplink"))
                 {
-                    terrainUplinkView.opsView = this.opsView;
+                    terrainUplinkView.parentView = this.parentView;
                     terrainUplinkView.SetVisible(true);
                 }
             }
@@ -593,6 +632,10 @@ namespace WildBlueIndustries
 
                     case GeologyLabExperiments.BiomeAnalysis:
                         experimentTip = kTTBiomeAnalysis;
+                        break;
+
+                    case GeologyLabExperiments.Drilling:
+                        experimentTip = kTTDrilling;
                         break;
                 }
 
@@ -775,6 +818,12 @@ namespace WildBlueIndustries
                 case GeologyLabExperiments.MetallurgyAnalysis:
                     modifierName = EfficiencyData.kIndustryMod;
                     processChanged = kManufacturing;
+                    break;
+
+                case GeologyLabExperiments.Drilling:
+                    modifierName = EfficiencyData.kExtractionMod;
+                    processChanged = kExtraction;
+                    efficiencyModifier /= 2.0f;
                     break;
 
                 default:

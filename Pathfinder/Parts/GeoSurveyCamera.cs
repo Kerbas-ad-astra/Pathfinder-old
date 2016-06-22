@@ -25,23 +25,11 @@ namespace WildBlueIndustries
         private const string kToolTip = "Now that you’ve performed a basic scan for resources, why not continue to monitor them? With the T.E.R.R.A.I.N. you can monitor resources from orbit for Science!";
         private const string kToolTipTitle = "Your first planetary scan";
         private const string kNotEnoughResourcesToRepair = "Unable to repair the T.E.R.R.A.I.N. due to insufficient resources. You need {0:f1} ";
-        private const string kInfoRepairSkill = "Best skill for repairs: ";
+        private const string kInfoRepairSkill = "Required to conduct repairs: ";
         private const string kInfoRepairAmount = "Requires {0:f1} {1} to repair";
         private const string kExperimentTitle = "Dirt Watch Report orbiting ";
         private const string kNoScience = "No research data accumulated, check back later.";
         private const string kGenericDirtWatchResults = "Continuous monitoring of the resources has yielded some interesting results that have advanced knowledge about this celestial body.";
-
-        [KSPField(isPersistant = true)]
-        public bool isBroken;
-
-        [KSPField]
-        public string repairResource;
-
-        [KSPField]
-        public float repairAmount;
-
-        [KSPField]
-        public string repairSkill;
 
         [KSPField(guiActive = true, guiName = "Science Collected")]
         public string scienceCollected;
@@ -62,31 +50,22 @@ namespace WildBlueIndustries
             //If so, we're done and we need to repair the telescope.
 
             //We're good, perform the survey
-            Events["PerformOrbitalSurvey"].guiActive = false;
-            Events["PerformOrbitalSurvey"].guiActiveUnfocused = false;
             monitorSurvey = true;
             orbitalSurveyer.PerformSurvey();
         }
 
         [KSPEvent(guiActiveUnfocused = true, externalToEVAOnly = true, unfocusedRange = 3f, guiName = "Perform repairs", guiActiveEditor = false)]
-        public void RepairTelescope()
+        public override void RepairLab()
         {
             //Do we require resources to fix the scope?
             //If so, make sure the kerbal on EVA has enough resources.
             if (repairsRequireResources)
             {
-                float repairUnits = calculateRepairCost();
+                base.RepairLab();
 
-                //Not enough resources to effect repairs? Tell the player.
-                if (repairUnits < 0.0f)
-                {
-                    string message = string.Format(kNotEnoughResourcesToRepair, repairAmount) + repairResource;
-                    ScreenMessages.PostScreenMessage(message, kMessageDuration, ScreenMessageStyle.UPPER_CENTER);
+                //If we couldn't repair the lab then we're done.
+                if (isBroken == true)
                     return;
-                }
-
-                //We have enough, deduct the repair cost
-                FlightGlobals.ActiveVessel.rootPart.RequestResource(repairResource, repairUnits, ResourceFlowMode.ALL_VESSEL);
             }
 
             //Finally, unset broken.
@@ -145,6 +124,8 @@ namespace WildBlueIndustries
                         WBIToolTipWindow introWindow = new WBIToolTipWindow(kToolTipTitle, kToolTip);
                         introWindow.SetVisible(true);
                     }
+                    Events["PerformOrbitalSurvey"].guiActive = false;
+                    Events["PerformOrbitalSurvey"].guiActiveUnfocused = false;
                     monitorSurvey = false;
                     SetupGUI();
                 }
@@ -221,7 +202,7 @@ namespace WildBlueIndustries
             return true;
         }
 
-        protected override void transmitResults(ScienceData data)
+        public override void TransmitResults()
         {
             if (transmitHelper.TransmitToKSC(dataAmount, 0, 0))
             {
@@ -232,37 +213,6 @@ namespace WildBlueIndustries
                 if (scienceAdded > 0.001)
                     ReviewData();
             }
-        }
-
-        protected float calculateRepairCost()
-        {
-            float repairUnits = repairAmount;
-
-            if (FlightGlobals.ActiveVessel.isEVA == false)
-            {
-                return -1.0f; //Should not get to here as the event is set up for EVA only.
-            }
-
-            //Anybody can repair the scope, but the right skill can reduce the cost by as much as 60%
-            Experience.ExperienceTrait experience = FlightGlobals.ActiveVessel.GetVesselCrew()[0].experienceTrait;
-            if (experience.TypeName == repairSkill)
-                repairUnits = repairUnits * (0.9f - (experience.CrewMemberExperienceLevel() * 0.1f));
-
-            //Now make sure the kerbal has enough resources to conduct repairs.
-            //Get the resource definition
-            PartResourceDefinition definition = ResourceHelper.DefinitionForResource(repairResource);
-            if (definition == null)
-                return -1.0f;
-
-            //make sure the ship has enough of the resource
-            Vessel.ActiveResource activeResource = FlightGlobals.ActiveVessel.GetActiveResource(definition);
-            if (activeResource == null)
-                return -1.0f;
-
-            if (activeResource.amount < repairUnits)
-                return -1.0f;
-
-            return repairUnits;
         }
 
         protected override void onFailure()
@@ -307,11 +257,10 @@ namespace WildBlueIndustries
             if (isBroken)
             {
                 //Enable repair button
-                Events["RepairTelescope"].guiActiveUnfocused = true;
+                Events["RepairLab"].active = true;
 
                 //Cannot perform an orbital survey...
-                Events["PerformOrbitalSurvey"].guiActive = false;
-                Events["PerformOrbitalSurvey"].guiActiveUnfocused = false;
+                Events["PerformOrbitalSurvey"].active = false;
 
                 //Hide survey scanner GUI
                 if (orbitalScanner != null)
@@ -327,12 +276,10 @@ namespace WildBlueIndustries
                 orbitalScanner.EnableModule();
 
             //Hide repair button
-            Events["RepairTelescope"].guiActiveUnfocused = false;
-            Events["RepairTelescope"].guiActive = false;
+            Events["RepairLab"].active = false;
 
             //Show the perform orbital survey button if we've unlocked the planet
-            Events["PerformOrbitalSurvey"].guiActive = !planetUnlocked;
-            Events["PerformOrbitalSurvey"].guiActiveUnfocused = !planetUnlocked;
+            Events["PerformOrbitalSurvey"].active = !planetUnlocked;
 
             //Ditto for the resource monitoring
             SetGuiVisible(planetUnlocked);

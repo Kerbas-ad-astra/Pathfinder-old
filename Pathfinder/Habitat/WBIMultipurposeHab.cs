@@ -19,7 +19,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIMultipurposeHab : WBIMultiConverter
+    [KSPModule("Multipurpose Hab")]
+    public class WBIMultipurposeHab : WBIMultiConverter, IModuleInfo
     {
         private const string kSettingsWindow = "Settings Window";
         private const string kPartsTip = "Don't want to pay to redecorate? No problem. Just press Mod P (the modifier key defaults to the Alt key on Windows) to open the Settings window and uncheck the option.\r\n\r\n";
@@ -34,30 +35,16 @@ namespace WildBlueIndustries
         [KSPField]
         public string opsViewTitle;
 
-        [KSPField]
-        public float productivity = 1.0f;
-
-        [KSPField]
-        public float efficiency = 1.0f;
-
         Animation anim;
         PartModule impactSeismometer;
         PartModule exWorkshop;
 
-        public void AddConverter(ModuleResourceConverter converter)
-        {
-            if (_multiConverter.converters.Contains(converter) == false)
-            {
-                _multiConverter.converters.Add(converter);
-
-                if (addedPartModules.Contains(converter))
-                    addedPartModules.Remove(converter);
-            }
-        }
-
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
+
+            if (HighLogic.LoadedSceneIsEditor)
+                this.part.CrewCapacity = 0;
 
             if (string.IsNullOrEmpty(animationName))
                 return;
@@ -71,7 +58,8 @@ namespace WildBlueIndustries
                     exWorkshop = mod;
             }
 
-            moduleOpsView.WindowTitle = opsViewTitle;
+            if (string.IsNullOrEmpty(opsViewTitle) == false)
+                opsManagerView.WindowTitle = opsViewTitle;
         }
 
         public override void OnUpdate()
@@ -147,7 +135,6 @@ namespace WildBlueIndustries
 
             //Now reconfigure
             base.UpdateContentsAndGui(templateName);
-            updateProductivity();
 
             //Check to see if we've displayed the tooltip for the template.
             //First, we're only interested in deployed modules.
@@ -158,18 +145,136 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
-        protected void updateProductivity()
+        public override void RedecorateModule(bool loadTemplateResources = true)
         {
-            //Find all the resource converters and set their productivity
-            List<ModuleResourceConverter> converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
+            base.RedecorateModule(loadTemplateResources);
+            updateDrill();
+            updateWorkshop();
+        }
 
-            foreach (ModuleResourceConverter converter in converters)
+        protected void updateWorkshop()
+        {
+            PartModule oseWorkshop = null;
+            PartModule oseRecycler = null;
+            bool enableWorkshop = false;
+
+            //See if the drill is enabled.
+            if (CurrentTemplate.HasValue("enableWorkshop"))
+                enableWorkshop = bool.Parse(CurrentTemplate.GetValue("enableWorkshop"));
+
+            //Find the workshop modules
+            foreach (PartModule pm in this.part.Modules)
             {
-                converter.Efficiency = efficiency;
+                if (pm.moduleName == "OseModuleWorkshop")
+                    oseWorkshop = pm;
+                else if (pm.moduleName == "OseModuleRecycler")
+                    oseRecycler = pm;
+            }
 
-                //Now adjust the output.
-                foreach (ResourceRatio ratio in converter.outputList)
-                    ratio.Ratio *= productivity;
+            if (oseWorkshop != null)
+            {
+                oseWorkshop.enabled = enableWorkshop;
+                oseWorkshop.isEnabled = enableWorkshop;
+            }
+
+            if (oseRecycler != null)
+            {
+                oseRecycler.enabled = enableWorkshop;
+                oseRecycler.isEnabled = enableWorkshop;
+            }
+        }
+
+        protected void updateDrill()
+        {
+            bool enableDrill = false;
+            float value;
+            string resourceName;
+            ModuleResourceHarvester harvester = this.part.FindModuleImplementing<ModuleResourceHarvester>();
+
+            //No drill? No need to proceed.
+            if (harvester == null)
+                return;
+
+            //See if the drill is enabled.
+            if (CurrentTemplate.HasValue("enableDrill"))
+                enableDrill = bool.Parse(CurrentTemplate.GetValue("enableDrill"));
+
+            ModuleOverheatDisplay overheat = this.part.FindModuleImplementing<ModuleOverheatDisplay>();
+            if (overheat != null)
+            {
+                overheat.enabled = enableDrill;
+                overheat.isEnabled = enableDrill;
+            }
+
+            ModuleCoreHeat coreHeat = this.part.FindModuleImplementing<ModuleCoreHeat>();
+            if (coreHeat != null)
+            {
+                coreHeat.enabled = enableDrill;
+                coreHeat.isEnabled = enableDrill;
+            }
+
+            WBIDrillSwitcher drillSwitcher = this.part.FindModuleImplementing<WBIDrillSwitcher>();
+            if (drillSwitcher != null)
+            {
+                drillSwitcher.enabled = enableDrill;
+                drillSwitcher.isEnabled = enableDrill;
+            }
+
+            WBIExtractionMonitor extractionMonitor = this.part.FindModuleImplementing<WBIExtractionMonitor>();
+            if (extractionMonitor != null)
+            {
+                extractionMonitor.enabled = enableDrill;
+                extractionMonitor.isEnabled = enableDrill;
+            }
+
+            //Update the drill
+            if (enableDrill)
+                harvester.EnableModule();
+            else
+                harvester.DisableModule();
+
+            //Setup drill parameters
+            if (enableDrill)
+            {
+                if (CurrentTemplate.HasValue("converterName"))
+                    harvester.ConverterName = CurrentTemplate.GetValue("converterName");
+
+                if (CurrentTemplate.HasValue("drillStartAction"))
+                {
+                    harvester.StartActionName = CurrentTemplate.GetValue("drillStartAction");
+                    harvester.Events["StartResourceConverter"].guiName = CurrentTemplate.GetValue("drillStartAction");
+                }
+
+                if (CurrentTemplate.HasValue("drillStopAction"))
+                {
+                    harvester.StopActionName = CurrentTemplate.GetValue("drillStopAction");
+                    harvester.Events["StopResourceConverter"].guiName = CurrentTemplate.GetValue("drillStopAction");
+                }
+
+                if (CurrentTemplate.HasValue("drillEficiency"))
+                    harvester.Efficiency = float.Parse(CurrentTemplate.GetValue("drillEficiency"));
+
+                if (CurrentTemplate.HasValue("drillResource"))
+                {
+                    resourceName = CurrentTemplate.GetValue("drillResource");
+                    harvester.ResourceName = resourceName;
+                    harvester.Fields["ResourceStatus"].guiName = resourceName + " rate";
+                }
+
+                if (CurrentTemplate.HasValue("drillElectricCharge"))
+                {
+                    if (float.TryParse(CurrentTemplate.GetValue("drillElectricCharge"), out value))
+                    {
+                        foreach (ResourceRatio ratio in harvester.inputList)
+                        {
+                            if (ratio.ResourceName == "ElectricCharge")
+                                ratio.Ratio = value;
+                        }
+                    }
+                }
+
+                harvester.Fields["status"].guiName = "Drill Status";
+                MonoUtilities.RefreshContextWindows(this.part);
             }
         }
 
@@ -238,10 +343,30 @@ namespace WildBlueIndustries
             }
         }
 
-        protected override void createModuleOpsView()
+        protected override void hideEditorGUI(PartModule.StartState state)
         {
-            base.createModuleOpsView();
-            moduleOpsView.WindowTitle = kPonderosaOpsView;
+            base.hideEditorGUI(state);
+            Events["ToggleInflation"].guiActiveEditor = false;
+        }
+
+        public override string GetInfo()
+        {
+            return "Click the Manage Operations button to change the configuration.";
+        }
+
+        public string GetModuleTitle()
+        {
+            return "Multipurpose Hab";
+        }
+
+        public string GetPrimaryField()
+        {
+            return "Inflated Crew Capacity: " + inflatedCrewCapacity.ToString();
+        }
+
+        public Callback<Rect> GetDrawModulePanelCallback()
+        {
+            return null;
         }
     }
 }

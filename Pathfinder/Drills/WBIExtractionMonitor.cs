@@ -32,6 +32,9 @@ namespace WildBlueIndustries
         {
             base.OnStart(state);
 
+            if (HighLogic.LoadedSceneIsFlight == false)
+                return;
+
             if (this.part.vessel.situation == Vessel.Situations.LANDED || this.part.vessel.situation == Vessel.Situations.SPLASHED || this.part.vessel.situation == Vessel.Situations.PRELAUNCH)
             {
                 CBAttributeMapSO.MapAttribute biome = Utils.GetCurrentBiome(this.part.vessel);

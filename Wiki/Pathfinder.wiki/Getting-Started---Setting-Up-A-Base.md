@@ -27,7 +27,7 @@ Press G to grab the Ponderosa. It's the one with a crew hatch, and because it is
 Next, while holding down the left-mouse button, drag the Ponderosa over to the Saddle. Press R to change the attachment node to bottom (you might need to do this a couple of times.) You should see a blue outline of the Ponderosa. Press and hold the X button; you should see the option to attach the module onto the Saddle:  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step6.jpg)  
 # Step 7 & 8  
-In order to inflate the Ponderosa, we need RocketParts. Fortunately the Buffalo already has a Buckboard full of them. Right-click on the Trailer Hitch at the back of the Buffalo to bring up its context menu. Select one of the ports closest to the Saddle (they are numbered if you look closely), and link it to a port on the Saddle:  
+In order to inflate the Ponderosa, we need Equipment. Fortunately the Buffalo already has a Buckboard full of them. Right-click on the Trailer Hitch at the back of the Buffalo to bring up its context menu. Select one of the ports closest to the Saddle (they are numbered if you look closely), and link it to a port on the Saddle:  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step7.jpg)  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step8.jpg)  
 # Step 9  
@@ -48,12 +48,12 @@ Drag the Gold Digger out of our inventory by pressing and holding the left-mouse
 # Step 14  
 We're almost done! Now we're going to reconfigure a Buckboard and turn it into a battery. With Pathfinder, the Buckboard, Chuckwagon, Conestoga, and Outback as well as the Buffalo's Wagon can all be reconfigured in the field to hold a variety of different resources, but only the Buckboard and Outback can be turned into a battery.
 
-Right-click on the Buckboard that contains RocketParts. It's the one with the following icon:  
+Right-click on the Buckboard that contains Equipment. It's the one with the following icon:  
 ![](https://github.com/Angel-125/Pathfinder/wiki/RocketParts.jpg)  
 Next, Press the Convert to battery button.  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step14.jpg)  
 # Step 15  
-To give our base some more power, we'll stack are new battery onto the Ponderosa's shipping container. To do so, hover the mouse cursor over the RocketParts Buckboard and press G to grab it. Next, drag the mouse over to the top of the Ponderosa's container. The Buckboard should turn blue-green and give you the option to mount it to the top of the Ponderosa's container. Release the left-mouse button to snap the Buckboard in place.  
+To give our base some more power, we'll stack are new battery onto the Ponderosa's shipping container. To do so, hover the mouse cursor over the Equipment Buckboard and press G to grab it. Next, drag the mouse over to the top of the Ponderosa's container. The Buckboard should turn blue-green and give you the option to mount it to the top of the Ponderosa's container. Release the left-mouse button to snap the Buckboard in place.  
 ![](https://github.com/Angel-125/Pathfinder/wiki/Step15.jpg)  
 # Step 16  
 We're in the home stretch! Go back to the Buckboard configured as a storage container. Grab the Poncho Solar Panel and place it in your inventory. The Poncho generates as much power as 10 OX-Stat solar panels, but it costs quite a bit more.  
@@ -67,6 +67,7 @@ Congratulations, you've completed the training exercise! :) If you followed the 
 # Next Steps  
 Instead of using the Trailer Hitch to hook up the Buffalo to your Pathfinder base, try pulling one of the Mineshaft Portable Crew Tubes off of the Buffalo, and mounting it to a crew port on your base. Then, link the two together just as you did with the Saddle and Trailer Hitch.
 
+Consider your options for [[Base Design|Base-Design]]. Terrain can be a big factor in just how big a base you can make, and whether or not you can attach parts to the ground. You might even need to create smaller bases and use a [[Distributed Bases|Distributed-Bases]] approach.     
 From here, you should have enough information to play with the parts in Pathfinder, and this wiki provides you with more information about each part and how the whole system works.
 
 Have fun and go explore! :)

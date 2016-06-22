@@ -1,12 +1,215 @@
-aPathfinder
+Pathfinder
 
 A KSP mod that blazes the trail for more permanent installations. Geoscience for better resource extraction.
 
 ---INSTALLATION---
 
-Copy the contents of the mod's GameData directory into your GameData folder.
+Copy the contents of the mod's GameData directory into your KSP's GameData folder.
 
 ---REVISION HISTORY---
+
+0.9.26
+- Recompiled for KSP 1.1.3
+
+TAC-LS
+- Increased the Prairie's crop yield of Food to 125. Remember, a skilled scientist can reduce growth time by up to half, and increase crop yield up to double.
+- Added a carbon extractor to the Ponderosa (scrubs CarbonDioxide to produce Oxygen and Waste).
+
+Hacienda
+- Added the Nukeworks template. It can process Uraninite into EnrichedUranium, and reprocess DepletedUranium into EnrichedUranium.
+
+Other
+- Updated support for OSE Workshop.
+- Inflatable modules now list their inflated crew capacity in the part summary panel.
+- Refactored the Operations Manager windows to make it easier to select a module configuration and to control the module.
+- When selecting a template in Career or Science mode, templates that require tech nodes that you haven't researched yet will be grayed out in the list.
+- Added official support for Kerbalism.
+- Added resource patches to find Water on Minmus.
+
+Bug Fixes
+- Fixed an issue where inflatable modules would show their inflate button in the VAB/SPH when they shouldn't be.
+- Added the drill switcher window to the Gold Digger.
+
+0.9.25
+- Updated to latest WildBlueTools, which fixes NREs and Input is NULL errors.
+- Improved GUI for selecting storage templates.
+- Fixed missing texture files in the Hacienda.
+- You can now click on the laptop prop's screen and change its image.
+- Updated to latest ModuleManager.
+
+0.9.24
+- Fixed an issue where the Buffalo crew module was not loading properly and messing up the KIS seat inventories as a result.
+
+0.9.23
+- Fixed NREs and Input is NULL errors.
+- Fixed an issue where the Buffalo Adapter was not showing up in flight.
+- Fixed an attachment node height issue with the M1-A1.
+- Increased ElectricCharge storage in Buffalo parts to account for new KSP 1.1 wheel power requirements.
+- Added support to the Buffalo for Kerbalism.
+- Made some minor updates to the Buffalo Crew Module IVA.
+- Fixed an issue in the Saddleback 2 where it would be spawned partly below ground when pulled from a KIS inventory.
+
+0.9.22
+- Fixed an issue with the Switchback sliding around after being bolted to the ground.
+- The original model for the Switchback is back temporarily to help allieviate some of the issues found.
+- All buffalo parts now have drag cubes.
+
+0.9.21
+- Fixed an issue with the Gold Digger and Contract Configurator. Thanks for the fix, Enceos! :)
+- Fixed an issue where the Ponderosa would not allow entry/exit into the module.
+
+0.9.20
+- More bug fixes (sigh)
+
+0.9.19
+- Fixed missing PlayModes and MM patches
+
+0.9.18
+- Fixed mission icons and decals
+- Fixed an issue with the toolbar app
+- Added drag cube to the Conestoga
+
+0.9.17
+- Fixed missing parts
+
+0.9.16
+- Updated to KSP 1.1.2
+
+0.9.15
+- updated to KSP 1.1.1
+- Increased breaking force of the Saddle and Switchback. Hopefully this will help reduce kraken attacks.
+- Moved the Stockyard 250 to Advanced Construction (same as EL Orbital Dock)
+- Slight update to the Tunnel Extender
+
+0.9.14
+
+New Part
+- Introducing the kPad Air. It's just like the giant plasma TV screens only smaller. The aspect ratio of width to height is 1 : 1.18. Thanks for the suggestion, Parkaboy! :)
+
+Homestead
+- The Homestead can now be configured for: Brew Works, Ironworks, Ponderosa, Pathfinder, Pigpen, Solar Flare, Sunburn, Watney, and the new Rockhound.
+- Added the Rockhound template. It converts lots of Rock into ExoticMinerals and RareMetals.
+
+Wheels
+- Grizzly has moved to the Advanced Motors tech node.
+- Retuned the durability and default traction of the Buffalo wheels. Thanks for the testing, Geschosskopf! :)
+
+Conestoga & Switchback
+- Increased the crash tolerance on the solar panels- they'll break when the part does.
+
+Inflatable Modules
+- IVA overlays won't be shown when the inflatable modules are deflated.
+- No more crew slots in the VAB/SPH when the inflatable module is deflated.
+- Fixed an issue where the Blacksmith and Clockworks configurations would forget what projects the OSE Workshop was working on.
+- Fixed drill switch window; you can drill for different resources again.
+- Fixed an issue where you could not transfer crew between modules using the Transfer Crew feature.
+- You can get back into and out of the Ponderosa again.
+NOTE: Currently the "Transfer Crew" right-click menu button is unavailable for inflatable parts but you can still transfer crew by clicking on an EVA hatch. I'm working on this one... :)
+
+Other
+- Fixed (again) the versioning file
+
+KNOWN ISSUES
+- You're unable to surface attach parts to the Buffalo Command Cab until you change its orientation after spawning the part. Just change the orientation, and change it back to the desired orientation as a workaround.
+
+0.9.13
+- Fixed an issue with the Snacks MM patch
+- Fixed ladder and airlock triggers
+- By request, the Pigpen and Prairie greenhouse are available even when there is no life support mod installed.
+
+0.9.12 The Perfect Storm
+
+This release updates Pathfinder to KSP 1.1!
+
+eberkain had a request to have a conversion chain similar to Simple Construction’s Ore->Metal->Rocketparts. That got me thinking about dusting off some old plans I had for Pathfinder and rethinking them. Among other things, this update implements those plans. Thanks eberkain! :)
+
+New Parts
+- Added the Tunnel Extender, a part designed to put some space between between modules to make it easier to use the airlocks. It also has a solar panel on the roof and can serve as an attachment location for your stuff.
+- Added the all new Consestoga Multipurpose Base Module (MBM). This redesign turns the Conestoga into a foundation module for your bases. Simply fly and/or drive it to the desired location, eject the wheels (if you attached the M1A1), and rest the module directly on the ground. The original part is still around! The old Conestoga has been renamed the Mule.
+
+M1A1 Mountain Goat
+- M1A1 Mountain Goats now have an eject feature. They're particularly useful for moving a starter base into position before discarding the wheels.
+
+Pathfinder Settings Window
+- Added a Play Mode indicator and a button to change the play mode. This is only available at the Space Center. Pathfinder now offers three different play modes: Default, with all the bells and whistles enabled; Simplified, which reduces the number of resources and configurations you need to keep track of (which has a simplified Ore->RocketParts converter among other things); and Pristine, which just gives you nice looking modules to assemble without the hassle of things like resource extraction and conversion. You can find detailed descriptions of these play modes on the Pathfinder Wiki. To use a play mode, simply open the Pathfinder Settings Window from the Space Center, choose the mode you want, and then restart KSP. Pathfinder’s existing parts and plugin code will adjust accordingly. 
+Warning: changing Pathfinder’s play mode WILL affect your currently deployed bases. Custom play modes are possible, just consult the wiki.
+
+- Added the ability to evenly redistribute resources to all vessels within physics range. This happens automatically, but you can manually initiate a resource distribution from the Pathfinder Settings window. The Ponderosa, Casa, Doc, Hacienda, Chuckwagon, and Conestoga can all distribute their resources automatically if you opt-in. To enable an individual part, simply right-click on the part and make sure that the Distributor is set to "ON." To enable resource distribution on all parts that have the capability on the currently focused vessel, go to the Pathfinder Settings window and press the Distribution button until it says "ON." If you want to prevent a part's individual resource from being distributed, then be sure to lock the resource.
+NOTE: Resource distribution favors parts with converters that have required resources (such as the greenhouse's Dirt). Resources will fill parts that have converters with required resources first before distributing the remainder to other parts. For more information, consult the wiki.
+
+Hacienda
+- Added the official IVA. As with the Ponderosa/Casa, you can safely delete the Ponderosa/Spaces folder if you need more system memory/performance. If you do that, you'll have the placeholder IVAs (which will look wonky).
+- Fixed issues with the drill not showing up for the Claimjumper and Hot Springs.
+
+Pigpen
+- The Pigpen template will only be available if you install a life support mod (Snacks, TAC-LS, or USI-LS).
+
+Doc
+- Added minimalist IVA. It will be completed at a later date.
+
+Chuckwagon
+- Added minimalist IVA. It will be completed at a later date.
+- The ability to convert between storage and a greenhouse will only be available if you install a life support mod (Snacks, TAC-LS, or USI-LS).
+- Revised the in-field template switching. Instead of the Next and Previous buttons, now you click on the Reconfigure Storage button.
+NOTE: If you'e upgrading from previous versions, you'll lose your stored resources. Be sure to Hyper-edit back what you need.
+
+Buckboards
+- Revised the in-field template switching. Instead of the Next and Previous buttons, now you click on the Reconfigure Storage button.
+NOTE: If you'e upgrading from previous versions, you'll lose your stored resources. Be sure to Hyper-edit back what you need.
+
+Ironworks
+- Fixed the conversion recipies for MetalOre->Metal, Metal->RocketParts & ScrapMetal, RocketParts->MaterialKits and MaterialKits->RocketParts. Thanks RiverRat2800!
+- Added the ability to create Equipment from Ore, RareMetals, ExoticMaterials, and ElectricCharge.
+- Added converter to go between RocketParts and Equipment.
+
+TERRAIN
+- Fixed an issue where you could not scan for resources in certain situations. Thanks for the detailed assessment, nobodyhasthis2! :)
+
+Switchback
+- Redesigned the part slightly so that it no longer needs to be attached to a Saddle. Simply drop it onto the ground and you're good to go. It also includes a KAS pipe. The previous design has been deprecated.
+
+Resources
+- Added Equipment resource and template.
+- Refactored RocketParts storage template to reflect that it’s actually a 5-liter resource instead of a 1-liter resource. Whoops!
+- Inflating and reconfiguring modules now uses Equipment instead of RocketParts. Repairs still require RocketParts.
+
+Other
+- You can now specify the resource and amount required to switch a template instead of the previously hard-coded requirement for RocketParts.
+- Changed the texture on the crew ports for inflatable modules because Parkaboy is awesome. Fantastic idea! :)
+
+0.9.11
+
+- Fixed an issue preventing the Buckboards from allowing resource switching.
+- Fixed an issue causing the TERRAIN to fly off into space upon loading the vessel.
+
+0.9.10 The Calm Before The Storm
+
+This update brings some quality of life improvements, bug fixes, and new uses for the Buckboards. It also provides support for Nils77's excellent Kerbal Planetary Base Systems. If you haven't seen KPBS, check it out! The design and art quality is simply stunning.
+
+Switchback
+- The attachment nodes now support symmetrical installation of parts.
+
+Buckboard 2000 & 3000
+- The Buckboard 2000 & 3000 can now be converted into an ore-powered generator. It consumes Ore to produce ElectricCharge. The generator can break down (unless you opt-out via Pathfinder's Settings screen), and it generates heat. It also benefits from the Pathfinder Geology Lab's Metallurgy research. In career mode, the generator conversion is available after you research Advanced Electrics. Thanks for the suggestion, Geschosskopf! :)
+
+Kerbal Planetary Base Systems
+- Added support for Kerbal Planetary Base Systems. While not as efficient as Pathfinder's modules due to their size, they can still contribute to your Pathfinder base, and still benefit from efficiency improvements created in the geology lab.
+  * The K&K Planetary Habitat MK2 can be used as part of Pathfinder's habitat wing.
+  * The K&K Planetary Laboratory can be used as part of Pathfinder's science wing.
+  * The K&K Planetary Greenhouse uses Pathfinder's greenhouse module code.
+  * The K&K Rocket Fuel tanks now hold a variety of different resources (and default to LiquidFuel/Oxidizer).
+
+Other
+- You can now access the Pathfinder Settings window from the application toolbar.
+- You can now dump resources in flight without having to switch templates. Click "Dump Resources" once, then again to confirm.
+- The airlocks on the inflatable modules have been offset to make it easier to enter the desired module. NOTE: due to space constraints the Casa now only has one inflatable airlock. A new version of the Casa is planned that won't break existing bases.
+
+Bug Fixes
+- The internal screens in the Ponderosa/Casa work better now. Click on a screen to select an image from your Screenshots folder. You can also enable random selection of images; currently the images will change once every 30 seconds if configured to do so, but a future update will let you configure the screen switch time. Thanks for the challenge, Kuzzter! :)
+- Fixed attachment nodes on all inflatable modules so that you can properly stack-mount the inflatable modules in the VAB/SPH.
+- Fixed a KIS issue with the Buckboard 3000 that prevented it from being carried properly.
+- Fixed a KIS issue with the Buckboard 2000 that prevented it from being carried properly.
+- Fixed a rare case where the drill modify window would lock up the game.
 
 0.9.9
 - Fixed an issue with USI-LS support where the Life Support template wasn't showing up. Also, added Dirt since there was enough room in the template.

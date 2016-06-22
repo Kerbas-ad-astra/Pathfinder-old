@@ -1,6 +1,6 @@
 ![](https://github.com/Angel-125/Pathfinder/wiki/SolarFlare.jpg)  
 **Mass:** 7.5t  
-**Cost:** 3,000 RocketParts  
+**Cost:** 3,000 Equipment  
 **Research:** Specialized Electrics
 
 The Solar Flare Experimental Fusion Plant represents Pathfinder's first step into fusion power generation. Think of the Solar Flare as Pathfinder's fusion equivalent of the [EBR-1](https://en.wikipedia.org/wiki/Experimental_Breeder_Reactor_I). The fusion plant generates a whopping 400 ElectricCharge per second via fusion, and burns 0.001 FusionPellets per second (21.6 FusionPellets per day). Unlike the Hot Springs, the Solar Flare's power output doesn't vary upon the base's current planet or moon. However, like its geothermal contemporary, the Solar Flare is also cantankerous and can break down.

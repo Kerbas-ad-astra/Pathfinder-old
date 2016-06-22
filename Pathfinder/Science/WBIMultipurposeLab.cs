@@ -19,30 +19,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIMultipurposeLab : WBIMultiConverter
+    [KSPModule("Multipurpose Lab")]
+    public class WBIMultipurposeLab : WBIMultiConverter, IModuleInfo
     {
         private const string kDocOpsView = "Doc Operations";
 
         [KSPField]
-        public string partToolTip;
+        public string partToolTip = string.Empty;
 
         [KSPField]
-        public string partToolTipTitle;
+        public string partToolTipTitle = string.Empty;
 
         [KSPField]
-        public float productivity = 1.0f;
-
-        [KSPField]
-        public float efficiency = 1.0f;
-
-        [KSPField]
-        public string opsViewTitle;
+        public string opsViewTitle = string.Empty;
 
         Animation anim;
         WBIScienceConverter scienceConverter;
+        private float originalCrewsRequired;
 
         public override void OnStart(StartState state)
         {
+            ModuleScienceLab sciLab = this.part.FindModuleImplementing<ModuleScienceLab>();
+            if (sciLab != null)
+                originalCrewsRequired = sciLab.crewsRequired;
             scienceConverter = this.part.FindModuleImplementing<WBIScienceConverter>();
             scienceConverter.SetGuiVisible(false);
             base.OnStart(state);
@@ -50,6 +49,11 @@ namespace WildBlueIndustries
             if (string.IsNullOrEmpty(animationName))
                 return;
             anim = this.part.FindModelAnimators(animationName)[0];
+
+            if (string.IsNullOrEmpty(opsViewTitle) == false)
+                opsManagerView.WindowTitle = opsViewTitle;
+            else
+                opsManagerView.WindowTitle = kDocOpsView;
         }
 
         public override void OnUpdate()
@@ -84,10 +88,37 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
-        public override void RedecorateModule(bool payForRedecoration = true, bool loadTemplateResources = true)
+        public override void RedecorateModule(bool loadTemplateResources = true)
         {
-            base.RedecorateModule(payForRedecoration, loadTemplateResources);
-            updateProductivity();
+            base.RedecorateModule(loadTemplateResources);
+            bool enableMPLModules = false;
+
+            if (CurrentTemplate.HasValue("enableMPLModules"))
+                enableMPLModules = bool.Parse(CurrentTemplate.GetValue("enableMPLModules"));
+            ModuleScienceLab sciLab = this.part.FindModuleImplementing<ModuleScienceLab>();
+            if (sciLab != null)
+            {
+                if (enableMPLModules)
+                {
+                    sciLab.isEnabled = true;
+                    sciLab.enabled = true;
+                    sciLab.crewsRequired = originalCrewsRequired;
+                }
+                else
+                {
+                    sciLab.crewsRequired = 2000.0f;
+                    sciLab.isEnabled = false;
+                    sciLab.enabled = false;
+                }
+
+            }
+
+            ModuleScienceConverter converter = this.part.FindModuleImplementing<ModuleScienceConverter>();
+            if (converter != null)
+            {
+                converter.isEnabled = enableMPLModules;
+                converter.enabled = enableMPLModules;
+            }
         }
 
         public override void UpdateContentsAndGui(string templateName)
@@ -103,21 +134,6 @@ namespace WildBlueIndustries
             checkAndShowToolTip();
         }
 
-        protected void updateProductivity()
-        {
-            //Find all the resource converters and set their productivity
-            List<ModuleResourceConverter> converters = this.part.FindModulesImplementing<ModuleResourceConverter>();
-
-            foreach (ModuleResourceConverter converter in converters)
-            {
-                converter.Efficiency = efficiency;
-
-                //Now adjust the output.
-                foreach (ResourceRatio ratio in converter.outputList)
-                    ratio.Ratio *= productivity;
-            }
-        }
-        
         protected void checkAndShowToolTip()
         {
             //Now we can check to see if the tooltip for the current template has been shown.
@@ -150,14 +166,30 @@ namespace WildBlueIndustries
             }
         }
 
-        protected override void createModuleOpsView()
+        protected override void hideEditorGUI(PartModule.StartState state)
         {
-            base.createModuleOpsView();
-            if (string.IsNullOrEmpty(opsViewTitle) == false)
-                moduleOpsView.WindowTitle = opsViewTitle;
-            else
-                moduleOpsView.WindowTitle = kDocOpsView;
+            base.hideEditorGUI(state);
+            Events["ToggleInflation"].guiActiveEditor = false;
         }
 
+        public override string GetInfo()
+        {
+            return "Click the Manage Operations button to change the configuration.";
+        }
+
+        public string GetModuleTitle()
+        {
+            return "Multipurpose Lab";
+        }
+
+        public string GetPrimaryField()
+        {
+            return "Inflated Crew Capacity: " + inflatedCrewCapacity.ToString();
+        }
+
+        public Callback<Rect> GetDrawModulePanelCallback()
+        {
+            return null;
+        }
     }
 }

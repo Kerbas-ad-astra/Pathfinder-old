@@ -19,25 +19,72 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
+    [KSPModule("Geo Thermal Plant")]
     public class WBIGeoThermalPlant : WBIBreakableResourceConverter
     {
         ModuleResourceHarvester harvester;
+        WBIDrillSwitcher drillSwitcher;
+        WBIExtractionMonitor extractionMonitor;
+        ModuleOverheatDisplay overheatDisplay;
         
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
 
             harvester = this.part.FindModuleImplementing<ModuleResourceHarvester>();
+
+            drillSwitcher = this.part.FindModuleImplementing<WBIDrillSwitcher>();
+            if (drillSwitcher != null)
+            {
+                drillSwitcher.Events["ShowDrillSwitchWindow"].guiActive = false;
+                drillSwitcher.Events["ShowDrillSwitchWindow"].guiActiveUnfocused = false;
+            }
+
+            extractionMonitor = this.part.FindModuleImplementing<WBIExtractionMonitor>();
+            if (extractionMonitor != null)
+            {
+                extractionMonitor.Fields["extractionRateChange"].guiActive = false;
+            }
+
+            overheatDisplay = this.part.FindModuleImplementing<ModuleOverheatDisplay>();
         }
 
-        public override void DrawOpsWindow()
+        public override List<string> GetButtonLabels()
         {
-            base.DrawOpsWindow();
+            List<string> buttonLabels = new List<string>();
+            buttonLabels.Add("Geothermal");
+            return buttonLabels;
+        }
+
+        public override void DrawOpsWindow(string buttonLabel)
+        {
+            GUILayout.BeginVertical();
+
+            base.DrawOpsWindow(buttonLabel);
 
             if (harvester == null)
+            {
+                GUILayout.EndVertical();
                 return;
+            }
 
-            GUILayout.BeginVertical();
+            GUILayout.Label("<color=white>Geothermal Tap</color>");
+
+            //Status
+            GUILayout.Label("<color=white>Status: " + harvester.ResourceStatus + "</color>");
+
+            //Extraction Monitor
+            if (extractionMonitor != null)
+                GUILayout.Label("<color=white>Extraction Rate At " + extractionMonitor.extractionRateChange + "</color>");
+
+            //Overheat
+            if (overheatDisplay != null)
+            {
+                GUILayout.Label("<color=white>Core Temp: " + overheatDisplay.coreTempDisplay + "</color>");
+                GUILayout.Label("<color=white>Thermal Efficiency: " + overheatDisplay.heatDisplay + "</color>");
+            }
+
+            //Ops buttons
             if (harvester.IsActivated)
             {
                 if (GUILayout.Button(harvester.StopActionName))
@@ -48,6 +95,7 @@ namespace WildBlueIndustries
                 if (GUILayout.Button(harvester.StartActionName))
                     harvester.StartResourceConverter();
             }
+
             GUILayout.EndVertical();
         }
 

@@ -32,6 +32,50 @@ If these directories already exist, then delete the existing ones before install
 
 ---REVISION HISTORY---
 
+0.2.16
+- Updated to KSP 1.1.3
+
+0.2.15
+- Fixed an issue where the crew module was not loading properly and messing up the KIS seat inventories as a result.
+
+0.2.14
+- Fixed an issue where the Buffalo Adapter was not showing up in flight.
+- Fixed an attachment node height issue with the M1-A1.
+- Increased ElectricCharge storage to account for new KSP 1.1 wheel power requirements.
+- Added support for Kerbalism.
+- Made some minor updates to the Buffalo Crew Module IVA.
+
+0.2.13
+- Added drag cubes to all parts.
+
+0.2.12
+- Updated to KSP 1.1.2
+
+0.2.11
+- Updated to KSP 1.1.1
+
+0.2.10
+- Grizzly has moved to the Advanced Motors tech node.
+- Retuned the durability and default traction of the Buffalo wheels. Thanks for the testing, Geschosskopf! :)
+
+KNOWN ISSUES
+- You're unable to surface attach parts to the command cab until you change its orientation after spawning the part. Just change the orientation, and change it back to the desired orientation as a workaround.
+
+0.2.9
+CAUTION: Due to major changes to wheels in KSP 1.1, you will probably need to rebuild your rovers if upgrading from a previous save. Seems like such a small update, but there was a lot of effort to get it all to work. :)
+
+- Recompiled for KSP 1.1
+- Storage containers now use a new part module; you might need to hyperedit resources back in.
+- M1A1 Mountain Goats now have an eject feature. They're particularly useful for moving Pathfinder's new Multipurpose Base Module into position before discarding the wheels. By default staging is disabled to avoid /ragequit. ;)
+- Reworked the ladder animation so that they'll be angled when fully deployed. This should help kerbals get in and out of the crewed parts.
+
+KNOWN ISSUES
+- The M1-A1 is no longer able to be animated to narrow its wheelbase. This is due to the new wheel system in KSP. However, if you use the half-chassis, you can attach the Mountain Goat in such a way that your rovers can still drive out of a Mk3 cargo bay.
+
+0.2.8
+- Recompiled for KSP 1.1. Many thanks and big shout out to nil2work for helping me understand the new wheel system. :)
+NOTE: The M1-A1 is no longer able to animate changing from wide to narrow wheelbase due to KSP 1.1. But it still has use for creating rovers that get in and out of the Mk3 cargo bay. To do so, take the Buffalo Half-Chassis and rotate it to become the length of a standard 1u chassis and then attach the M1-A1 to the sides. This might change in the future, we'll see. :)
+
 0.2.7
 - Added support for Connected Living Spaces. Thanks for the assist, Technologicat! :)
 

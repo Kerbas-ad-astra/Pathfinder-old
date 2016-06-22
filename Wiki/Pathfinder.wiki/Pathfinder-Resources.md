@@ -6,9 +6,14 @@ Pathfinder's storage parts, such as the Buckboard, Chuckwagon, Conestoga, and Ou
 | ![](https://github.com/Angel-125/Pathfinder/wiki/MetallicOre.jpg) | MetallicOre | Obtained by drills |
 | ![](https://github.com/Angel-125/Pathfinder/wiki/Metal.jpg) | Metals      | Refined from MetallicOre |
 | ![](https://github.com/Angel-125/Pathfinder/wiki/MaterialKits.jpg) | MaterialKits      | Used by [[OSE Workshop|http://forum.kerbalspaceprogram.com/threads/108234-1-0-2-OSE-Workshop-MKS-KIS-Addon-%28v0-7-3-2015-06-01%29]][1] |    
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Fertilizer.jpg) | Fertilizer      | Created by the Composter |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Organics.jpg) | Organics      | Created by the O-Chem |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Dirt.jpg) | Dirt      | Obtained by drills |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/RareMetals.jpg) | RareMetals      | Refined from Dirt |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/ExoticMinerals.jpg) | ExoticMinerals      | Refined from Dirt |
 [1] Only available if the OSE Workshop mod is installed.
 
-In addition to Pathfinder-specific resources, Pathfinder's storage containers can also contain the common resourced provided by Wild Blue Tools:
+In addition to Pathfinder-specific resources, Pathfinder's storage containers can also contain the common resources provided by Wild Blue Tools:
 
 | Icon            | Resource      | Notes |
 | :-------------: |:-------------:|:-------------|
@@ -17,12 +22,24 @@ In addition to Pathfinder-specific resources, Pathfinder's storage containers ca
 | ![](https://github.com/Angel-125/Pathfinder/wiki/LFO.jpg) | LF+Ox      | Refined from Ore in the [[Brew Works|Brew-Works-ISRU]]. |
 | ![](https://github.com/Angel-125/Pathfinder/wiki/LiquidFuel.jpg) | LiquidFuel      | Refined from Ore in the Brew Works. |
 | ![](https://github.com/Angel-125/Pathfinder/wiki/LqdHydrogen.jpg) | LqdHydrogen      | Electrolyzed from Water by the [[Watney|Watney-Chemistry-Lab]]. | 
-| ![](https://github.com/Angel-125/Pathfinder/wiki/Minerals.jpg) | Minerals      | Obtained by drills; used by [[Pigpen|Pigpen-Recycler]] & Sunburn. |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Minerals.jpg) | Minerals      | Obtained by drills; used by Watney & Sunburn. |
 | ![](https://github.com/Angel-125/Pathfinder/wiki/Monopropellant.jpg) | MonoPropellant      | Refined from Ore in the Brew Works. |
-| ![](https://github.com/Angel-125/Pathfinder/wiki/LiquidFuel.jpg) | Ore      | Obtained by drills. |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Ore.jpg) | Ore      | Obtained by drills. |
 | ![](https://github.com/Angel-125/Pathfinder/wiki/ResearchKits.jpg) | ResearchKits      | Made by the Watney; used by [[Pathfinder|Pathfinder-Geology-Lab]] & [[TERRAIN|TERRAIN-Geo-Scanner]]. | 
-| ![](https://github.com/Angel-125/Pathfinder/wiki/RocketParts.jpg) | RocketParts      | Made from MetallicOre/Metal in the [[Ironworks|Ironworks-Foundry]]. | 
+| ![](https://github.com/Angel-125/Pathfinder/wiki/RocketParts.jpg) | RocketParts      | Made from MetallicOre/Metal in the [[Ironworks|Ironworks-Foundry]]. Used to construct and repair modules and vessels. | 
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Equipment.jpg) | Equipment      | Made from Ore, RareMetals, and Exotic Minerals in the [[Ironworks|Ironworks-Foundry]]. Used to inflate and configure modules. | 
 | ![](https://github.com/Angel-125/Pathfinder/wiki/Storage.jpg) | Storage      | Requires [Kerbal Inventory System (KIS)](http://forum.kerbalspaceprogram.com/threads/113111-1-0-4-Kerbal-Inventory-System-%28KIS%29-1-2-2). | 
 | ![](https://github.com/Angel-125/Pathfinder/wiki/Water.jpg) | Water      | Obtained by drills; used by Pigpen, Surnurn, and Watney. | 
+# Resources To Look For  
+Of the above resources, good sites for your base have one or more of the following resources:  
+
+| Icon            | Resource      | Notes |
+| :-------------: |:-------------:|:-------------|
+| ![](https://github.com/Angel-125/Pathfinder/wiki/MetallicOre.jpg) | MetallicOre | Obtained by drills |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Dirt.jpg) | Dirt      | Obtained by drills |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Minerals.jpg) | Minerals      | Obtained by drills; used by Watney & Sunburn. |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/Ore.jpg) | Ore      | Obtained by drills. |
+| ![](https://github.com/Angel-125/Pathfinder/wiki/GeoEnergy.jpg) | GeoEnergy      | Obtained by drills; used by the [[Hotsprings Geothermal Plant|Hot-Springs-Geothermal-Plant]]. |
+ 
 # Designer's Notes  
-The idea of having universal storage containers began with Multipurpose Colony Modules as an effort to reduce part count in the parts catalog. At the time, I didn't know that Firespitter, which has the ability to switch resources, existed. Oh well... I carried the idea forward to DSEV when I created the FLM-1800 storage tank that fits inside the Hex Truss. I realized that I could share resources across mods if I standardized the templates. And since the FLM-1800 holds 5,600 liters of volume, all of my universal storage containers have capacities calibrated to fractions or multiples of 5,600 liters.
+The idea of having universal storage containers began with Multipurpose Colony Modules as an effort to reduce part count in the parts catalog. At the time, I didn't know that Firespitter, which has the ability to switch resources, existed. Oh well... I carried the idea forward to DSEV when I created the FLM-1800 storage tank that fitted inside the Hex Truss. I realized that I could share resources across mods if I standardized the templates. And since the FLM-1800 held 5,600 liters of volume, all of my universal storage containers have capacities calibrated to fractions or multiples of 5,600 liters. Of course now the 1.875m DSEV tanks are integrated into the hex trusses, but the idea of storing multiple resources has carried through to all the storage tanks in my various mods.
