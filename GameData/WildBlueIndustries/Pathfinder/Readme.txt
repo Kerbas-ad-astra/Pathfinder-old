@@ -1,4 +1,4 @@
-aPathfinder
+Pathfinder
 
 A KSP mod that blazes the trail for more permanent installations. Geoscience for better resource extraction.
 
@@ -8,11 +8,34 @@ Copy the contents of the mod's GameData directory into your KSP's GameData folde
 
 ---REVISION HISTORY---
 
+0.9.26
+- Recompiled for KSP 1.1.3
+
+TAC-LS
+- Increased the Prairie's crop yield of Food to 125. Remember, a skilled scientist can reduce growth time by up to half, and increase crop yield up to double.
+- Added a carbon extractor to the Ponderosa (scrubs CarbonDioxide to produce Oxygen and Waste).
+
+Hacienda
+- Added the Nukeworks template. It can process Uraninite into EnrichedUranium, and reprocess DepletedUranium into EnrichedUranium.
+
+Other
+- Updated support for OSE Workshop.
+- Inflatable modules now list their inflated crew capacity in the part summary panel.
+- Refactored the Operations Manager windows to make it easier to select a module configuration and to control the module.
+- When selecting a template in Career or Science mode, templates that require tech nodes that you haven't researched yet will be grayed out in the list.
+- Added official support for Kerbalism.
+- Added resource patches to find Water on Minmus.
+
+Bug Fixes
+- Fixed an issue where inflatable modules would show their inflate button in the VAB/SPH when they shouldn't be.
+- Added the drill switcher window to the Gold Digger.
+
 0.9.25
 - Updated to latest WildBlueTools, which fixes NREs and Input is NULL errors.
 - Improved GUI for selecting storage templates.
 - Fixed missing texture files in the Hacienda.
 - You can now click on the laptop prop's screen and change its image.
+- Updated to latest ModuleManager.
 
 0.9.24
 - Fixed an issue where the Buffalo crew module was not loading properly and messing up the KIS seat inventories as a result.

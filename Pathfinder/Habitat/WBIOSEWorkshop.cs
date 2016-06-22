@@ -20,7 +20,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIOSEWorkshop : ExtendedPartModule, ITemplateOps
+    [KSPModule("OSE Workshop Helper")]
+    public class WBIOSEWorkshop : ExtendedPartModule, IOpsView
     {
         PartModule oseWorkshop;
         PartModule oseRecycler;
@@ -61,7 +62,24 @@ namespace WildBlueIndustries
             findWorkshopMethods();
         }
 
-        public void DrawOpsWindow()
+        #region IOpsView
+        public void SetContextGUIVisible(bool isVisible)
+        {
+        }
+
+        public void SetParentView(IParentView parentView)
+        {
+        }
+
+        public List<string> GetButtonLabels()
+        {
+            List<string> buttonLabels = new List<string>();
+            buttonLabels.Add("Workshop");
+            return buttonLabels;
+        }
+
+
+        public void DrawOpsWindow(string buttonLabel)
         {
             string workshopStatus;
             string recyclerStatus;
@@ -115,6 +133,7 @@ namespace WildBlueIndustries
             }
             GUILayout.EndVertical();
         }
+        #endregion
 
         protected void findWorkshopMethods()
         {

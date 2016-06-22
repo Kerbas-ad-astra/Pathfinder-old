@@ -19,7 +19,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIHabitat : ExtendedPartModule, ITemplateOps
+    [KSPModule("Habitat")]
+    public class WBIHabitat : ExtendedPartModule, IOpsView
     {
         PartModule kosModule;
         int partCount;
@@ -61,8 +62,23 @@ namespace WildBlueIndustries
             }
         }
 
-        #region ITemplateOps
-        public void DrawOpsWindow()
+        #region IOpsView
+        public void SetContextGUIVisible(bool isVisible)
+        {
+        }
+
+        public void SetParentView(IParentView parentView)
+        {
+        }
+
+        public List<string> GetButtonLabels()
+        {
+            List<string> buttonLabels = new List<string>();
+            buttonLabels.Add("Habitat");
+            return buttonLabels;
+        }
+
+        public void DrawOpsWindow(string buttonLabel)
         {
             KSPActionGroup selectedGroup;
             GUILayout.BeginHorizontal();

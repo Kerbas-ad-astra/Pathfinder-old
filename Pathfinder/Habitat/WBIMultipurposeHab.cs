@@ -19,7 +19,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIMultipurposeHab : WBIMultiConverter
+    [KSPModule("Multipurpose Hab")]
+    public class WBIMultipurposeHab : WBIMultiConverter, IModuleInfo
     {
         private const string kSettingsWindow = "Settings Window";
         private const string kPartsTip = "Don't want to pay to redecorate? No problem. Just press Mod P (the modifier key defaults to the Alt key on Windows) to open the Settings window and uncheck the option.\r\n\r\n";
@@ -57,7 +58,8 @@ namespace WildBlueIndustries
                     exWorkshop = mod;
             }
 
-            moduleOpsView.WindowTitle = opsViewTitle;
+            if (string.IsNullOrEmpty(opsViewTitle) == false)
+                opsManagerView.WindowTitle = opsViewTitle;
         }
 
         public override void OnUpdate()
@@ -341,10 +343,30 @@ namespace WildBlueIndustries
             }
         }
 
-        protected override void createModuleOpsView()
+        protected override void hideEditorGUI(PartModule.StartState state)
         {
-            base.createModuleOpsView();
-            moduleOpsView.WindowTitle = opsViewTitle;
+            base.hideEditorGUI(state);
+            Events["ToggleInflation"].guiActiveEditor = false;
+        }
+
+        public override string GetInfo()
+        {
+            return "Click the Manage Operations button to change the configuration.";
+        }
+
+        public string GetModuleTitle()
+        {
+            return "Multipurpose Hab";
+        }
+
+        public string GetPrimaryField()
+        {
+            return "Inflated Crew Capacity: " + inflatedCrewCapacity.ToString();
+        }
+
+        public Callback<Rect> GetDrawModulePanelCallback()
+        {
+            return null;
         }
     }
 }

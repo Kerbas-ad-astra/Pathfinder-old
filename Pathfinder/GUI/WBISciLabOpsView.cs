@@ -18,7 +18,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBISciLabOpsView : ExtendedPartModule, ITemplateOps
+    public class WBISciLabOpsView : ExtendedPartModule, IOpsView
     {
         [KSPField]
         public bool showOpsView;
@@ -74,9 +74,25 @@ namespace WildBlueIndustries
             }
         }
 
-        #region ITemplateOps
+        #region IOpsView
 
-        public void DrawOpsWindow()
+        public void SetContextGUIVisible(bool isVisible)
+        {
+            Events["ShowOpsView"].guiActive = isVisible;
+        }
+
+        public void SetParentView(IParentView parentView)
+        {
+        }
+
+        public List<string> GetButtonLabels()
+        {
+            List<string> buttonLabels = new List<string>();
+            buttonLabels.Add("Science Lab");
+            return buttonLabels;
+        }
+
+        public void DrawOpsWindow(string buttonLabel)
         {
             opsWindow.DrawOpsWindow();
         }

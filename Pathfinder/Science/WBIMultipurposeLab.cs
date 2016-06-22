@@ -19,7 +19,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIMultipurposeLab : WBIMultiConverter
+    [KSPModule("Multipurpose Lab")]
+    public class WBIMultipurposeLab : WBIMultiConverter, IModuleInfo
     {
         private const string kDocOpsView = "Doc Operations";
 
@@ -34,9 +35,13 @@ namespace WildBlueIndustries
 
         Animation anim;
         WBIScienceConverter scienceConverter;
+        private float originalCrewsRequired;
 
         public override void OnStart(StartState state)
         {
+            ModuleScienceLab sciLab = this.part.FindModuleImplementing<ModuleScienceLab>();
+            if (sciLab != null)
+                originalCrewsRequired = sciLab.crewsRequired;
             scienceConverter = this.part.FindModuleImplementing<WBIScienceConverter>();
             scienceConverter.SetGuiVisible(false);
             base.OnStart(state);
@@ -44,6 +49,11 @@ namespace WildBlueIndustries
             if (string.IsNullOrEmpty(animationName))
                 return;
             anim = this.part.FindModelAnimators(animationName)[0];
+
+            if (string.IsNullOrEmpty(opsViewTitle) == false)
+                opsManagerView.WindowTitle = opsViewTitle;
+            else
+                opsManagerView.WindowTitle = kDocOpsView;
         }
 
         public override void OnUpdate()
@@ -88,8 +98,19 @@ namespace WildBlueIndustries
             ModuleScienceLab sciLab = this.part.FindModuleImplementing<ModuleScienceLab>();
             if (sciLab != null)
             {
-                sciLab.isEnabled = enableMPLModules;
-                sciLab.enabled = enableMPLModules;
+                if (enableMPLModules)
+                {
+                    sciLab.isEnabled = true;
+                    sciLab.enabled = true;
+                    sciLab.crewsRequired = originalCrewsRequired;
+                }
+                else
+                {
+                    sciLab.crewsRequired = 2000.0f;
+                    sciLab.isEnabled = false;
+                    sciLab.enabled = false;
+                }
+
             }
 
             ModuleScienceConverter converter = this.part.FindModuleImplementing<ModuleScienceConverter>();
@@ -145,14 +166,30 @@ namespace WildBlueIndustries
             }
         }
 
-        protected override void createModuleOpsView()
+        protected override void hideEditorGUI(PartModule.StartState state)
         {
-            base.createModuleOpsView();
-            if (string.IsNullOrEmpty(opsViewTitle) == false)
-                moduleOpsView.WindowTitle = opsViewTitle;
-            else
-                moduleOpsView.WindowTitle = kDocOpsView;
+            base.hideEditorGUI(state);
+            Events["ToggleInflation"].guiActiveEditor = false;
         }
 
+        public override string GetInfo()
+        {
+            return "Click the Manage Operations button to change the configuration.";
+        }
+
+        public string GetModuleTitle()
+        {
+            return "Multipurpose Lab";
+        }
+
+        public string GetPrimaryField()
+        {
+            return "Inflated Crew Capacity: " + inflatedCrewCapacity.ToString();
+        }
+
+        public Callback<Rect> GetDrawModulePanelCallback()
+        {
+            return null;
+        }
     }
 }

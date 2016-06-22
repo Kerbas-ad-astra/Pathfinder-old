@@ -19,7 +19,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIMultipurposeStorage : WBIConvertibleStorage
+    [KSPModule("Multipurpose Storage")]
+    public class WBIMultipurposeStorage : WBIMultiConverter, IModuleInfo
     {
         Animation anim;
 
@@ -30,6 +31,21 @@ namespace WildBlueIndustries
         public string partToolTipTitle = string.Empty;
 
         protected string prevTemplateName = null;
+
+        public string GetModuleTitle()
+        {
+            return "Multipurpose Storage";
+        }
+
+        public string GetPrimaryField()
+        {
+            return "Inflated Crew Capacity: " + inflatedCrewCapacity.ToString();
+        }
+
+        public Callback<Rect> GetDrawModulePanelCallback()
+        {
+            return null;
+        }
 
         public override void OnStart(StartState state)
         {
@@ -74,25 +90,6 @@ namespace WildBlueIndustries
 
             checkAndShowToolTip();
         }
-
-        /*
-        protected override void initModuleGUI()
-        {
-            base.initModuleGUI();
-
-            if (templateManager.templateNodes.Length > 1)
-            {
-                Events["NextType"].guiActive = true;
-                Events["NextType"].active = true;
-
-                if (templateManager.templateNodes.Length > 2)
-                {
-                    Events["PrevType"].guiActive = true;
-                    Events["PrevType"].active = true;
-                }
-            }
-        }
-         */
 
         protected void checkAndShowToolTip()
         {

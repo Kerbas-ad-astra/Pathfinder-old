@@ -34,7 +34,7 @@ namespace WildBlueIndustries
 
         public Part part;
         public ModuleScienceContainer scienceContainer;
-        public OpsView opsView;
+        public IParentView parentView;
 
         Vector2 scrollPos = new Vector2();
         List<TerrainStatus> terrainStatuses = new List<TerrainStatus>();
@@ -72,7 +72,7 @@ namespace WildBlueIndustries
                 if (GUILayout.Button("Switch to vessel"))
                 {
                     //Hide the ops view. If we don't we get a crash in the game and we can't control the ship.
-                    opsView.SetVisible(false);
+                    parentView.SetParentVisible(false);
                     FlightGlobals.SetActiveVessel(terrainStatus.vessel);
                     break;
                 }

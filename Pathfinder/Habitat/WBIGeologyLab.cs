@@ -29,16 +29,8 @@ namespace WildBlueIndustries
         None
     }
 
-    /*
-    public struct TerrainStatus
-    {
-        public string vesselName;
-        public string status;
-        public float scienceAdded;
-        public Vessel vessel;
-    }
-    */
-    public class WBIGeologyLab : WBIBasicScienceLab, ITemplateOps2
+    [KSPModule("Geology Lab")]
+    public class WBIGeologyLab : WBIBasicScienceLab, IOpsView
     {
         const float kBiomeResearchCost = 100f;
         const float kBiomeAnalysisFactor = 0.75f;
@@ -67,6 +59,7 @@ namespace WildBlueIndustries
         [KSPField]
         public bool canImproveEfficiency = true;
 
+        protected IParentView parentView = null;
         ModuleBiomeScanner biomeScanner;
         ModuleGPS gps;
         PartModule impactSeismometer;
@@ -88,7 +81,10 @@ namespace WildBlueIndustries
         {
             base.OnLoad(node);
 
-            currentExperiment = (GeologyLabExperiments)Enum.Parse(typeof(GeologyLabExperiments), node.GetValue("currentExperiment"));
+            if (node.HasValue("currentExperiment"))
+                currentExperiment = (GeologyLabExperiments)Enum.Parse(typeof(GeologyLabExperiments), node.GetValue("currentExperiment"));
+            else
+                currentExperiment = GeologyLabExperiments.None;
 
             if (node.HasValue("experimentTimes"))
             {
@@ -168,6 +164,12 @@ namespace WildBlueIndustries
                     reviewEvent.guiActiveUnfocused = false;
                 }
             }
+        }
+
+        protected override void OnGUI()
+        {
+            if (terrainUplinkView.IsVisible())
+                terrainUplinkView.DrawWindow();
         }
         #endregion
 
@@ -333,16 +335,35 @@ namespace WildBlueIndustries
             terrainVesselTarget = targetVessel;
         }
 
-        #region ITemplateOps
-
-        protected OpsView opsView = null;
-        public void SetOpsView(OpsView view)
+        #region IOpsView
+        public void SetContextGUIVisible(bool isVisible)
         {
-            opsView = view;
+            SetGuiVisible(isVisible);
         }
 
-        public void DrawOpsWindow()
+        public void SetParentView(IParentView parentView)
         {
+            this.parentView = parentView;
+        }
+
+        public List<string> GetButtonLabels()
+        {
+            List<string> buttonLabels = new List<string>();
+            buttonLabels.Add("GeoLab");
+            return buttonLabels;
+        }
+
+        public void DrawOpsWindow(string buttonLabel)
+        {
+            if (!HighLogic.LoadedSceneIsFlight)
+            {
+                GUILayout.BeginVertical();
+                GUILayout.Label("Geology Lab");
+                GUILayout.Label("This configuration is working, but the contents can only be accessed in flight.");
+                GUILayout.EndVertical();
+                return;
+            }
+
             bool biomeUnlocked = Utils.IsBiomeUnlocked(this.part.vessel);
             GUILayout.BeginHorizontal();
             drawAbundanceGUI(biomeUnlocked);
@@ -485,7 +506,7 @@ namespace WildBlueIndustries
 
                 if (GUILayout.Button("T.E.R.R.A.I.N. Uplink"))
                 {
-                    terrainUplinkView.opsView = this.opsView;
+                    terrainUplinkView.parentView = this.parentView;
                     terrainUplinkView.SetVisible(true);
                 }
             }

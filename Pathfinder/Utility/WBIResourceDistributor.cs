@@ -18,7 +18,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 namespace WildBlueIndustries
 {
-    public class WBIResourceDistributor : PartModule
+    [KSPModule("Resource Distributor")]
+    public class WBIResourceDistributor : PartModule, IOpsView
     {
         [KSPField(guiName = "Distributor", isPersistant = true, guiActiveEditor = true, guiActive = true)]
         [UI_Toggle(enabledText = "On", disabledText = "Off")]
@@ -113,5 +114,34 @@ namespace WildBlueIndustries
             //Set our share amount
             this.part.Resources[resourceName].amount = this.part.Resources[resourceName].maxAmount * sharePercent;
         }
+
+        #region IOpsView
+        public void SetContextGUIVisible(bool isVisible)
+        {
+            Fields["distributeResources"].guiActive = false;
+            Fields["distributeResources"].guiActiveEditor = false;
+        }
+
+        public void DrawOpsWindow(string buttonLabel)
+        {
+            GUILayout.BeginVertical();
+
+            GUILayout.Label("Resource Distribution");
+            distributeResources = GUILayout.Toggle(distributeResources, "Enable resource distribution");
+
+            GUILayout.EndVertical();
+        }
+
+        public List<string> GetButtonLabels()
+        {
+            List<string> buttonLabels = new List<string>();
+            buttonLabels.Add("Distributor");
+            return buttonLabels;
+        }
+
+        public void SetParentView(IParentView parentView)
+        {
+        }
+        #endregion
     }
 }
